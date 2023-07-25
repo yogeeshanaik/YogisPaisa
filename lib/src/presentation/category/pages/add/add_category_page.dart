@@ -5,10 +5,12 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../../main.dart';
 import '../../../../core/common.dart';
+import '../../../settings/bloc/settings_controller.dart';
 import '../../../widgets/paisa_big_button_widget.dart';
 import '../../../widgets/paisa_color_picker.dart';
 import '../../../widgets/paisa_text_field.dart';
 import '../../bloc/category_bloc.dart';
+import '../../widgets/category_tags_widget.dart';
 import '../../widgets/color_picker_widget.dart';
 import '../../widgets/category_icon_picker_widget.dart';
 import '../../widgets/set_budget_widget.dart';
@@ -132,6 +134,15 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                             const SizedBox(height: 16),
                             CategoryDescriptionWidget(
                                 controller: descController),
+                            const SizedBox(height: 16),
+                            CategoryDefaultSwitchWidget(
+                              categoryId:
+                                  int.tryParse(widget.categoryId ?? '') ?? -1,
+                            ),
+                            CategoryTagsWidget(
+                              categoryId:
+                                  int.tryParse(widget.categoryId ?? '') ?? -1,
+                            ),
                           ],
                         ),
                       ),
@@ -209,6 +220,10 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                             CategoryDescriptionWidget(
                                 controller: descController),
                             const SizedBox(height: 24),
+                            CategoryDefaultSwitchWidget(
+                              categoryId:
+                                  int.tryParse(widget.categoryId ?? '') ?? -1,
+                            ),
                           ],
                         ),
                       ),
@@ -273,6 +288,42 @@ class CategoryDescriptionWidget extends StatelessWidget {
       keyboardType: TextInputType.name,
       onChanged: (value) =>
           BlocProvider.of<CategoryBloc>(context).categoryDesc = value,
+    );
+  }
+}
+
+class CategoryDefaultSwitchWidget extends StatefulWidget {
+  const CategoryDefaultSwitchWidget({
+    super.key,
+    required this.categoryId,
+  });
+  final int categoryId;
+
+  @override
+  State<CategoryDefaultSwitchWidget> createState() =>
+      _CategoryDefaultSwitchWidgetState();
+}
+
+class _CategoryDefaultSwitchWidgetState
+    extends State<CategoryDefaultSwitchWidget> {
+  final SettingsController settingsController = getIt.get();
+  late bool isCategoryDefault =
+      settingsController.defaultCategoryId == widget.categoryId;
+  @override
+  Widget build(BuildContext context) {
+    return SwitchListTile(
+      title: const Text('Default category'),
+      value: isCategoryDefault,
+      onChanged: (value) {
+        if (value) {
+          settingsController.setDefaultCategoryId(widget.categoryId);
+        } else {
+          settingsController.setDefaultCategoryId(-1);
+        }
+        setState(() {
+          isCategoryDefault = value;
+        });
+      },
     );
   }
 }

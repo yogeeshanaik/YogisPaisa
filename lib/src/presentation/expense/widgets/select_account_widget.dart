@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:paisa/src/core/enum/box_types.dart';
+import 'package:paisa/src/data/settings/settings.dart';
+import 'package:paisa/src/presentation/widgets/grayed_out.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../main.dart';
@@ -14,11 +17,43 @@ import '../bloc/expense_bloc.dart';
 import 'selectable_item_widget.dart';
 
 class SelectedAccount extends StatelessWidget {
-  const SelectedAccount({super.key});
+  final bool? showUpdateAccountSwitch;
+  const SelectedAccount({super.key, this.showUpdateAccountSwitch});
 
   @override
   Widget build(BuildContext context) {
+    final Settings settingsController = getIt.get<Settings>();
+
     late final expenseBloc = BlocProvider.of<ExpenseBloc>(context);
+    bool disableWidget = showUpdateAccountSwitch == null
+        ? false
+        : !settingsController.settings
+            .get(enableAccountSelectionKey, defaultValue: false);
+    Widget titleWidget = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: showUpdateAccountSwitch == null
+          ? Text(
+              context.loc.selectAccountLabel,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            )
+          : SwitchListTile(
+              title: Text(
+                "Update account?",
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              value: settingsController.settings
+                  .get(enableAccountSelectionKey, defaultValue: false),
+              onChanged: (newValue) {
+                settingsController.settings
+                    .put(enableAccountSelectionKey, newValue);
+              },
+            ),
+    );
+
     return ValueListenableBuilder<Box<AccountModel>>(
       valueListenable: getIt.get<Box<AccountModel>>().listenable(),
       builder: (context, value, child) {
@@ -40,36 +75,26 @@ class SelectedAccount extends StatelessWidget {
           tablet: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  context.loc.selectAccountLabel,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+              titleWidget,
+              GrayedOut(
+                grayedOut: disableWidget,
+                child: AccountSelectedItem(
+                  accounts: accounts,
+                  expenseBloc: expenseBloc,
                 ),
-              ),
-              AccountSelectedItem(
-                accounts: accounts,
-                expenseBloc: expenseBloc,
               )
             ],
           ),
           mobile: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  context.loc.selectAccountLabel,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+              titleWidget,
+              GrayedOut(
+                grayedOut: disableWidget,
+                child: AccountSelectedItem(
+                  accounts: accounts,
+                  expenseBloc: expenseBloc,
                 ),
-              ),
-              AccountSelectedItem(
-                accounts: accounts,
-                expenseBloc: expenseBloc,
               )
             ],
           ),
@@ -107,7 +132,7 @@ class AccountSelectedItem extends StatelessWidget {
             shrinkWrap: true,
             itemCount: accounts.length + 1,
             itemBuilder: (_, index) {
-              if (index == 0) {
+              if (index == accounts.length) {
                 return ItemWidget(
                   isSelected: false,
                   title: 'Add New',
@@ -115,7 +140,7 @@ class AccountSelectedItem extends StatelessWidget {
                   onPressed: () => context.pushNamed(addAccountPath),
                 );
               } else {
-                final Account account = accounts[index - 1];
+                final Account account = accounts[index];
                 return ItemWidget(
                   isSelected: account.superId == expenseBloc.selectedAccountId,
                   title: account.name,

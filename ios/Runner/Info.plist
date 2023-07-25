@@ -48,6 +48,10 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
+		<true/>
+		<key>NSPhotoLibraryUsageDescription</key>
+  		<string>Upload images for screen background</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Please authenticate to use the app</string>
 </dict>
 </plist>

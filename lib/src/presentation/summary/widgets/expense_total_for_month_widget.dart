@@ -9,10 +9,12 @@ class ExpenseTotalForMonthWidget extends StatelessWidget {
     Key? key,
     required this.income,
     required this.outcome,
+    required this.tranCount,
   }) : super(key: key);
 
   final double income;
   final double outcome;
+  final int tranCount;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,44 @@ class ExpenseTotalForMonthWidget extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: '#',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context)
+                                .extension<CustomColors>()!
+                                .blue,
+                          ),
+                      children: [
+                        TextSpan(
+                          text: "Trans",
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Text(
+                    '  $tranCount',
+                    style: GoogleFonts.manrope(
+                      textStyle:
+                          Theme.of(context).textTheme.titleLarge?.copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                              ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:paisa/src/presentation/overview/pages/expense_list_page.dart';
+import 'package:paisa/src/presentation/settings/pages/file_upload_page.dart';
 
 import '../../main.dart';
 import '../core/common.dart';
@@ -11,6 +12,7 @@ import '../data/settings/authenticate.dart';
 import '../presentation/accounts/pages/accounts_new/account_transaction_page.dart';
 import '../presentation/accounts/pages/add/add_account_page.dart';
 import '../presentation/category/pages/add/add_category_page.dart';
+import '../presentation/category/pages/add/add_category_tag_page.dart';
 import '../presentation/category/pages/category_list_page.dart';
 import '../presentation/currency_selector/pages/currency_selector_page.dart';
 import '../presentation/debits/pages/add/add_debt_page.dart';
@@ -38,11 +40,14 @@ const addExpensePath = 'add-expense';
 const editExpensePath = 'edit-expense';
 const addCategoryPath = 'add-category';
 const editCategoryPath = 'edit-category';
+const addCategoryTagPath = 'add-category-tag';
+const editCategoryTagPath = 'edit-category-tag';
 const addAccountPath = 'add-account';
 const editAccountPath = 'edit-account';
 const accountTransactionPath = 'account-transaction';
 const expensesByCategory = 'expenses';
 const exportAndImport = 'export-import';
+const fileUpload = 'file-upload';
 const settingsPath = 'settings';
 const settingsName = 'settings';
 const debtAddOrEditPath = 'edit-debt';
@@ -131,6 +136,21 @@ final GoRouter goRouter = GoRouter(
           ),
         ),
         GoRoute(
+          name: addCategoryTagPath,
+          path: 'add-category-tag/:cid',
+          builder: (context, state) => AddCategoryTagPage(
+            categoryId: state.params['cid'],
+          ),
+        ),
+        GoRoute(
+          name: editCategoryTagPath,
+          path: 'edit-category-tag/:cid/:id',
+          builder: (context, state) => AddCategoryTagPage(
+            categoryId: state.params['cid'],
+            categoryTagId: state.params['id'],
+          ),
+        ),
+        GoRoute(
           name: addAccountPath,
           path: addAccountPath,
           builder: (context, state) => const AddAccountPage(),
@@ -171,6 +191,18 @@ final GoRouter goRouter = GoRouter(
             ),
           ],
         ),
+        // GoRoute(
+        //   name: settingsName,
+        //   path: settingsPath,
+        //   builder: (context, state) => const SettingsPage(),
+        //   routes: [
+        GoRoute(
+          name: fileUpload,
+          path: fileUpload,
+          builder: (context, state) => const FileUploadPage(),
+        ),
+        //   ],
+        // ),
         GoRoute(
           name: addDebitName,
           path: addDebitName,

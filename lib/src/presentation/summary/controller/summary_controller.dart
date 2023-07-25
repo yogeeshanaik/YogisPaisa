@@ -23,6 +23,9 @@ class SummaryController {
   late final ValueNotifier<FilterExpense> filterExpenseNotifier =
       ValueNotifier<FilterExpense>(filterExpense);
 
+  late final ValueNotifier<String> selectedTimeNotifier =
+      ValueNotifier<String>(getIt.get<SettingsController>().selectedTime);
+
   SummaryController({
     required this.getAccountUseCase,
     required this.getCategoryUseCase,

@@ -15,3 +15,10 @@ const String userAuthKey = 'user_auth_key';
 const String userLanguageKey = 'user_language_key';
 const String userCustomCurrencyKey = 'user_custom_currency_key';
 const String scheduleTime = 'schedule_time_key';
+const String tranSourceKey = 'key_tran_source';
+
+//
+const String enableAccountTypeSelectionKey =
+    'key_enable_account_type_selection';
+const String enableAccountSelectionKey = 'key_enable_account_selection';
+const String enableCategorySelectionKey = 'key_enable_category_selection';

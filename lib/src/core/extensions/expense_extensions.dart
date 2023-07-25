@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -10,8 +12,10 @@ import '../enum/transaction.dart';
 
 extension ExpenseModelBoxMapping on Box<ExpenseModel> {
   List<Expense> search(query) => values
-      .where(
-          (ExpenseModel element) => element.name.toLowerCase().contains(query))
+      .where((ExpenseModel element) =>
+          element.name.toLowerCase().contains(query) ||
+          element.description!.toLowerCase().contains(query) ||
+          element.currency.toString().contains(query))
       .toEntities();
 
   List<ExpenseModel> get expenses =>
@@ -148,6 +152,28 @@ extension ExpensesHelper on Iterable<Expense> {
 
   List<Expense> toEntities() =>
       map((expenseModel) => expenseModel.toEntity()).toList();
+}
+
+extension ExpenseListHelper on List<Expense> {
+  List<Expense> filterTransactionTypes(List<String> tranTypeList) =>
+      where((element) =>
+              tranTypeList.isEmpty ||
+              tranTypeList.any((field) =>
+                  field.contains(element.type.toString().split('.').last)))
+          .expenses;
+
+  List<Expense> filterAccounts(List<int> accountIdList) => where((element) =>
+      accountIdList.isEmpty ||
+      accountIdList.any((field) => (field == element.accountId ||
+          field == element.fromAccountId ||
+          field == element.toAccountId))).expenses;
+
+  List<Expense> filterCategories(List<int> categoryIdList) => where((element) =>
+      categoryIdList.isEmpty ||
+      categoryIdList.any((field) =>
+          element.type.toString().split('.').last ==
+              TransactionType.transfer.name ||
+          field == element.categoryId)).expenses;
 }
 
 extension ExpenseHelper on Expense {}

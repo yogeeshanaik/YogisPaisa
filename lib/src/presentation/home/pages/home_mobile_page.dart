@@ -1,7 +1,9 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:paisa/src/presentation/upload/loadCsvDataScreen.dart';
 
 import '../../../app/routes.dart';
 import '../../../core/common.dart';
@@ -82,6 +84,15 @@ class HomeMobilePage extends StatelessWidget {
                   DrawerItemWidget(
                     isSelected: false,
                     onPressed: () {
+                      loadCsvFromStorage(context);
+                    },
+                    icon: MdiIcons.upload,
+                    title: "Upload expenses (csv)",
+                  ),
+                  const Divider(),
+                  DrawerItemWidget(
+                    isSelected: false,
+                    onPressed: () {
                       GoRouter.of(context).goNamed(settingsPath);
                       Navigator.pop(context);
                     },
@@ -141,5 +152,22 @@ class HomeMobilePage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  loadCsvFromStorage(BuildContext context) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['csv'],
+      type: FileType.custom,
+    );
+    if (result != null) {
+      String? path = result!.files.first.path;
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) {
+            return LoadCsvDataScreen(path: path!);
+          },
+        ),
+      );
+    }
   }
 }

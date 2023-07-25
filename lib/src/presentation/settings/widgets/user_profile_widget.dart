@@ -25,7 +25,7 @@ class UserProfilePage extends StatelessWidget {
   }
 
   void _pickImage(BuildContext context) {
-    if (Platform.isAndroid) {
+    if (Platform.isAndroid || Platform.isIOS) {
       final ImagePicker picker = ImagePicker();
       picker.pickImage(source: ImageSource.gallery).then((pickedFile) {
         if (pickedFile != null) {

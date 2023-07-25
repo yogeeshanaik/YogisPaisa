@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../main.dart';
 import '../../../core/common.dart';
 import '../../../core/enum/filter_budget.dart';
+import '../../../data/category/model/category_model.dart';
 import '../../../data/expense/model/expense_model.dart';
 import '../../../domain/expense/entities/expense.dart';
 import '../../summary/controller/summary_controller.dart';
 import '../../widgets/paisa_chip.dart';
 import '../../widgets/paisa_empty_widget.dart';
 import '../cubit/budget_cubit.dart';
+import '../widgets/budget_balance_widget.dart';
 import '../widgets/category_list_widget.dart';
 import '../widgets/filter_date_range_widget.dart';
 
@@ -18,6 +21,13 @@ class OverViewPage extends StatelessWidget {
   const OverViewPage({
     Key? key,
   }) : super(key: key);
+
+  double get totalBudget {
+    var categories = getIt.get<Box<CategoryModel>>().values.toEntities();
+    var values = categories.map((e) => e.budget!).toList();
+    var result = values.reduce((sum, element) => sum + element);
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +103,34 @@ class OverViewPage extends StatelessWidget {
                               current is FilteredCategoryListState,
                           builder: (context, state) {
                             if (state is FilteredCategoryListState) {
-                              return CategoryListWidget(
-                                categoryGrouped: state.categoryGrouped,
-                                totalExpense: state.totalExpense,
+                              var uniqueMonths = state.categoryGrouped
+                                  .map((x) => x.value.map((e) =>
+                                      DateFormat("MMM-yyyy").format(e.time)))
+                                  .expand((i) => i)
+                                  .toList()
+                                  .toSet();
+
+                              final monthsCount = uniqueMonths.length;
+
+                              // final totalBudget = (map.key.budget!.toDouble() *
+                              //     monthsCount.toDouble());
+
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  BudgetBalanceWidget(
+                                    totalBudget: totalBudget * monthsCount,
+                                    totalExpense: state.totalExpense,
+                                  ),
+                                  Expanded(
+                                    child: CategoryListWidget(
+                                      categoryGrouped: state.categoryGrouped,
+                                      totalExpense: state.totalExpense,
+                                    ),
+                                  ),
+                                ],
                               );
                             } else {
                               return const SizedBox.shrink();

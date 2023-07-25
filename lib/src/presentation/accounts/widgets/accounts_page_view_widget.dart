@@ -34,7 +34,7 @@ class _AccountPageViewWidgetState extends State<AccountPageViewWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        LavaAnimation(
+        Container(
           child: AspectRatio(
             aspectRatio: 16 / 10,
             child: PageView.builder(
@@ -60,11 +60,13 @@ class _AccountPageViewWidgetState extends State<AccountPageViewWidget> {
                     (expenses.fullTotal + account.initialAmount).toCurrency();
                 return AccountCard(
                   key: ValueKey(account.hashCode),
+                  accountId: account.superId!,
                   expense: expense,
                   income: income,
                   totalBalance: totalBalance,
                   cardHolder: account.name,
-                  bankName: account.bankName,
+                  cardNumber: account.number,
+                  bankName: '${account.superId} - ${account.bankName}',
                   cardType: account.cardType ?? CardType.bank,
                   onDelete: () => paisaAlertDialog(
                     context,

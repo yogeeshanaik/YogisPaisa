@@ -47,9 +47,9 @@ class ExpenseTotalWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   ExpenseTotalForMonthWidget(
-                    outcome: thisMonthExpenses,
-                    income: thisMonthIncome,
-                  ),
+                      outcome: thisMonthExpenses,
+                      income: thisMonthIncome,
+                      tranCount: expenses.thisMonthExpensesList.length),
                 ],
               ),
             ),
@@ -64,7 +64,7 @@ class ExpenseTotalWidget extends StatelessWidget {
 class TouchCard extends StatefulWidget {
   final Widget child;
 
-  const TouchCard({required this.child});
+  const TouchCard({super.key, required this.child});
 
   @override
   _TouchCardState createState() => _TouchCardState();

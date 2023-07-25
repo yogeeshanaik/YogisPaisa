@@ -9,6 +9,7 @@ import '../../core/enum/filter_budget.dart';
 import '../../core/enum/transaction.dart';
 import '../../data/accounts/model/account_model.dart';
 import '../../data/category/model/category_model.dart';
+import '../../data/category_tag/model/category_tag_model.dart';
 import '../../data/debt/models/debt_model.dart';
 import '../../data/debt/models/transactions_model.dart';
 import '../../data/expense/model/expense_model.dart';
@@ -18,6 +19,7 @@ Future<void> initHive() async {
   Hive
     ..registerAdapter(ExpenseModelAdapter())
     ..registerAdapter(CategoryModelAdapter())
+    ..registerAdapter(CategoryTagModelAdapter())
     ..registerAdapter(AccountModelAdapter())
     ..registerAdapter(TransactionTypeAdapter())
     ..registerAdapter(DebtModelAdapter())
@@ -32,6 +34,7 @@ Future<void> hiveOpenBoxes() async {
   await Hive.openBox<TransactionsModel>(BoxType.transactions.name);
   await Hive.openBox<ExpenseModel>(BoxType.expense.name);
   await Hive.openBox<CategoryModel>(BoxType.category.name);
+  await Hive.openBox<CategoryTagModel>(BoxType.categoryTag.name);
   await Hive.openBox<AccountModel>(BoxType.accounts.name);
   await Hive.openBox<DebtModel>(BoxType.debts.name);
   await Hive.openBox<dynamic>(BoxType.settings.name);

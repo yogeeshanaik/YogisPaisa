@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:paisa/src/presentation/accounts/widgets/more_menu_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../core/common.dart';
@@ -9,8 +10,10 @@ import '../../../core/enum/card_type.dart';
 class AccountCard extends StatefulWidget {
   const AccountCard({
     Key? key,
+    required this.accountId,
     required this.totalBalance,
     required this.cardHolder,
+    required this.cardNumber,
     required this.bankName,
     required this.cardType,
     required this.income,
@@ -18,9 +21,10 @@ class AccountCard extends StatefulWidget {
     this.onDelete,
     this.onTap,
   }) : super(key: key);
-
+  final int accountId;
   final String totalBalance;
   final String cardHolder;
+  final String cardNumber;
   final String bankName;
   final CardType cardType;
   final String income, expense;
@@ -37,8 +41,10 @@ class _AccountCardState extends State<AccountCard>
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: MobileAccountCard(
+        accountId: widget.accountId,
         bankName: widget.bankName,
         cardHolder: widget.cardHolder,
+        cardNumber: widget.cardNumber,
         totalBalance: widget.totalBalance,
         cardType: widget.cardType,
         onDelete: widget.onDelete,
@@ -73,8 +79,10 @@ class _AccountCardState extends State<AccountCard>
 class MobileAccountCard extends StatelessWidget {
   const MobileAccountCard({
     Key? key,
+    required this.accountId,
     required this.totalBalance,
     required this.cardHolder,
+    required this.cardNumber,
     required this.bankName,
     required this.cardType,
     this.onDelete,
@@ -82,9 +90,10 @@ class MobileAccountCard extends StatelessWidget {
     required this.income,
     required this.expense,
   }) : super(key: key);
-
+  final int accountId;
   final String totalBalance;
   final String cardHolder;
+  final String cardNumber;
   final String bankName;
   final CardType cardType;
   final String income, expense;
@@ -127,17 +136,21 @@ class MobileAccountCard extends StatelessWidget {
               ListTile(
                 horizontalTitleGap: 0,
                 title: Text(bankName),
-                subtitle: Text(cardHolder),
+                subtitle: Text('$cardHolder $cardNumber'),
                 leading: Icon(cardType.icon),
-                trailing: onDelete != null
-                    ? GestureDetector(
-                        onTap: onDelete,
-                        child: Icon(
-                          Icons.delete,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      )
-                    : const SizedBox.shrink(),
+                trailing:
+                    Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  onDelete != null
+                      ? GestureDetector(
+                          onTap: onDelete,
+                          child: Icon(
+                            Icons.delete,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                  MoreMenuWidget(accountId: accountId),
+                ]),
               ),
               ListTile(
                 title: Text(context.loc.totalBalanceLabel),

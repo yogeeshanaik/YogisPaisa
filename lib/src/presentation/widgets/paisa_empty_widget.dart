@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:paisa/src/core/enum/box_types.dart';
+import 'package:paisa/src/data/category/model/category_model.dart';
 
 import '../../core/theme/paisa_theme.dart';
 

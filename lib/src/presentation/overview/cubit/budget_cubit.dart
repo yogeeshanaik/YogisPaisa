@@ -23,6 +23,10 @@ class BudgetCubit extends Cubit<BudgetState> {
   Map<String, List<Expense>> _groupedExpenses = {};
   String? selectedTime;
 
+  Map<String, List<Expense>> get timeExpenses {
+    return _groupedExpenses; //.values.expand((i) => i).toList();
+  }
+
   void fetchBudgetSummary(List<Expense> expenses, FilterExpense filterExpense) {
     _groupedExpenses = groupBy(
         expenses, (Expense expense) => expense.time.formatted(filterExpense));

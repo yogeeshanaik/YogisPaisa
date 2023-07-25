@@ -23,32 +23,32 @@ class ExportAndImportPage extends StatelessWidget {
 
   Future<bool> _selectedFolderAndBackUpData() async {
     final FileHandler fileHandler = getIt.get<FileHandler>();
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     var statusManageExternalStorage =
         await Permission.manageExternalStorage.request();
-    if (statusManageExternalStorage.isGranted &&
-        androidInfo.version.sdkInt > 29) {
-      return fileHandler.backupIntoFile();
-    } else if (androidInfo.version.sdkInt < 30) {
-      return fileHandler.backupIntoFile();
-    }
-    return false;
+    // if (statusManageExternalStorage.isGranted &&
+    //     androidInfo.version.sdkInt > 29) {
+    //   return fileHandler.backupIntoFile();
+    // } else if (androidInfo.version.sdkInt < 30) {
+    return fileHandler.backupIntoFile();
+    // }
+    // return false;
   }
 
   Future<List<Iterable<int>>> _selectedFileAndImportData() async {
     final FileHandler fileHandler = getIt.get<FileHandler>();
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     var statusManageExternalStorage =
         await Permission.manageExternalStorage.request();
-    if (statusManageExternalStorage.isGranted &&
-        androidInfo.version.sdkInt > 29) {
-      return fileHandler.importFromFile();
-    } else if (androidInfo.version.sdkInt < 30) {
-      return fileHandler.importFromFile();
-    }
-    return [];
+    // if (statusManageExternalStorage.isGranted &&
+    //     androidInfo.version.sdkInt > 29) {
+    //   return fileHandler.importFromFile();
+    // } else if (androidInfo.version.sdkInt < 30) {
+    return fileHandler.importFromFile();
+    // }
+    // return [];
   }
 
   @override

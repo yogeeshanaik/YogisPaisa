@@ -18,6 +18,7 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print('${title} - ${isSelected}');
     final shape = isSelected
         ? RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),

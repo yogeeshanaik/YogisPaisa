@@ -172,7 +172,7 @@ class DebtItemWidget extends StatelessWidget {
                                                 right: 16.0),
                                             child: IconButton(
                                               onPressed: () {},
-                                              icon: Icon(Icons.date_range),
+                                              icon: const Icon(Icons.date_range),
                                             ),
                                           )
                                         ],

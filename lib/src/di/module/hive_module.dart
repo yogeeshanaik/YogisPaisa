@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import '../../core/enum/box_types.dart';
 import '../../data/accounts/model/account_model.dart';
 import '../../data/category/model/category_model.dart';
+import '../../data/category_tag/model/category_tag_model.dart';
 import '../../data/debt/models/debt_model.dart';
 import '../../data/debt/models/transactions_model.dart';
 import '../../data/expense/model/expense_model.dart';
@@ -21,6 +22,10 @@ abstract class HiveModule {
   @singleton
   Box<CategoryModel> get categoryBox =>
       Hive.box<CategoryModel>(BoxType.category.name);
+
+  @singleton
+  Box<CategoryTagModel> get categoryTagsBox =>
+      Hive.box<CategoryTagModel>(BoxType.categoryTag.name);
 
   @singleton
   Box<DebtModel> get debtsBox => Hive.box<DebtModel>(BoxType.debts.name);

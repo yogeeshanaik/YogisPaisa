@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../../core/enum/transaction.dart';
 
@@ -23,10 +24,11 @@ class ExpenseItemWidget extends StatelessWidget {
   final Category category;
 
   String getSubtitle() {
+    var formatter = DateFormat('EEE dd MMM hh:mm aaa');
     if (expense.type == TransactionType.transfer) {
-      return expense.time.shortDayString;
+      return formatter.format(expense.time); //expense.time.shortDayString;
     } else {
-      return '${account.bankName} • ${expense.time.shortDayString}';
+      return '${account.bankName} • ${formatter.format(expense.time)}';
     }
   }
 
@@ -42,7 +44,7 @@ class ExpenseItemWidget extends StatelessWidget {
         ),
         child: ListTile(
           horizontalTitleGap: 4,
-          title: Text(expense.name),
+          title: Text('${expense.superId} - ${expense.name}'),
           subtitle: Text(getSubtitle()),
           leading: Icon(
             IconData(

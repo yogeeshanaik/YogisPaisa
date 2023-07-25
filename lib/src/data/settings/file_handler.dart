@@ -19,13 +19,14 @@ import '../category/model/category_model.dart';
 import '../expense/data_sources/local_expense_data_manager.dart';
 import '../expense/model/expense_model.dart';
 import 'data.dart';
+import 'package:path/path.dart' as p;
 
 @Singleton()
 class FileHandler {
   Future<List<Iterable<int>>> importFromFile() async {
     final FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['json'],
+      allowedExtensions: ['json', 'csv'],
       allowMultiple: false,
     );
     if (result == null || result.files.isEmpty) {
@@ -33,13 +34,22 @@ class FileHandler {
     }
     final file = File(result.files.first.path!);
     final jsonString = await file.readAsString();
-    final data = Data.fromRawJson(jsonString);
+
+    Data data;
+
+    final extension = p.extension(file.path);
+    if (extension == '.csv') {
+      data = Data.fromCSV(jsonString);
+    } else {
+      data = Data.fromRawJson(jsonString);
+    }
+
     final accountBox = Hive.box<AccountModel>(BoxType.accounts.name);
     final categoryBox = Hive.box<CategoryModel>(BoxType.category.name);
     final expenseBox = Hive.box<ExpenseModel>(BoxType.expense.name);
-    await expenseBox.clear();
-    await categoryBox.clear();
-    await accountBox.clear();
+    // await expenseBox.clear();
+    // await categoryBox.clear();
+    // await accountBox.clear();
 
     return Future.wait([
       expenseBox.addAll(data.expenses),
@@ -181,8 +191,16 @@ class FileHandler {
       file = await _pickJSONFile();
     }
     if (file != null) {
-      final jsonString = await file.readAsString();
-      final data = Data.fromRawJson(jsonString);
+      var jsonString = await file.readAsString();
+      Data data;
+
+      final extension = p.extension(file.path);
+      if (extension == '.csv') {
+        data = Data.fromCSV(jsonString);
+      } else {
+        data = Data.fromRawJson(jsonString);
+      }
+
       final accountBox = Hive.box<AccountModel>(BoxType.accounts.name);
       final categoryBox = Hive.box<CategoryModel>(BoxType.category.name);
       final expenseBox = Hive.box<ExpenseModel>(BoxType.expense.name);

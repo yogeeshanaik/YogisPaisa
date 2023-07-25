@@ -27,6 +27,14 @@
     "@addCategoryLabel": {
         "description": "Show add category text when empty in categories"
     },
+    "categoryTagLabel": "Category Tags",
+    "@categoryTagLabel": {
+        "description": "Show category tags text adding and editing categories"
+    },
+    "addTagLabel": "Add Tag",
+    "@addCategoryLabel": {
+        "description": "While adding a tag we show toolbar text as add tag"
+    },
     "addExpenseLabel": "Add Expense",
     "@addExpenseLabel": {
         "description": "While adding a expense we show toolbar text as add expense"
@@ -352,6 +360,10 @@
     "@updateCategoryLabel": {
         "description": "Category update toolbar message"
     },
+    "updateTagLabel": "Update Tag",
+    "@updateTagLabel": {
+        "description": "Tag update toolbar message"
+    },
     "accountInfoLabel": "Information",
     "@accountInfoLabel": {
         "description": "information label"
@@ -539,6 +551,10 @@
     "enterCategoryLabel": "Enter category",
     "@enterCategoryLabel": {
         "description": "Enter category label"
+    },
+    "enterTagLabel": "Enter tag",
+    "@enterTagLabel": {
+        "description": "Enter tag label"
     },
     "addDebtLabel": "Add debt",
     "@addDebtLabel": {

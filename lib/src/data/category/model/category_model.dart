@@ -43,6 +43,7 @@ class CategoryModel extends HiveObject with EquatableMixin {
         name: json["name"],
         description: json["description"],
         icon: json["icon"],
+        isBudget: (json["budget"].toString().isNotEmpty ? true : false),
         budget: json["budget"],
         color: json["color"],
       )..superId = json["superId"];

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:paisa/src/core/extensions/expense_extensions.dart';
 
 import '../../../core/currency_util.dart';
 import '../../../core/theme/custom_color.dart';
 import '../../../domain/expense/entities/expense.dart';
 import 'expense_list_widget.dart';
+import 'expense_total_for_month_widget.dart';
 
 class ExpenseMonthCardWidget extends StatelessWidget {
   const ExpenseMonthCardWidget({
@@ -20,33 +22,55 @@ class ExpenseMonthCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ListTile(
-          title: Text(
-            title,
-            style: GoogleFonts.outfit(
-              fontWeight: FontWeight.w600,
-              textStyle: Theme.of(context).textTheme.titleMedium,
-              color: Theme.of(context).colorScheme.onBackground,
-            ),
-          ),
-          trailing: Text(
-            total.toCurrency(),
-            style: GoogleFonts.manrope(
-              textStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: total.isNegative
-                        ? Theme.of(context).extension<CustomColors>()!.red
-                        : Theme.of(context).extension<CustomColors>()!.green,
-                  ),
-            ),
-          ),
+    return ExpansionTile(
+        // backgroundColor: Colors.white,
+        title: ExpenseTitleWidget(title: title, total: total),
+        // trailing: SizedBox(),
+        controlAffinity: ListTileControlAffinity.platform,
+        children: <Widget>[
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ExpenseListWidget(
+                expenses: expenses,
+              ),
+            ],
+          )
+        ]);
+  }
+}
+
+class ExpenseTitleWidget extends StatelessWidget {
+  const ExpenseTitleWidget({
+    Key? key,
+    required this.title,
+    required this.total,
+  }) : super(key: key);
+
+  final String title;
+  final double total;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: GoogleFonts.outfit(
+          fontWeight: FontWeight.w600,
+          textStyle: Theme.of(context).textTheme.titleMedium,
+          color: Theme.of(context).colorScheme.onBackground,
         ),
-        ExpenseListWidget(
-          expenses: expenses,
+      ),
+      trailing: Text(
+        total.toCurrency(),
+        style: GoogleFonts.manrope(
+          textStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: total.isNegative
+                    ? Theme.of(context).extension<CustomColors>()!.red
+                    : Theme.of(context).extension<CustomColors>()!.green,
+              ),
         ),
-      ],
+      ),
     );
   }
 }

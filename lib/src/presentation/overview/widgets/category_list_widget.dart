@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:paisa/src/app/routes.dart';
 
 import '../../../core/common.dart';
@@ -25,6 +26,15 @@ class CategoryListWidget extends StatelessWidget {
       itemCount: categoryGrouped.length,
       itemBuilder: (context, index) {
         final MapEntry<Category, List<Expense>> map = categoryGrouped[index];
+
+        final uniqueMonths =
+            map.value.map((e) => DateFormat("MMM-yyyy").format(e.time)).toSet();
+
+        final monthsCount = uniqueMonths.length;
+
+        final totalBudget =
+            (map.key.budget!.toDouble() * monthsCount.toDouble());
+
         return InkWell(
           onTap: () {
             GoRouter.of(context).pushNamed(expensesByCategory,
@@ -71,7 +81,14 @@ class CategoryListWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(map.value.totalExpense.toCurrency())
+                    Text(
+                      "${map.value.totalExpense.toCurrency()} / ${totalBudget.toCurrency()}",
+                      style: TextStyle(
+                        color: ((map.value.totalExpense > totalBudget)
+                            ? Theme.of(context).colorScheme.error
+                            : Colors.green),
+                      ),
+                    )
                   ],
                 )
               ],

@@ -50,8 +50,8 @@ class LocalExpenseDataManagerImpl implements LocalExpenseDataManager {
   }
 
   @override
-  ExpenseModel? fetchExpenseFromId(int expenseId) =>
-      expenseBox.values.firstWhereOrNull((element) => element.key == expenseId);
+  ExpenseModel? fetchExpenseFromId(int expenseId) => expenseBox.values
+      .firstWhereOrNull((element) => element.superId == expenseId);
 
   @override
   Iterable<ExpenseModel> exportData() => expenseBox.values;
@@ -83,6 +83,15 @@ class LocalExpenseDataManagerImpl implements LocalExpenseDataManager {
       expenseBox.values
           .where((element) => element.categoryId == category)
           .toList();
+
+  @override
+  List<ExpenseModel> fetchExpensesFromTag(String tagName) {
+    return expenseBox.values
+        .where((element) =>
+            element.name.contains(tagName) ||
+            element.description!.contains(tagName))
+        .toList();
+  }
 
   @override
   Future<void> clearAll() => expenseBox.clear();

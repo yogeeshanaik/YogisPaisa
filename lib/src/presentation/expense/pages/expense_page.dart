@@ -156,18 +156,19 @@ class _ExpensePageState extends State<ExpensePage> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            const SizedBox(height: 16),
+                            ExpenseAmountWidget(controller: amountController),
+                            const SizedBox(height: 16),
                             ExpenseNameWidget(controller: nameController),
                             const SizedBox(height: 16),
                             ExpenseDescriptionWidget(
                               controller: descriptionController,
                             ),
                             const SizedBox(height: 16),
-                            ExpenseAmountWidget(controller: amountController),
-                            const SizedBox(height: 16),
                             const ExpenseDatePickerWidget(),
                             const SizedBox(height: 16),
-                            const SelectedAccount(),
-                            const SelectCategoryIcon(),
+                            SelectedAccount(),
+                            SelectCategoryIcon(),
                           ],
                         );
                       } else {
@@ -361,13 +362,13 @@ class _ExpensePageState extends State<ExpensePage> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(
+                      padding: EdgeInsets.only(
                         left: 12,
                         right: 12,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const [
+                        children: [
                           SelectedAccount(),
                           SelectCategoryIcon(),
                         ],
@@ -383,12 +384,12 @@ class _ExpensePageState extends State<ExpensePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
+                              ExpenseAmountWidget(controller: amountController),
+                              const SizedBox(height: 16),
                               ExpenseNameWidget(controller: nameController),
                               const SizedBox(height: 16),
                               ExpenseDescriptionWidget(
                                   controller: descriptionController),
-                              const SizedBox(height: 16),
-                              ExpenseAmountWidget(controller: amountController),
                             ],
                           ),
                         ),
@@ -489,7 +490,7 @@ class ExpenseAmountWidget extends StatelessWidget {
       child: PaisaTextFormField(
         controller: controller,
         hintText: context.loc.amountLabel,
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
         maxLength: 13,
         maxLines: 1,
         inputFormatters: <TextInputFormatter>[
@@ -507,6 +508,16 @@ class ExpenseAmountWidget extends StatelessWidget {
           double? amount = double.tryParse(value);
           if (BlocProvider.of<ExpenseBloc>(context).transactionType !=
               TransactionType.transfer) {
+            // final expProvider = getIt.get<Box<ExpenseModel>>();
+            // final expenses = expProvider.values.toEntities(sublist: false);
+            // final expense = expenses
+            //     .where((element) => element.currency == amount)
+            //     .firstOrNull;
+            // if (expense != null) {
+            //   //controller.text = expense.name;
+            //   //BlocProvider.of<ExpenseBloc>(context).currentDescription = expense.description;
+            // }
+
             BlocProvider.of<ExpenseBloc>(context).expenseAmount = amount;
           } else {
             BlocProvider.of<ExpenseBloc>(context).transferAmount = amount;
