@@ -33,7 +33,7 @@ class CategoryItemMobileWidget extends StatelessWidget {
           color: Color(category.color ?? Colors.amber.shade100.value),
         ),
         title: Text(
-          category.name,
+          "${category.superId}-${category.name}",
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(

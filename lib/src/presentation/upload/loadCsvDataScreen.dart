@@ -120,7 +120,12 @@ class _LoadCsvDataScreenState extends State<LoadCsvDataScreen> {
     // await DefaultAssetBundle.of(context).loadString(
     //   path,
     // );
-    return const CsvToListConverter().convert(result, eol: "\n");
+
+    var list = const CsvToListConverter().convert(result);
+    if (list.isEmpty || list.length < 3) {
+      return const CsvToListConverter().convert(result, eol: '\n');
+    }
+    return list;
   }
 
   @override
@@ -137,7 +142,7 @@ class _LoadCsvDataScreenState extends State<LoadCsvDataScreen> {
     setState(() {
       if (csvData!.length >= index) {
         csvData?.map((row) {
-          row.removeWhere((column) => row.indexOf(column) == index);
+          row.removeAt(index);
         }).toList();
       }
     });
@@ -372,7 +377,7 @@ class _LoadCsvDataScreenState extends State<LoadCsvDataScreen> {
               child: csvData == null
                   ? const CircularProgressIndicator()
                   : DataTableWidget(
-                      csvData: csvData?.take(10).toList(),
+                      csvData: csvData?.take(50).toList(),
                       firstRowHeader: firstRowIsHeader,
                     )),
 

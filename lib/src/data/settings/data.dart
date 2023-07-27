@@ -297,7 +297,7 @@ class Data {
     expenses = [];
 
     for (var row in list) {
-      if (row.length < 3) {
+      if (row.length < mappedColumns.length) {
         continue;
       }
       expenses.add(parseExpense(row, mappedColumns, accountId)
@@ -331,7 +331,7 @@ class Data {
       currency = row[mappedColumns.indexOf("Amount")];
       currency = double.tryParse(
               currency.toString().replaceAll('\$', '').replaceAll(',', '')) ??
-          0;
+          0.0;
 
       if (currency < 0) {
         type = TransactionType.expense;
@@ -343,21 +343,17 @@ class Data {
     dynamic currencyCredit = 0.0;
     if (mappedColumns.contains("Amount - Credit")) {
       currencyCredit = row[mappedColumns.indexOf("Amount - Credit")];
-      currencyCredit = double.tryParse(currencyCredit
-              .toString()
-              .replaceAll('\$,', '')
-              .replaceAll(',', '')) ??
-          0;
+      currencyCredit = double.tryParse(
+              currencyCredit.toString().replaceAll(RegExp("[^0-9.]"), '')) ??
+          0.0;
     }
 
     dynamic currencyDebit = 0.0;
     if (mappedColumns.contains("Amount - Debit")) {
       currencyDebit = row[mappedColumns.indexOf("Amount - Debit")];
-      currencyDebit = double.tryParse(currencyDebit
-              .toString()
-              .replaceAll('\$,', '')
-              .replaceAll(',', '')) ??
-          0;
+      currencyDebit = double.tryParse(
+              currencyDebit.toString().replaceAll(RegExp("[^0-9.]"), '')) ??
+          0.0;
     }
 
     if (currency == 0) {
@@ -421,6 +417,10 @@ class Data {
   }
 
   DateTime parseUnknownFormateDate(String date) {
+    if (date.isEmpty) {
+      return DateTime.utc(-271821, 04, 20); // min date
+    }
+
     dynamic dateTime = DateTime.tryParse(date);
     try {
       dateTime ??= DateFormat("MM/dd/y").parse(date); //Date: 21/11/2023

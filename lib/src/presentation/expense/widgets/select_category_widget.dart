@@ -186,7 +186,7 @@ class SelectedItem extends StatelessWidget {
                       ),
                       showCheckmark: false,
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      label: Text(category.name),
+                      label: Text("${category.superId}-${category.name}"),
                       labelStyle: Theme.of(context)
                           .textTheme
                           .titleMedium
