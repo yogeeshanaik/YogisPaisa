@@ -157,10 +157,7 @@
     "addNew": "En ajouter un nouveau",
     "delete": "Supprimer",
     "appBarSearch": "Chercher des dépenses, comptes, catégories",
-    "noTransaction": "Empty in transaction",
-    "@noTransaction": {
-        "description": "Empty in transaction"
-    },
+    "noTransaction": "Transaction vide",
     "enterSymbol": "Donnez un symbole",
     "leftSymbol": "Symbole à gauche",
     "rightSymbol": "Symbole à droite",
@@ -179,16 +176,8 @@
     "recurringEmptyMessageSubTitle": "Ajoutez une souscription pour en voir ici",
     "recurringAction": "Ajouter une souscription",
     "sortList": "Trier la liste",
-    "smallSizeFab": "Small size FAB",
-    "@smallSizeFab": {
-        "description": "Title text shown on the settings page for FAB size option",
-        "type": "text"
-    },
-    "smallSizeFabMessage": "Afficher les boutons d'action en petit partout",
-    "@smallSizeFabMessage": {
-        "description": "Title text shown on the settings page for FAB size option",
-        "type": "text"
-    },
+    "smallSizeFab": "Bouton d'ajout petit",
+    "smallSizeFabMessage": "Afficher tous les boutons d'action en petit",
     "selectDateErrorMessage": "Sélectionner une date",
     "edit": "Modifier",
     "fromAccount": "Transférer le compte depuis",
