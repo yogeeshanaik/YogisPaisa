@@ -272,6 +272,11 @@
         "description": "Successful message when account deleted",
         "type": "text"
     },
+    "deletedCategory": "Category deleted",
+    "@deletedCategory": {
+        "description": "Successful message when category deleted",
+        "type": "text"
+    },
     "successAddCategory": "Category added",
     "@successAddCategory": {
         "description": "Successful message when category deleted",
@@ -597,6 +602,11 @@
     },
     "currencySign": "Currency sign",
     "@currencySign": {
+        "description": "Text shown on the button on settings screen",
+        "type": "text"
+    },
+    "calendarFormat": "Calendar format",
+    "@calendarFormat": {
         "description": "Text shown on the button on settings screen",
         "type": "text"
     },

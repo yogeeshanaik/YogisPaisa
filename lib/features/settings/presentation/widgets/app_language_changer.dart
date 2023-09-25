@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -43,6 +44,10 @@ class AppLanguageChanger extends StatelessWidget {
                   maxChildSize: 1,
                   expand: false,
                   builder: (context, scrollController) {
+                    final List<LanguageEntity> languages =
+                        Languages.languages.sorted(
+                      (a, b) => a.value.compareTo(b.value),
+                    );
                     return SafeArea(
                       child: ListView(
                         shrinkWrap: true,
@@ -56,15 +61,25 @@ class AppLanguageChanger extends StatelessWidget {
                           ListView.builder(
                             controller: scrollController,
                             shrinkWrap: true,
-                            itemCount: Languages.languages.length,
+                            itemCount: languages.length,
                             itemBuilder: (context, index) {
-                              final LanguageEntity entity =
-                                  Languages.languages[index];
+                              final LanguageEntity entity = languages[index];
                               return ListTile(
                                 onTap: () => value
                                     .put(appLanguageKey, entity.code)
                                     .then((value) => Navigator.pop(context)),
-                                title: Text(entity.value),
+                                title: Text(
+                                  entity.value,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: code == entity.code
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : null),
+                                ),
                               );
                             },
                           ),
@@ -101,6 +116,7 @@ class Languages {
 
   static const languages = [
     LanguageEntity(code: 'en', value: 'English'),
+    LanguageEntity(code: 'pl', value: 'Polish'),
     LanguageEntity(code: 'be', value: 'Belarusian'),
     LanguageEntity(code: 'de', value: 'German'),
     LanguageEntity(code: 'fr', value: 'French'),
@@ -111,5 +127,6 @@ class Languages {
     LanguageEntity(code: 'ta', value: 'Tamil (IN)'),
     LanguageEntity(code: 'vi', value: 'Vietnamese'),
     LanguageEntity(code: 'zh', value: 'Chinese'),
+    LanguageEntity(code: 'zh_TW', value: 'Traditional Chinese'),
   ];
 }

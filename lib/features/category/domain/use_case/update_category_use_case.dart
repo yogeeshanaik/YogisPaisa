@@ -11,15 +11,16 @@ class UpdateCategoryUseCase
   final CategoryRepository categoryRepository;
 
   @override
-  Future<void> call({UpdateCategoryParams? params}) {
+  Future<void> call(UpdateCategoryParams params) {
     return categoryRepository.update(
-      key: params!.key,
+      key: params.key,
       color: params.color!,
       icon: params.icon,
       name: params.name,
       budget: params.budget,
       desc: params.description,
       isBudget: params.isBudget,
+      isDefault: params.isDefault,
     );
   }
 }
