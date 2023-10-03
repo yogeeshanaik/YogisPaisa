@@ -2,7 +2,7 @@ import 'package:paisa/core/common_enum.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 
 abstract class AccountRepository {
-  Future<void> addAccount({
+  Future<void> add({
     required String bankName,
     required String holderName,
     required String number,
@@ -12,7 +12,7 @@ abstract class AccountRepository {
     required bool isAccountExcluded,
   });
 
-  Future<void> updateAccount({
+  Future<void> update({
     required int key,
     required String? bankName,
     required String? holderName,
@@ -23,11 +23,11 @@ abstract class AccountRepository {
     required bool isAccountExcluded,
   });
 
-  Future<void> deleteAccount(int key);
+  Future<void> delete(int key);
 
-  AccountModel? fetchAccountFromId(int? accountId);
+  AccountModel? fetchById(int? accountId);
 
-  List<AccountModel> getAccounts();
+  List<AccountModel> all();
 
   Future<void> clearAll();
 }

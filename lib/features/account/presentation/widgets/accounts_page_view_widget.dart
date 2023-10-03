@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
 import 'package:paisa/core/enum/card_type.dart';
-import 'package:paisa/features/account/domain/entities/account.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
 import 'package:paisa/features/account/presentation/widgets/account_card.dart';
 import 'package:paisa/core/widgets/lava/lava_clock.dart';
@@ -47,13 +47,17 @@ class _AccountPageViewWidgetState extends State<AccountPageViewWidget>
               controller: _controller,
               itemCount: widget.accounts.length,
               onPageChanged: (index) {
+                int? id = widget.accounts[index].superId;
+                if (id == null) {
+                  return;
+                }
                 BlocProvider.of<AccountBloc>(context)
-                    .add(AccountSelectedEvent(widget.accounts[index]));
+                    .add(FetchAccountAndExpenseFromIdEvent(id));
               },
               itemBuilder: (_, index) {
                 return BlocBuilder<AccountBloc, AccountState>(
                   builder: (context, state) {
-                    if (state is AccountSelectedState) {
+                    if (state is AccountAndExpensesState) {
                       final AccountEntity account = widget.accounts[index];
                       final String expense = state.expenses.totalExpense
                           .toFormateCurrency(context);
@@ -92,10 +96,12 @@ class _AccountPageViewWidgetState extends State<AccountPageViewWidget>
                             ),
                             confirmationButton: TextButton(
                               onPressed: () {
-                                BlocProvider.of<AccountBloc>(context).add(
-                                    DeleteAccountEvent(
-                                        account.superId!.toString()));
-                                Navigator.pop(context);
+                                final int? id = account.superId;
+                                if (id != null) {
+                                  BlocProvider.of<AccountBloc>(context)
+                                      .add(DeleteAccountEvent(id));
+                                  Navigator.pop(context);
+                                }
                               },
                               child: Text(context.loc.delete),
                             ),
@@ -158,7 +164,7 @@ class AccountPageViewDotsIndicator extends StatelessWidget {
     }
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        if (state is AccountSelectedState) {
+        if (state is AccountAndExpensesState) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: Row(

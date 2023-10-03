@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/use_case/use_case.dart';
-import 'package:paisa/features/account/domain/entities/account.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/domain/repository/account_repository.dart';
 
 @singleton
@@ -13,7 +13,7 @@ class GetAccountUseCase implements UseCase<AccountEntity?, GetAccountParams> {
 
   @override
   AccountEntity? call(GetAccountParams params) {
-    return accountRepository.fetchAccountFromId(params.accountId)?.toEntity();
+    return accountRepository.fetchById(params.accountId)?.toEntity();
   }
 }
 

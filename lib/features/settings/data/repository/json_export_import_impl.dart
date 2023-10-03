@@ -5,7 +5,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:paisa/features/account/data/data_sources/local/account_data_manager.dart';
+import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/category/data/data_sources/local/category_data_source.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -24,12 +24,12 @@ import 'package:paisa/features/transaction/data/model/transaction_model.dart';
 @LazySingleton(as: Export)
 class JSONExportImpl implements Export {
   JSONExportImpl(
-    this.accountDataManager,
+    @Named('local-account') this.accountDataManager,
     this.categoryDataManager,
     this.expenseDataManager,
   );
 
-  final LocalAccountManager accountDataManager;
+  final AccountManager accountDataManager;
   final LocalCategoryManager categoryDataManager;
   final LocalTransactionManager expenseDataManager;
 
@@ -66,12 +66,12 @@ class JSONExportImpl implements Export {
 class JSONImportImpl implements Import {
   JSONImportImpl(
     this.deviceInfo,
-    this.accountDataManager,
+    @Named('local-account') this.accountDataManager,
     this.categoryDataManager,
     this.expenseDataManager,
   );
 
-  final LocalAccountManager accountDataManager;
+  final AccountManager accountDataManager;
   final LocalCategoryManager categoryDataManager;
   final DeviceInfoPlugin deviceInfo;
   final LocalTransactionManager expenseDataManager;
