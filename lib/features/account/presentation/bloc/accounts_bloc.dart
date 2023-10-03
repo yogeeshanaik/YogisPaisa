@@ -1,16 +1,17 @@
 import 'dart:async';
-
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:paisa/core/enum/card_type.dart';
-import 'package:paisa/features/account/domain/entities/account.dart';
+import 'package:paisa/core/error/bloc_errors.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/domain/use_case/account_use_case.dart';
 import 'package:paisa/features/category/domain/use_case/get_category_use_case.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 import 'package:paisa/features/transaction/domain/use_case/transaction_use_case.dart';
 
+part 'accounts_bloc.freezed.dart';
 part 'accounts_event.dart';
 part 'accounts_state.dart';
 
@@ -24,14 +25,12 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     required this.getCategoryUseCase,
     required this.deleteExpensesFromAccountIdUseCase,
     required this.updateAccountUseCase,
-  }) : super(AccountsInitial()) {
+  }) : super(const AccountsInitial()) {
     on<AccountsEvent>((event, emit) {});
     on<AddOrUpdateAccountEvent>(_addAccount);
     on<DeleteAccountEvent>(_deleteAccount);
-    on<AccountSelectedEvent>(_accountSelected);
     on<UpdateCardTypeEvent>(_updateCardType);
     on<FetchAccountFromIdEvent>(_fetchAccountFromId);
-    on<FetchExpensesFromAccountIdEvent>(_fetchExpensesFromAccountId);
     on<AccountColorSelectedEvent>(_updateAccountColor);
     on<FetchAccountAndExpenseFromIdEvent>(_fetchAccountAndExpensesFromId);
   }
@@ -56,11 +55,8 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     FetchAccountFromIdEvent event,
     Emitter<AccountState> emit,
   ) async {
-    final int? accountId = int.tryParse(event.accountId ?? '');
-    if (accountId == null) return;
-
     final AccountEntity? account =
-        getAccountUseCase(GetAccountParams(accountId));
+        getAccountUseCase(GetAccountParams(event.accountId));
     if (account != null) {
       accountName = account.bankName;
       accountHolderName = account.name;
@@ -69,10 +65,12 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
       initialAmount = account.amount;
       currentAccount = account;
       selectedColor = account.color ?? Colors.brown.shade100.value;
+      isAccountExcluded = account.isAccountExcluded ?? false;
       emit(AccountSuccessState(account));
       emit(UpdateCardTypeState(selectedType));
+      emit(UpdateAccountExcludeState(isAccountExcluded));
     } else {
-      emit(const AccountErrorState('Account not found!'));
+      emit(const AccountErrorState(AccountErrors.accountNotFound()));
     }
   }
 
@@ -87,16 +85,16 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     final double? amount = initialAmount;
     final int? color = selectedColor;
     if (bankName == null) {
-      return emit(const AccountErrorState('Set bank name'));
+      return emit(const AccountErrorState(AccountErrors.accountNotFound()));
     }
     if (holderName == null) {
-      return emit(const AccountErrorState('Set account holder name'));
+      return emit(const AccountErrorState(AccountErrors.holderNameError()));
     }
     if (color == null) {
-      return emit(const AccountErrorState('Set account color name'));
+      return emit(const AccountErrorState(AccountErrors.colorError()));
     }
 
-    if (event.isAdding) {
+    if (event.addOrUpdate) {
       await addAccountUseCase(AddAccountParams(
         bankName: bankName,
         holderName: holderName,
@@ -119,29 +117,18 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
         isAccountExcluded: isAccountExcluded,
       ));
     }
-    emit(AccountAddedState(isAddOrUpdate: event.isAdding));
+    emit(AccountAddedState(event.addOrUpdate));
   }
 
   FutureOr<void> _deleteAccount(
     DeleteAccountEvent event,
     Emitter<AccountState> emit,
   ) async {
-    final int accountId = int.parse(event.accountId);
     await deleteExpensesFromAccountIdUseCase(
-      DeleteTransactionsFromAccountIdParams(accountId),
+      DeleteTransactionsFromAccountIdParams(event.accountId),
     );
-    await deleteAccountUseCase(DeleteAccountParams(accountId));
-    emit(AccountDeletedState());
-  }
-
-  FutureOr<void> _accountSelected(
-    AccountSelectedEvent event,
-    Emitter<AccountState> emit,
-  ) async {
-    final List<TransactionEntity> expenses = getTransactionsByAccountIdUseCase(
-      GetTransactionsByAccountIdParams(event.account.superId!),
-    );
-    emit(AccountSelectedState(event.account, expenses));
+    await deleteAccountUseCase(DeleteAccountParams(event.accountId));
+    emit(const AccountDeletedState());
   }
 
   FutureOr<void> _updateCardType(
@@ -152,36 +139,22 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     emit(UpdateCardTypeState(event.cardType));
   }
 
-  FutureOr<void> _fetchExpensesFromAccountId(
-    FetchExpensesFromAccountIdEvent event,
-    Emitter<AccountState> emit,
-  ) async {
-    List<TransactionEntity> expenses = getTransactionsByAccountIdUseCase(
-      GetTransactionsByAccountIdParams(int.parse(event.accountId)),
-    );
-    emit(ExpensesFromAccountIdState(expenses));
-  }
-
   FutureOr<void> _updateAccountColor(
     AccountColorSelectedEvent event,
     Emitter<AccountState> emit,
   ) {
-    selectedColor = event.accountColor;
-    emit(AccountColorSelectedState(event.accountColor));
+    selectedColor = event.color;
+    emit(AccountColorSelectedState(event.color));
   }
 
   FutureOr<void> _fetchAccountAndExpensesFromId(
     FetchAccountAndExpenseFromIdEvent event,
     Emitter<AccountState> emit,
   ) async {
-    final int? accountId = int.tryParse(event.accountId);
-    if (accountId == null) {
-      return;
-    }
     final AccountEntity? account =
-        getAccountUseCase(GetAccountParams(accountId));
+        getAccountUseCase(GetAccountParams(event.accountId));
     final List<TransactionEntity> expenses = getTransactionsByAccountIdUseCase(
-      GetTransactionsByAccountIdParams(accountId),
+      GetTransactionsByAccountIdParams(event.accountId),
     );
     if (account != null) {
       emit(AccountAndExpensesState(account, expenses));

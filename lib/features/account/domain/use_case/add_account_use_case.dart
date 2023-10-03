@@ -12,7 +12,7 @@ class AddAccountUseCase implements UseCase<void, AddAccountParams> {
 
   @override
   Future<void> call(AddAccountParams params) {
-    return accountRepository.addAccount(
+    return accountRepository.add(
       bankName: params.bankName,
       holderName: params.holderName,
       number: params.number,

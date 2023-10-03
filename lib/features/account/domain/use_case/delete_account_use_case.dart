@@ -12,7 +12,7 @@ class DeleteAccountUseCase
 
   @override
   Future<void> call(DeleteAccountParams params) {
-    return accountRepository.deleteAccount(params.accountId);
+    return accountRepository.delete(params.accountId);
   }
 }
 

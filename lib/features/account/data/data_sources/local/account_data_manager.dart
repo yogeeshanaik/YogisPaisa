@@ -1,26 +1,12 @@
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
+import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 
-abstract class LocalAccountManager {
-  Future<void> add(AccountModel account);
-
-  Future<void> delete(int key);
-
-  List<AccountModel> accounts();
-
-  AccountModel? findById(int? accountId);
-
-  Iterable<AccountModel> export();
-
-  Future<void> update(AccountModel accountModel);
-
-  Future<void> clear();
-}
-
-@Singleton(as: LocalAccountManager)
-class LocalAccountManagerImpl implements LocalAccountManager {
+@Named("local-account")
+@Singleton(as: AccountManager)
+class LocalAccountManagerImpl implements AccountManager {
   LocalAccountManagerImpl({
     required this.accountBox,
   });

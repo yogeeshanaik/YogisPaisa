@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
+import 'package:paisa/core/error/bloc_errors.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
 import 'package:paisa/features/account/presentation/widgets/card_type_drop_down.dart';
@@ -45,7 +46,10 @@ class AddAccountPageState extends State<AddAccountPage> {
   @override
   void initState() {
     super.initState();
-    accountsBloc.add(FetchAccountFromIdEvent(widget.accountId));
+    int? id = int.tryParse(widget.accountId ?? '');
+    if (id != null) {
+      accountsBloc.add(FetchAccountFromIdEvent(id));
+    }
   }
 
   void _showInfo() => showModalBottomSheet(
@@ -126,7 +130,7 @@ class AddAccountPageState extends State<AddAccountPage> {
               context.pop();
             } else if (state is AccountErrorState) {
               context.showMaterialSnackBar(
-                state.errorString,
+                state.accountErrors.errorString(context),
                 backgroundColor: context.errorContainer,
                 color: context.onErrorContainer,
               );
@@ -212,6 +216,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                                 accountId:
                                     int.tryParse(widget.accountId ?? '') ?? -1,
                               ),
+                              const AccountExcludedSwitchWidget(),
                               const AccountColorPickerWidget()
                             ],
                           ),
@@ -311,6 +316,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                                       int.tryParse(widget.accountId ?? '') ??
                                           -1,
                                 ),
+                                const AccountExcludedSwitchWidget(),
                                 const AccountColorPickerWidget()
                               ],
                             ),
@@ -401,10 +407,11 @@ class DeleteAccountWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
         ),
         onPressed: () {
-          BlocProvider.of<AccountBloc>(context)
-              .add(DeleteAccountEvent(accountId!));
-
-          Navigator.pop(context);
+          int? id = int.tryParse(accountId ?? '');
+          if (id == null) {
+            return;
+          }
+          BlocProvider.of<AccountBloc>(context).add(DeleteAccountEvent(id));
         },
         child: Text(context.loc.delete),
       ),
@@ -577,6 +584,32 @@ class _AccountDefaultSwitchWidgetState
         }
         setState(() {
           isAccountDefault = value;
+        });
+      },
+    );
+  }
+}
+
+class AccountExcludedSwitchWidget extends StatefulWidget {
+  const AccountExcludedSwitchWidget({super.key});
+
+  @override
+  State<AccountExcludedSwitchWidget> createState() =>
+      _AccountExcludedSwitchWidgetState();
+}
+
+class _AccountExcludedSwitchWidgetState
+    extends State<AccountExcludedSwitchWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return SwitchListTile(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+      title: Text(context.loc.excludeAccount),
+      value: BlocProvider.of<AccountBloc>(context).isAccountExcluded,
+      onChanged: (value) {
+        setState(() {
+          BlocProvider.of<AccountBloc>(context).isAccountExcluded = value;
         });
       },
     );

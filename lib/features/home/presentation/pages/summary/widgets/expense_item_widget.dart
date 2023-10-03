@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
-import 'package:paisa/features/account/domain/entities/account.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/category/domain/entities/category.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 
@@ -21,11 +21,11 @@ class ExpenseItemWidget extends StatelessWidget {
 
   String getSubtitle(BuildContext context) {
     if (expense.type == TransactionType.transfer) {
-      return expense.time!.shortDayString;
+      return expense.time!.dateString;
     } else {
       return context.loc.transactionSubTittleText(
         account.bankName ?? '',
-        expense.time!.shortDayString,
+        expense.time!.dateString,
       );
     }
   }
@@ -103,7 +103,7 @@ class ExpenseTransferItemWidget extends StatelessWidget {
         ),
         child: ListTile(
           title: Text(title),
-          subtitle: Text(expense.time!.shortDayString),
+          subtitle: Text(expense.time!.dateString),
           leading: CircleAvatar(
             backgroundColor: context.primary.withOpacity(0.2),
             child: Icon(

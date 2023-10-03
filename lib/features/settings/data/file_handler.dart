@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 import 'package:paisa/config/routes.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/error/exceptions.dart';
-import 'package:paisa/features/account/data/data_sources/local/account_data_manager.dart';
+import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/category/data/data_sources/local/category_data_source.dart';
 import 'package:paisa/features/category/data/model/category_model.dart';
@@ -23,12 +23,12 @@ import 'model/data.dart';
 class FileHandler {
   FileHandler(
     this.deviceInfo,
-    this.accountDataManager,
+    @Named('local-account') this.accountDataManager,
     this.categoryDataManager,
     this.expenseDataManager,
   );
 
-  final LocalAccountManager accountDataManager;
+  final AccountManager accountDataManager;
   final LocalCategoryManager categoryDataManager;
   final DeviceInfoPlugin deviceInfo;
   final LocalTransactionManager expenseDataManager;

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
-import 'package:paisa/features/account/domain/entities/account.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 
 class AccountCardV2 extends StatelessWidget {

@@ -10,6 +10,7 @@ class AccountEntity extends Equatable {
     this.amount,
     this.color,
     this.superId,
+    this.isAccountExcluded = false,
   });
 
   final double? amount;
@@ -19,6 +20,7 @@ class AccountEntity extends Equatable {
   final String? name;
   final String? number;
   final int? superId;
+  final bool? isAccountExcluded;
 
   @override
   List<Object?> get props => [
@@ -29,5 +31,6 @@ class AccountEntity extends Equatable {
         amount,
         color,
         superId,
+        isAccountExcluded,
       ];
 }

@@ -5,7 +5,7 @@ import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/box_types.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
-import 'package:paisa/features/account/domain/entities/account.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/presentation/pages/horizontal/account_horizontal_page.dart';
 import 'package:paisa/features/account/presentation/pages/vertical/account_vertical_page.dart';
 import 'package:paisa/main.dart';
