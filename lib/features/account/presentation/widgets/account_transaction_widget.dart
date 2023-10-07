@@ -21,7 +21,7 @@ class AccountTransactionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        if (state is AccountSelectedState) {
+        if (state is AccountAndExpensesState) {
           if (state.expenses.isEmpty) {
             return EmptyWidget(
               title: context.loc.emptyExpensesMessageTitle,

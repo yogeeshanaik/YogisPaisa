@@ -1,17 +1,17 @@
 import 'package:injectable/injectable.dart';
 import 'package:paisa/core/common_enum.dart';
-import 'package:paisa/features/account/data/data_sources/local/account_data_manager.dart';
+import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/account/domain/repository/account_repository.dart';
 
 @Singleton(as: AccountRepository)
 class AccountRepositoryImpl extends AccountRepository {
-  AccountRepositoryImpl({required this.dataSource});
+  AccountRepositoryImpl({@Named('local-account') required this.dataSource});
 
-  final LocalAccountManager dataSource;
+  final AccountManager dataSource;
 
   @override
-  Future<void> addAccount({
+  Future<void> add({
     required String bankName,
     required String holderName,
     required String number,
@@ -32,27 +32,27 @@ class AccountRepositoryImpl extends AccountRepository {
   }
 
   @override
+  List<AccountModel> all() {
+    return dataSource.accounts();
+  }
+
+  @override
   Future<void> clearAll() {
     return dataSource.clear();
   }
 
   @override
-  Future<void> deleteAccount(int key) {
+  Future<void> delete(int key) {
     return dataSource.delete(key);
   }
 
   @override
-  AccountModel? fetchAccountFromId(int? accountId) {
+  AccountModel? fetchById(int? accountId) {
     return dataSource.findById(accountId);
   }
 
   @override
-  List<AccountModel> getAccounts() {
-    return dataSource.accounts();
-  }
-
-  @override
-  Future<void> updateAccount({
+  Future<void> update({
     required int key,
     required String? bankName,
     required String? holderName,

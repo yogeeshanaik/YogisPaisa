@@ -1009,5 +1009,30 @@
     "@appLanguage": {
         "description": "Text shown on settings page",
         "type": "text"
+    },
+    "excludeAccount": "Exclude account",
+    "@excludeAccount": {
+        "description": "Text shown on add account page for excluding the account from summing up",
+        "type": "text"
+    },
+    "accountNotFound": "Account not found!",
+    "@accountNotFound": {
+        "description": "Text shown on snackbar when account not found",
+        "type": "text"
+    },
+    "bankNameError": "Set bank name",
+    "@bankNameError": {
+        "description": "Text shown on snackbar when adding account",
+        "type": "text"
+    },
+    "holderNameError": "Set account holder name",
+    "@holderNameError": {
+        "description": "Text shown on snackbar when adding account",
+        "type": "text"
+    },
+    "accountColorError": "Set account color name",
+    "@accountColorError": {
+        "description": "Text shown on snackbar when adding account",
+        "type": "text"
     }
 }

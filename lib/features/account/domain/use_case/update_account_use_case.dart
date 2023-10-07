@@ -12,7 +12,7 @@ class UpdateAccountUseCase implements UseCase<void, UpdateAccountParams> {
 
   @override
   Future<void> call(UpdateAccountParams params) {
-    return accountRepository.updateAccount(
+    return accountRepository.update(
       bankName: params.bankName,
       holderName: params.holderName,
       number: params.number,

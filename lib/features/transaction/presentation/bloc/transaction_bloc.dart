@@ -8,7 +8,7 @@ import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/recurring_type.dart';
 import 'package:paisa/core/enum/transaction_type.dart';
 import 'package:paisa/core/use_case/use_case.dart';
-import 'package:paisa/features/account/domain/entities/account.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/domain/use_case/account_use_case.dart';
 import 'package:paisa/features/category/domain/entities/category.dart';
 import 'package:paisa/features/category/domain/use_case/category_use_case.dart';

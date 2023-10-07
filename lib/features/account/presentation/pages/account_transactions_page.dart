@@ -23,8 +23,9 @@ class AccountTransactionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
+    final int id = int.parse(accountId);
     BlocProvider.of<AccountBloc>(context)
-        .add(FetchAccountAndExpenseFromIdEvent(accountId));
+        .add(FetchAccountAndExpenseFromIdEvent(id));
     return PaisaAnnotatedRegionWidget(
       color: context.background,
       child: Scaffold(
@@ -76,8 +77,11 @@ class AccountTransactionsPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
                     onPressed: () {
-                      BlocProvider.of<AccountBloc>(context)
-                          .add(DeleteAccountEvent(accountId));
+                      int? id = int.tryParse(accountId);
+                      if (id != null) {
+                        BlocProvider.of<AccountBloc>(context)
+                            .add(DeleteAccountEvent(id));
+                      }
                       Navigator.pop(context);
                     },
                     child: Text(
