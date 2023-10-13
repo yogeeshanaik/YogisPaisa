@@ -203,6 +203,6 @@
     "fontStyleDescription": "Changez la police pour personaliser l'apparence de votre application. Choisissez parmis plusieurs options de polices selon vos préférences et améliorez la lisibilité.",
     "chooseFont": "Choisissez une police d'écriture",
     "chooseAppLanguage": "Choisissez une langue",
-    "appLanguage": "Langue de l'application"
-    "calendarFormat": "Format du calendrier",
+    "appLanguage": "Langue de l'application",
+    "calendarFormat": "Format du calendrier"
 }
