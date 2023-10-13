@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Download-Google%20Play-green">
   </a>
   <a href="https://apps.microsoft.com/store/detail/9NQ2KR46N764?launch=true&mode=mini" style="text-decoration:none" area-label="windows">
-    <img src="https://img.shields.io/badge/Download-Micrsoft%20Store-red">
+    <img src="https://img.shields.io/badge/Download-Microsoft%20Store-red">
   </a>
   <a href="https://github.com/RetroMusicPlayer/Paisa/releases/tag/v4.8.0" style="text-decoration:none" area-label="flutter">
     <img src="https://img.shields.io/badge/Version-4.8.0-orange">
