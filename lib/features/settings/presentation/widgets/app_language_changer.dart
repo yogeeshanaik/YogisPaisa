@@ -189,6 +189,7 @@ class Languages {
 
   static const languages = [
     LanguageEntity(code: 'en', value: 'English'),
+    LanguageEntity(code: 'es', value: 'Spanish'),
     LanguageEntity(code: 'pl', value: 'Polish'),
     LanguageEntity(code: 'be', value: 'Belarusian'),
     LanguageEntity(code: 'de', value: 'German'),
