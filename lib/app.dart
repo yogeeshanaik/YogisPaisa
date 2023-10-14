@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:paisa/config/routes.dart';
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/theme/app_theme.dart';
 import 'package:paisa/core/theme/paisa_theme.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
 import 'package:paisa/features/country_picker/data/models/country_model.dart';
@@ -82,8 +83,6 @@ class _PaisaAppState extends State<PaisaApp> {
           final Locale locale =
               Locale(value.get(appLanguageKey, defaultValue: 'en'));
 
-          final String fontPreference =
-              value.get(appFontChangerKey, defaultValue: 'Outfit');
           return ProxyProvider0<Country>(
             update: (BuildContext context, _) {
               final Map? jsonString = value.get(userCountryKey);
@@ -107,14 +106,7 @@ class _PaisaAppState extends State<PaisaApp> {
                     brightness: Brightness.dark,
                   );
                 }
-                final lightTextTheme = GoogleFonts.getTextTheme(
-                  fontPreference,
-                  ThemeData.light().textTheme,
-                );
-                final darkTextTheme = GoogleFonts.getTextTheme(
-                  fontPreference,
-                  ThemeData.dark().textTheme,
-                );
+
                 return MaterialApp.router(
                   locale: locale,
                   routerConfig: goRouter,
@@ -125,73 +117,15 @@ class _PaisaAppState extends State<PaisaApp> {
                   supportedLocales: AppLocalizations.supportedLocales,
                   onGenerateTitle: (BuildContext context) =>
                       context.loc.appTitle,
-                  theme: ThemeData.from(
+                  theme: AppTheme.lightThemeData(
+                    context: context,
                     colorScheme: lightColorScheme,
-                  ).copyWith(
-                    textTheme: lightTextTheme,
-                    colorScheme: lightColorScheme,
-                    dialogTheme: dialogTheme,
-                    timePickerTheme: timePickerTheme,
-                    appBarTheme: appBarThemeLight(lightColorScheme),
-                    useMaterial3: true,
-                    scaffoldBackgroundColor: lightColorScheme.background,
-                    dialogBackgroundColor: lightColorScheme.background,
-                    navigationBarTheme: navigationBarThemeData(
-                      lightColorScheme,
-                      lightTextTheme,
-                    ),
-                    navigationDrawerTheme: navigationDrawerThemeData(
-                      lightColorScheme,
-                      lightTextTheme,
-                    ),
-                    drawerTheme: drawerThemeData(
-                      lightColorScheme,
-                      lightTextTheme,
-                    ),
-                    applyElevationOverlayColor: true,
-                    inputDecorationTheme: inputDecorationTheme,
-                    elevatedButtonTheme: elevatedButtonTheme(
-                      context,
-                      lightColorScheme,
-                    ),
-                    extensions: [lightCustomColor],
-                    dividerTheme: DividerThemeData(
-                      color: ThemeData.light().dividerColor,
-                    ),
+                    value: value,
                   ),
-                  darkTheme: ThemeData.from(
+                  darkTheme: AppTheme.darkThemeData(
+                    context: context,
                     colorScheme: darkColorScheme,
-                  ).copyWith(
-                    textTheme: darkTextTheme,
-                    colorScheme: darkColorScheme,
-                    dialogTheme: dialogTheme,
-                    timePickerTheme: timePickerTheme,
-                    appBarTheme: appBarThemeDark(darkColorScheme),
-                    useMaterial3: true,
-                    scaffoldBackgroundColor: darkColorScheme.background,
-                    dialogBackgroundColor: darkColorScheme.background,
-                    navigationBarTheme: navigationBarThemeData(
-                      darkColorScheme,
-                      darkTextTheme,
-                    ),
-                    navigationDrawerTheme: navigationDrawerThemeData(
-                      darkColorScheme,
-                      darkTextTheme,
-                    ),
-                    drawerTheme: drawerThemeData(
-                      darkColorScheme,
-                      darkTextTheme,
-                    ),
-                    applyElevationOverlayColor: true,
-                    inputDecorationTheme: inputDecorationTheme,
-                    elevatedButtonTheme: elevatedButtonTheme(
-                      context,
-                      darkColorScheme,
-                    ),
-                    extensions: [darkCustomColor],
-                    dividerTheme: DividerThemeData(
-                      color: ThemeData.dark().dividerColor,
-                    ),
+                    value: value,
                   ),
                 );
               },
