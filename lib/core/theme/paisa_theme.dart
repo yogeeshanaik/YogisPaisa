@@ -89,6 +89,13 @@ FloatingActionButtonThemeData floatingActionButton(ColorScheme colorScheme) {
   );
 }
 
+AppBarTheme appBarTheme(SystemUiOverlayStyle systemUiOverlayStyle) {
+  return AppBarTheme(
+    elevation: 0,
+    systemOverlayStyle: systemUiOverlayStyle,
+  );
+}
+
 AppBarTheme appBarThemeLight(ColorScheme colorScheme) {
   return AppBarTheme(
     elevation: 0,

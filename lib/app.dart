@@ -1,5 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,6 +83,16 @@ class _PaisaAppState extends State<PaisaApp> {
           final Color primaryColor = Color(color);
           final Locale locale =
               Locale(value.get(appLanguageKey, defaultValue: 'en'));
+          final String fontPreference =
+              value.get(appFontChangerKey, defaultValue: 'Outfit');
+          final TextTheme darkTextTheme = GoogleFonts.getTextTheme(
+            fontPreference,
+            ThemeData.dark().textTheme,
+          );
+          final TextTheme lightTextTheme = GoogleFonts.getTextTheme(
+            fontPreference,
+            ThemeData.light().textTheme,
+          );
 
           return ProxyProvider0<Country>(
             update: (BuildContext context, _) {
@@ -115,17 +126,24 @@ class _PaisaAppState extends State<PaisaApp> {
                   localizationsDelegates:
                       AppLocalizations.localizationsDelegates,
                   supportedLocales: AppLocalizations.supportedLocales,
-                  onGenerateTitle: (BuildContext context) =>
-                      context.loc.appTitle,
-                  theme: AppTheme.lightThemeData(
-                    context: context,
-                    colorScheme: lightColorScheme,
-                    value: value,
+                  onGenerateTitle: (BuildContext context) {
+                    return context.loc.appTitle;
+                  },
+                  theme: appTheme(
+                    context,
+                    lightColorScheme,
+                    fontPreference,
+                    lightTextTheme,
+                    ThemeData.light().dividerColor,
+                    SystemUiOverlayStyle.dark,
                   ),
-                  darkTheme: AppTheme.darkThemeData(
-                    context: context,
-                    colorScheme: darkColorScheme,
-                    value: value,
+                  darkTheme: appTheme(
+                    context,
+                    darkColorScheme,
+                    fontPreference,
+                    darkTextTheme,
+                    ThemeData.dark().dividerColor,
+                    SystemUiOverlayStyle.light,
                   ),
                 );
               },

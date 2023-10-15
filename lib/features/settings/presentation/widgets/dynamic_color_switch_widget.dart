@@ -5,11 +5,23 @@ import 'package:paisa/core/common.dart';
 import 'package:provider/provider.dart';
 import 'setting_option.dart';
 
-class DynamicColorSwitchWidget extends StatelessWidget {
+class DynamicColorSwitchWidget extends StatefulWidget {
   const DynamicColorSwitchWidget({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<DynamicColorSwitchWidget> createState() =>
+      _DynamicColorSwitchWidgetState();
+}
+
+class _DynamicColorSwitchWidgetState extends State<DynamicColorSwitchWidget> {
+  late final Box<dynamic> settings =
+      Provider.of<Box<dynamic>>(context, listen: false);
+  late bool isSelected = settings.get(
+    dynamicThemeKey,
+    defaultValue: false,
+  );
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(
@@ -18,13 +30,12 @@ class DynamicColorSwitchWidget extends StatelessWidget {
           title: context.loc.dynamicColor,
           trailing: Switch(
             activeColor: context.primary,
-            value: Provider.of<Box<dynamic>>(context).get(
-              dynamicThemeKey,
-              defaultValue: false,
-            ),
+            value: isSelected,
             onChanged: (value) {
-              Provider.of<Box<dynamic>>(context).put(dynamicThemeKey, value);
-              setState(() {});
+              settings.put(dynamicThemeKey, value);
+              setState(() {
+                isSelected = value;
+              });
             },
           ),
         );
