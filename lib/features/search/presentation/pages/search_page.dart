@@ -25,6 +25,12 @@ class _SearchPageState extends State<SearchPage> {
   final TextEditingController textEditingController = TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+    textEditingController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
