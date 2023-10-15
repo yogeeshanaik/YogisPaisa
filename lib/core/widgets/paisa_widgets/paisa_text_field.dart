@@ -15,7 +15,7 @@ class PaisaTextFormField extends StatelessWidget {
     this.label,
     this.inputFormatters,
     this.counterText,
-    this.textCapitalization = TextCapitalization.words,
+    this.textCapitalization = TextCapitalization.sentences,
   });
 
   final String? Function(String?)? validator;

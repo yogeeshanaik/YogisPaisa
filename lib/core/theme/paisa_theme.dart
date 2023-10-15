@@ -92,7 +92,9 @@ FloatingActionButtonThemeData floatingActionButton(ColorScheme colorScheme) {
 AppBarTheme appBarTheme(SystemUiOverlayStyle systemUiOverlayStyle) {
   return AppBarTheme(
     elevation: 0,
-    systemOverlayStyle: systemUiOverlayStyle,
+    systemOverlayStyle: systemUiOverlayStyle.copyWith(
+      statusBarColor: Colors.transparent,
+    ),
   );
 }
 
