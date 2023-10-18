@@ -1,18 +1,25 @@
-import 'package:paisa/features/country_picker/data/models/country_model.dart';
+// ignore_for_file: invalid_annotation_target
 
-class Country extends CountryModel {
-  Country({
-    required super.code,
-    required super.name,
-    required super.symbol,
-    required super.flag,
-    required super.decimalDigits,
-    required super.number,
-    required super.namePlural,
-    required super.thousandsSeparator,
-    required super.decimalSeparator,
-    required super.spaceBetweenAmountAndSymbol,
-    required super.symbolOnLeft,
-    required super.pattern,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'country.freezed.dart';
+part 'country.g.dart';
+
+@freezed
+class Country with _$Country {
+  factory Country({
+    required String code,
+    required int? decimalDigits,
+    required String decimalSeparator,
+    required String name,
+    required String namePlural,
+    required int number,
+    required String pattern,
+    required bool spaceBetweenAmountAndSymbol,
+    required String symbol,
+    required bool symbolOnLeft,
+    required String thousandsSeparator,
+  }) = _Country;
+
+  factory Country.fromJson(Map<String, dynamic> json) =>
+      _$CountryFromJson(json);
 }

@@ -26,6 +26,16 @@ class AccountPageViewWidget extends StatefulWidget {
 class _AccountPageViewWidgetState extends State<AccountPageViewWidget>
     with AutomaticKeepAliveClientMixin {
   final PageController _controller = PageController();
+  @override
+  void initState() {
+    super.initState();
+    int? id = widget.accounts.first.superId;
+    if (id == null) {
+      return;
+    }
+    BlocProvider.of<AccountBloc>(context)
+        .add(FetchAccountAndExpenseFromIdEvent(id));
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -33,7 +43,6 @@ class _AccountPageViewWidgetState extends State<AccountPageViewWidget>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -59,13 +68,22 @@ class _AccountPageViewWidgetState extends State<AccountPageViewWidget>
                   builder: (context, state) {
                     if (state is AccountAndExpensesState) {
                       final AccountEntity account = widget.accounts[index];
-                      final String expense = state.expenses.totalExpense
-                          .toFormateCurrency(context);
+                      final String expense =
+                          state.expenses.totalExpense.toFormateCurrency(
+                        context,
+                        selectedCountry: account.country,
+                      );
                       final String income =
-                          state.expenses.totalIncome.toFormateCurrency(context);
+                          state.expenses.totalIncome.toFormateCurrency(
+                        context,
+                        selectedCountry: account.country,
+                      );
                       final String totalBalance =
                           (state.expenses.fullTotal + account.initialAmount)
-                              .toFormateCurrency(context);
+                              .toFormateCurrency(
+                        context,
+                        selectedCountry: account.country,
+                      );
                       return AccountCard(
                         key: ValueKey(account.hashCode),
                         expense: expense,

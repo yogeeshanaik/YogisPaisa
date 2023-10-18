@@ -17,7 +17,7 @@ abstract class LocalTransactionManager {
 
   Iterable<TransactionModel> export();
 
-  List<TransactionModel> expenses();
+  List<TransactionModel> expenses(int? accountId);
 
   Future<void> deleteByAccountId(int accountId);
 
@@ -73,7 +73,15 @@ class LocalTransactionManagerImpl implements LocalTransactionManager {
   }
 
   @override
-  List<TransactionModel> expenses() => transactionBox.values.toList();
+  List<TransactionModel> expenses(int? accountId) {
+    if (accountId == null) {
+      return transactionBox.values.toList();
+    } else {
+      return transactionBox.values
+          .where((element) => element.accountId == accountId)
+          .toList();
+    }
+  }
 
   @override
   Iterable<TransactionModel> export() => transactionBox.values;

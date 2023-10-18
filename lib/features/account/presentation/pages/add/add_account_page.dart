@@ -8,6 +8,7 @@ import 'package:paisa/core/error/bloc_errors.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
 import 'package:paisa/features/account/presentation/widgets/card_type_drop_down.dart';
+import 'package:paisa/features/country_picker/domain/entities/country.dart';
 import 'package:paisa/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -217,7 +218,8 @@ class AddAccountPageState extends State<AddAccountPage> {
                                     int.tryParse(widget.accountId ?? '') ?? -1,
                               ),
                               const AccountExcludedSwitchWidget(),
-                              const AccountColorPickerWidget()
+                              const AccountColorPickerWidget(),
+                              const AccountCountrySelectorWidget()
                             ],
                           ),
                         ),
@@ -611,6 +613,80 @@ class _AccountExcludedSwitchWidgetState
         setState(() {
           BlocProvider.of<AccountBloc>(context).isAccountExcluded = value;
         });
+      },
+    );
+  }
+}
+
+class AccountCountrySelectorWidget extends StatefulWidget {
+  const AccountCountrySelectorWidget({super.key});
+
+  @override
+  State<AccountCountrySelectorWidget> createState() =>
+      _AccountCountrySelectorWidgetState();
+}
+
+class _AccountCountrySelectorWidgetState
+    extends State<AccountCountrySelectorWidget> {
+  String symbol = '';
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AccountBloc>(context)
+        .add(const AccountsEvent.fetchCountries());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AccountBloc, AccountState>(
+      builder: (context, state) {
+        if (state is CountriesState) {
+          final country = BlocProvider.of<AccountBloc>(context).currencySymbol;
+          if (country != null) {
+            symbol = '${country.name} - ${country.code}';
+          }
+          return ListTile(
+            onTap: () async {
+              final Country? result = await paisaAlertDialog<Country?>(
+                context,
+                title: Text('Select currency'),
+                confirmationButton: null,
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.countries.length,
+                    itemBuilder: (context, index) {
+                      final Country country = state.countries[index];
+                      return ListTile(
+                        onTap: () {
+                          Navigator.pop(context, country);
+                        },
+                        title: Text(country.name),
+                        subtitle: Text(country.code),
+                        leading: Text(
+                          country.symbol,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+              if (result != null) {
+                symbol = '${result.name} - ${result.code}';
+                setState(() {});
+                if (context.mounted) {
+                  BlocProvider.of<AccountBloc>(context).currencySymbol = result;
+                }
+              }
+            },
+            title: Text('Set currency'),
+            subtitle: Text(symbol),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
       },
     );
   }

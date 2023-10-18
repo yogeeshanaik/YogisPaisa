@@ -21,7 +21,8 @@ class CountryPickerCubit extends Cubit<CountryPickerState> {
   final SettingsUseCase settingsUseCase;
 
   void checkForData() {
-    final Map<dynamic, dynamic>? json = settingsUseCase.get(userCountryKey);
+    final Map<String, dynamic>? json =
+        settingsUseCase.get(userCountryKey) as Map<String, dynamic>?;
     if (json == null) {
       fetchCountry();
     } else {

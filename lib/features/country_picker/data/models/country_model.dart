@@ -1,59 +1,36 @@
-class CountryModel {
-  CountryModel({
-    required this.code,
-    required this.name,
-    required this.symbol,
-    required this.flag,
-    required this.decimalDigits,
-    required this.number,
-    required this.namePlural,
-    required this.thousandsSeparator,
-    required this.decimalSeparator,
-    required this.spaceBetweenAmountAndSymbol,
-    required this.symbolOnLeft,
-    required this.pattern,
-  });
+// ignore_for_file: invalid_annotation_target
 
-  factory CountryModel.fromJson(Map<dynamic, dynamic> json) => CountryModel(
-        code: json["code"],
-        name: json["name"],
-        symbol: json["symbol"],
-        flag: json["flag"],
-        decimalDigits: json["decimal_digits"],
-        number: json["number"],
-        namePlural: json["name_plural"],
-        thousandsSeparator: json["thousands_separator"],
-        decimalSeparator: json["decimal_separator"],
-        spaceBetweenAmountAndSymbol: json["space_between_amount_and_symbol"],
-        symbolOnLeft: json["symbol_on_left"],
-        pattern: json["pattern"],
-      );
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive_flutter/adapters.dart';
+part 'country_model.freezed.dart';
+part 'country_model.g.dart';
 
-  final String code;
-  final int decimalDigits;
-  final String decimalSeparator;
-  final String? flag;
-  final String name;
-  final String namePlural;
-  final int number;
-  final String pattern;
-  final bool spaceBetweenAmountAndSymbol;
-  final String symbol;
-  final bool symbolOnLeft;
-  final String thousandsSeparator;
+@freezed
+class CountryModel extends HiveObject with _$CountryModel {
+  @HiveType(typeId: 7)
+  factory CountryModel({
+    @HiveField(0) required String code,
+    @HiveField(1) @JsonKey(name: 'decimal_digits') required int? decimalDigits,
+    @HiveField(2)
+    @JsonKey(name: 'decimal_separator')
+    required String decimalSeparator,
+    @HiveField(3) required String name,
+    @HiveField(4) @JsonKey(name: 'name_plural') required String namePlural,
+    @HiveField(5) required int number,
+    @HiveField(6) required String pattern,
+    @HiveField(7)
+    @JsonKey(name: 'space_between_amount_and_symbol')
+    @HiveField(8)
+    required bool spaceBetweenAmountAndSymbol,
+    @HiveField(9) required String symbol,
+    @HiveField(10) @JsonKey(name: 'symbol_on_left') required bool symbolOnLeft,
+    @HiveField(11)
+    @JsonKey(name: 'thousands_separator')
+    required String thousandsSeparator,
+  }) = _CountryModel;
 
-  Map<String, dynamic> toJson() => {
-        "code": code,
-        "name": name,
-        "symbol": symbol,
-        "flag": flag,
-        "decimal_digits": decimalDigits,
-        "number": number,
-        "name_plural": namePlural,
-        "thousands_separator": thousandsSeparator,
-        "decimal_separator": decimalSeparator,
-        "space_between_amount_and_symbol": spaceBetweenAmountAndSymbol,
-        "symbol_on_left": symbolOnLeft,
-        "pattern": pattern,
-      };
+  CountryModel._();
+
+  factory CountryModel.fromJson(Map<String, dynamic> json) =>
+      _$CountryModelFromJson(json);
 }

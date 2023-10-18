@@ -8,7 +8,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:paisa/config/routes.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/theme/app_theme.dart';
-import 'package:paisa/core/theme/paisa_theme.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
 import 'package:paisa/features/country_picker/data/models/country_model.dart';
 import 'package:paisa/features/country_picker/domain/entities/country.dart';
@@ -95,8 +94,12 @@ class _PaisaAppState extends State<PaisaApp> {
           );
 
           return ProxyProvider0<Country>(
+            lazy: true,
             update: (BuildContext context, _) {
-              final Map? jsonString = value.get(userCountryKey);
+              final Map<String, dynamic>? jsonString =
+                  (value.get(userCountryKey) as Map<dynamic, dynamic>?)
+                      ?.map((key, value) => MapEntry(key.toString(), value));
+
               final Country model =
                   CountryModel.fromJson(jsonString ?? {}).toEntity();
               return model;

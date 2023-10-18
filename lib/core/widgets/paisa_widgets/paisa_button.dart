@@ -26,9 +26,9 @@ class PaisaBigButton extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: TextStyle(
+        style: context.titleLarge?.copyWith(
           fontWeight: FontWeight.w700,
-          fontSize: context.titleLarge?.fontSize,
+          color: context.onPrimary,
         ),
       ),
     );

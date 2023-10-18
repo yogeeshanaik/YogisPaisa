@@ -44,7 +44,7 @@ class SettingCubit extends Cubit<SettingsState> {
         return emit(FixExpenseError());
       }
       final List<TransactionEntity> transactions =
-          transactionsUseCase(NoParams())
+          transactionsUseCase(const ParamsDefaultAccountId(null))
               .where((element) => element.categoryId == -1)
               .toList();
 

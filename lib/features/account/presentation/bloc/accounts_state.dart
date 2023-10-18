@@ -31,4 +31,7 @@ class AccountState with _$AccountState {
 
   const factory AccountState.updateCardType(CardType cardType) =
       UpdateCardTypeState;
+
+  const factory AccountState.countries(List<Country> countries) =
+      CountriesState;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:hive_flutter/adapters.dart';
+import 'package:injectable/injectable.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/config/routes.dart';
 import 'package:paisa/core/common.dart';
@@ -15,14 +16,17 @@ import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class AccountSelectorPage extends StatefulWidget {
-  const AccountSelectorPage({super.key});
+  const AccountSelectorPage({
+    super.key,
+    @Named('local-account') required this.dataSource,
+  });
+  final AccountManager dataSource;
 
   @override
   State<AccountSelectorPage> createState() => _AccountSelectorPageState();
 }
 
 class _AccountSelectorPageState extends State<AccountSelectorPage> {
-  final AccountManager dataSource = getIt.get();
   final List<AccountModel> defaultModels = defaultAccountsData();
 
   Future<void> saveAndNavigate() async {
@@ -114,11 +118,11 @@ class _AccountSelectorPageState extends State<AccountSelectorPage> {
                     children: defaultModels
                         .map((model) => FilterChip(
                               onSelected: (value) {
-                                dataSource.add(model
-                                  ..name = settings.get(
-                                    userNameKey,
-                                    defaultValue: model.name,
-                                  ));
+                                widget.dataSource.add(model.copyWith(
+                                    name: settings.get(
+                                  userNameKey,
+                                  defaultValue: model.name,
+                                )));
                                 setState(() {
                                   defaultModels.remove(model);
                                 });

@@ -5,6 +5,6 @@ class DebitTransaction extends DebitTransactionsModel {
     required super.amount,
     required super.now,
     required super.parentId,
-    super.superId,
+    required super.superId,
   });
 }

@@ -56,7 +56,11 @@ final GoRouter goRouter = GoRouter(
       name: accountSelectorName,
       path: accountSelectorPath,
       builder: (BuildContext context, GoRouterState state) =>
-          const AccountSelectorPage(),
+          AccountSelectorPage(
+        dataSource: getIt.get(
+          instanceName: 'local-account',
+        ),
+      ),
     ),
     GoRoute(
       name: userOnboardingName,

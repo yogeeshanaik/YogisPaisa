@@ -39,7 +39,8 @@ class _CountryPickerPageState extends State<CountryPickerPage> {
   @override
   Widget build(BuildContext context) {
     CountryModel? countryModel;
-    final Map<dynamic, dynamic>? json = settings.get(userCountryKey);
+    final Map<String, dynamic>? json =
+        settings.get(userCountryKey) as Map<String, dynamic>?;
     if (json != null) {
       countryModel = CountryModel.fromJson(json);
     }

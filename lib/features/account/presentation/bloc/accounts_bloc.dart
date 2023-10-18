@@ -3,11 +3,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
 import 'package:paisa/core/error/bloc_errors.dart';
+import 'package:paisa/core/use_case/use_case.dart';
 import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/domain/use_case/account_use_case.dart';
 import 'package:paisa/features/category/domain/use_case/get_category_use_case.dart';
+import 'package:paisa/features/country_picker/domain/entities/country.dart';
+import 'package:paisa/features/country_picker/domain/use_case/get_contries_user_case.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 import 'package:paisa/features/transaction/domain/use_case/transaction_use_case.dart';
 
@@ -17,15 +21,16 @@ part 'accounts_state.dart';
 
 @injectable
 class AccountBloc extends Bloc<AccountsEvent, AccountState> {
-  AccountBloc({
-    required this.getAccountUseCase,
-    required this.deleteAccountUseCase,
-    required this.getTransactionsByAccountIdUseCase,
-    required this.addAccountUseCase,
-    required this.getCategoryUseCase,
-    required this.deleteExpensesFromAccountIdUseCase,
-    required this.updateAccountUseCase,
-  }) : super(const AccountsInitial()) {
+  AccountBloc(
+    this.getAccountUseCase,
+    this.deleteAccountUseCase,
+    this.getTransactionsByAccountIdUseCase,
+    this.addAccountUseCase,
+    this.getCategoryUseCase,
+    this.deleteExpensesFromAccountIdUseCase,
+    this.updateAccountUseCase,
+    this.getCountryUseCase,
+  ) : super(const AccountsInitial()) {
     on<AccountsEvent>((event, emit) {});
     on<AddOrUpdateAccountEvent>(_addAccount);
     on<DeleteAccountEvent>(_deleteAccount);
@@ -33,17 +38,20 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     on<FetchAccountFromIdEvent>(_fetchAccountFromId);
     on<AccountColorSelectedEvent>(_updateAccountColor);
     on<FetchAccountAndExpenseFromIdEvent>(_fetchAccountAndExpensesFromId);
+    on<FetchCountriesEvent>(_fetchCountries);
   }
 
   String? accountHolderName;
   String? accountName;
   String? accountNumber;
   final AddAccountUseCase addAccountUseCase;
+  Country? currencySymbol;
   AccountEntity? currentAccount;
   final DeleteAccountUseCase deleteAccountUseCase;
   final DeleteTransactionsByAccountIdUseCase deleteExpensesFromAccountIdUseCase;
   final GetAccountUseCase getAccountUseCase;
   final GetCategoryUseCase getCategoryUseCase;
+  final GetCountriesUseCase getCountryUseCase;
   final GetTransactionsByAccountIdUseCase getTransactionsByAccountIdUseCase;
   double? initialAmount;
   bool isAccountExcluded = false;
@@ -66,11 +74,13 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
       currentAccount = account;
       selectedColor = account.color ?? Colors.brown.shade100.value;
       isAccountExcluded = account.isAccountExcluded ?? false;
+      currencySymbol = account.country;
       emit(AccountSuccessState(account));
       emit(UpdateCardTypeState(selectedType));
       emit(UpdateAccountExcludeState(isAccountExcluded));
     } else {
-      emit(const AccountErrorState(AccountErrors.accountNotFound()));
+      emit(const AccountState.errorAccountState(
+          AccountErrors.accountNotFound()));
     }
   }
 
@@ -85,24 +95,28 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     final double? amount = initialAmount;
     final int? color = selectedColor;
     if (bankName == null) {
-      return emit(const AccountErrorState(AccountErrors.accountNotFound()));
+      return emit(const AccountState.errorAccountState(
+          AccountErrors.accountNotFound()));
     }
     if (holderName == null) {
-      return emit(const AccountErrorState(AccountErrors.holderNameError()));
+      return emit(const AccountState.errorAccountState(
+          AccountErrors.holderNameError()));
     }
     if (color == null) {
-      return emit(const AccountErrorState(AccountErrors.colorError()));
+      return emit(
+          const AccountState.errorAccountState(AccountErrors.colorError()));
     }
 
     if (event.addOrUpdate) {
       await addAccountUseCase(AddAccountParams(
         bankName: bankName,
         holderName: holderName,
-        number: number ?? '',
+        number: number,
         cardType: cardType,
-        amount: amount ?? 0,
+        amount: amount,
         color: color,
         isAccountExcluded: isAccountExcluded,
+        currencySymbol: currencySymbol,
       ));
     } else {
       if (currentAccount == null) return;
@@ -115,9 +129,10 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
         amount: amount ?? 0,
         color: color,
         isAccountExcluded: isAccountExcluded,
+        currencySymbol: currencySymbol,
       ));
     }
-    emit(AccountAddedState(event.addOrUpdate));
+    emit(AccountState.addAccountState(event.addOrUpdate));
   }
 
   FutureOr<void> _deleteAccount(
@@ -128,7 +143,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
       DeleteTransactionsFromAccountIdParams(event.accountId),
     );
     await deleteAccountUseCase(DeleteAccountParams(event.accountId));
-    emit(const AccountDeletedState());
+    emit(const AccountState.deleteAccountState());
   }
 
   FutureOr<void> _updateCardType(
@@ -136,7 +151,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     Emitter<AccountState> emit,
   ) async {
     selectedType = event.cardType;
-    emit(UpdateCardTypeState(event.cardType));
+    emit(AccountState.updateCardType(event.cardType));
   }
 
   FutureOr<void> _updateAccountColor(
@@ -144,7 +159,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     Emitter<AccountState> emit,
   ) {
     selectedColor = event.color;
-    emit(AccountColorSelectedState(event.color));
+    emit(AccountState.colorSelected(event.color));
   }
 
   FutureOr<void> _fetchAccountAndExpensesFromId(
@@ -157,7 +172,15 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
       GetTransactionsByAccountIdParams(event.accountId),
     );
     if (account != null) {
-      emit(AccountAndExpensesState(account, expenses));
+      emit(AccountState.accountAndExpenseState(account, expenses));
     }
+  }
+
+  FutureOr<void> _fetchCountries(
+    FetchCountriesEvent event,
+    Emitter<AccountState> emit,
+  ) {
+    final List<Country> countries = getCountryUseCase(NoParams()).toEntities();
+    emit(AccountState.countries(countries));
   }
 }

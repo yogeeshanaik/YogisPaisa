@@ -46,6 +46,7 @@ extension ExpenseModelBoxMapping on Box<TransactionModel> {
               categories.contains(element.categoryId));
     });
   }
+  
 }
 
 extension ExpenseModelHelper on TransactionModel {

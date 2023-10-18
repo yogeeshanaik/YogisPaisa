@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:paisa/core/common_enum.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/category/data/model/category_model.dart';
+import 'package:paisa/features/country_picker/data/models/country_model.dart';
 import 'package:paisa/features/debit/data/models/debit_model.dart';
 import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
 import 'package:paisa/features/recurring/data/model/recurring.dart';
@@ -53,6 +54,7 @@ class HiveAdapters {
     await Hive.initFlutter(hivePath);
     Hive
       ..registerAdapter(TransactionModelAdapter())
+      ..registerAdapter(CountryModelAdapter())
       ..registerAdapter(CategoryModelAdapter())
       ..registerAdapter(AccountModelAdapter())
       ..registerAdapter(TransactionTypeAdapter())

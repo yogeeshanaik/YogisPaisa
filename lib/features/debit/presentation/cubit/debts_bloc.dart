@@ -93,7 +93,7 @@ class DebitBloc extends Bloc<DebtsEvent, DebtsState> {
     } else {
       if (currentDebt != null) {
         await updateDebtUseCase(UpdateDebitParams(
-          currentDebt!.key,
+          currentDebt!.superId!,
           description: description ?? '',
           name: name,
           amount: amount,

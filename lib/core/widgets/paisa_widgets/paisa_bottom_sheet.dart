@@ -31,7 +31,7 @@ Future<T?> paisaAlertDialog<T>(
   BuildContext context, {
   required Widget child,
   required Widget title,
-  required Widget confirmationButton,
+  required Widget? confirmationButton,
 }) {
   return showDialog<T>(
     context: context,
@@ -46,7 +46,7 @@ Future<T?> paisaAlertDialog<T>(
             context.loc.cancel,
           ),
         ),
-        confirmationButton,
+        if (confirmationButton != null) confirmationButton,
       ],
     ),
   );

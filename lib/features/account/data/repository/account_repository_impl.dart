@@ -1,12 +1,17 @@
 import 'package:injectable/injectable.dart';
 import 'package:paisa/core/common_enum.dart';
+import 'package:paisa/core/common.dart';
 import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/account/domain/repository/account_repository.dart';
+import 'package:paisa/features/country_picker/data/models/country_model.dart';
+import 'package:paisa/features/country_picker/domain/entities/country.dart';
 
 @Singleton(as: AccountRepository)
 class AccountRepositoryImpl extends AccountRepository {
-  AccountRepositoryImpl({@Named('local-account') required this.dataSource});
+  AccountRepositoryImpl({
+    @Named('local-account') required this.dataSource,
+  });
 
   final AccountManager dataSource;
 
@@ -14,11 +19,12 @@ class AccountRepositoryImpl extends AccountRepository {
   Future<void> add({
     required String bankName,
     required String holderName,
-    required String number,
     required CardType cardType,
-    required double amount,
-    required int color,
-    required bool isAccountExcluded,
+    String? number,
+    double? amount,
+    int? color,
+    bool? isAccountExcluded,
+    Country? currencySymbol,
   }) {
     return dataSource.add(AccountModel(
       name: holderName,
@@ -28,6 +34,7 @@ class AccountRepositoryImpl extends AccountRepository {
       amount: amount,
       color: color,
       isAccountExcluded: isAccountExcluded,
+      currencySymbol: currencySymbol?.toEntity(),
     ));
   }
 
@@ -56,11 +63,12 @@ class AccountRepositoryImpl extends AccountRepository {
     required int key,
     required String? bankName,
     required String? holderName,
-    required String? number,
-    required CardType? cardType,
-    required double? amount,
-    required int? color,
-    required bool isAccountExcluded,
+    required CardType cardType,
+    String? number,
+    double? amount,
+    int? color,
+    bool? isAccountExcluded,
+    Country? currencySymbol,
   }) {
     return dataSource.update(
       AccountModel(
@@ -69,9 +77,10 @@ class AccountRepositoryImpl extends AccountRepository {
         number: number,
         cardType: cardType,
         amount: amount,
-        superId: key,
         color: color,
+        currencySymbol: currencySymbol?.toEntity(),
         isAccountExcluded: isAccountExcluded,
+        superId: key,
       ),
     );
   }

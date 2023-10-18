@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:paisa/core/common_enum.dart';
 import 'package:paisa/core/use_case/use_case.dart';
 import 'package:paisa/features/account/domain/repository/account_repository.dart';
+import 'package:paisa/features/country_picker/domain/entities/country.dart';
 
 @singleton
 class UpdateAccountUseCase implements UseCase<void, UpdateAccountParams> {
@@ -20,6 +21,7 @@ class UpdateAccountUseCase implements UseCase<void, UpdateAccountParams> {
       amount: params.amount,
       key: params.key,
       color: params.color,
+      currencySymbol: params.currencySymbol,
       isAccountExcluded: params.isAccountExcluded,
     );
   }
@@ -30,21 +32,23 @@ class UpdateAccountParams extends Equatable {
     this.key, {
     required this.bankName,
     required this.holderName,
-    required this.number,
     required this.cardType,
-    required this.amount,
-    required this.color,
-    required this.isAccountExcluded,
+    this.number,
+    this.amount,
+    this.color,
+    this.isAccountExcluded,
+    this.currencySymbol,
   });
 
-  final double amount;
+  final double? amount;
   final String bankName;
   final CardType cardType;
-  final int color;
+  final int? color;
+  final Country? currencySymbol;
   final String holderName;
+  final bool? isAccountExcluded;
   final int key;
-  final String number;
-  final bool isAccountExcluded;
+  final String? number;
 
   @override
   List<Object?> get props => [

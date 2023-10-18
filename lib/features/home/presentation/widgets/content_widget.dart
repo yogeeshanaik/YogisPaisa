@@ -1,17 +1,20 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
 import 'package:paisa/features/account/presentation/pages/accounts_page.dart';
 import 'package:paisa/features/category/presentation/pages/category_list_page.dart';
 import 'package:paisa/features/debit/presentation/pages/debts_page.dart';
 import 'package:paisa/features/home/presentation/bloc/home/home_bloc.dart';
+import 'package:paisa/features/home/presentation/controller/summary_controller.dart';
 import 'package:paisa/features/home/presentation/cubit/overview/overview_cubit.dart';
+import 'package:paisa/features/home/presentation/cubit/summary/summary_cubit.dart';
 import 'package:paisa/features/home/presentation/pages/budget/budget_page.dart';
 import 'package:paisa/features/home/presentation/pages/overview/overview_page.dart';
 import 'package:paisa/features/home/presentation/pages/summary/summary_page.dart';
 import 'package:paisa/features/recurring/presentation/page/recurring_page.dart';
-import 'package:paisa/features/home/presentation/controller/summary_controller.dart';
-import 'package:provider/provider.dart';
+import 'package:paisa/main.dart';
 
 class ContentWidget extends StatelessWidget {
   const ContentWidget({
@@ -21,7 +24,9 @@ class ContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<int, Widget> pages = {
-      0: const SummaryPage(),
+      0: SummaryPage(
+        summaryCubit: getIt.get<SummaryCubit>(),
+      ),
       1: const AccountsPage(),
       2: const DebtsPage(),
       3: OverViewPage(

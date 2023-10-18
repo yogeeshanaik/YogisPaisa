@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:paisa/core/enum/transaction_type.dart';
 import 'package:paisa/core/error/failures.dart';
 import 'package:paisa/features/transaction/data/model/transaction_model.dart';
+import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 
 abstract class TransactionRepository {
   Future<Either<Failure, bool>> addExpense(
@@ -18,7 +19,7 @@ abstract class TransactionRepository {
 
   TransactionModel? fetchExpenseFromId(int expenseId);
 
-  List<TransactionModel> expenses();
+  List<TransactionEntity> expenses(int? accountId);
 
   List<TransactionModel> fetchExpensesFromAccountId(int accountId);
 

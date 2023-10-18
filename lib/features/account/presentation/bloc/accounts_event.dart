@@ -18,4 +18,5 @@ class AccountsEvent with _$AccountsEvent {
 
   const factory AccountsEvent.updateCardType(CardType cardType) =
       UpdateCardTypeEvent;
+  const factory AccountsEvent.fetchCountries() = FetchCountriesEvent;
 }

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:paisa/core/common.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/account/domain/entities/account_entity.dart';
 
@@ -14,6 +15,7 @@ extension AccountModelMapping on AccountModel {
         superId: superId,
         color: color,
         isAccountExcluded: isAccountExcluded,
+        country: currencySymbol?.toEntity(),
       );
 }
 

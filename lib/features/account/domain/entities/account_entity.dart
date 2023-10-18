@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:paisa/core/common_enum.dart';
+import 'package:paisa/features/country_picker/domain/entities/country.dart';
 
 class AccountEntity extends Equatable {
   const AccountEntity({
@@ -11,6 +12,7 @@ class AccountEntity extends Equatable {
     this.color,
     this.superId,
     this.isAccountExcluded = false,
+    this.country,
   });
 
   final double? amount;
@@ -21,6 +23,7 @@ class AccountEntity extends Equatable {
   final String? number;
   final int? superId;
   final bool? isAccountExcluded;
+  final Country? country;
 
   @override
   List<Object?> get props => [
@@ -32,5 +35,6 @@ class AccountEntity extends Equatable {
         color,
         superId,
         isAccountExcluded,
+        country,
       ];
 }

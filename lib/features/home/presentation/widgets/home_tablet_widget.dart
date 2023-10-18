@@ -39,39 +39,45 @@ class HomeTabletWidget extends StatelessWidget {
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               return NavigationRail(
+                leading: floatingActionButton,
                 elevation: 1,
                 selectedLabelTextStyle: context.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
+                  color: context.primary,
                 ),
-                unselectedLabelTextStyle: context.bodyLarge,
+                unselectedLabelTextStyle: context.bodyLarge?.copyWith(
+                  color: context.onSurface.withOpacity(0.75),
+                ),
+                unselectedIconTheme: IconThemeData(
+                  color: context.onSurface.withOpacity(0.75),
+                ),
                 labelType: NavigationRailLabelType.all,
                 backgroundColor: context.surface,
                 selectedIndex: homeBloc.selectedIndex,
-                onDestinationSelected: (index) =>
-                    homeBloc.add(CurrentIndexEvent(index)),
+                onDestinationSelected: (index) {
+                  if (index == 7) {
+                    context.pushNamed(settingsName);
+                  } else {
+                    homeBloc.add(CurrentIndexEvent(index));
+                  }
+                },
                 minWidth: 55,
                 useIndicator: true,
-                groupAlignment: 1,
-                trailing: Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: IconButton(
-                        tooltip: context.loc.settings,
-                        onPressed: () => context.pushNamed(settingsName),
-                        icon: Icon(MdiIcons.cog),
-                      ),
+                destinations: [
+                  ...destinations
+                      .map((e) => NavigationRailDestination(
+                            icon: e.icon,
+                            selectedIcon: e.selectedIcon,
+                            label: Text(e.pageType.name(context)),
+                          ))
+                      .toList(),
+                  NavigationRailDestination(
+                    icon: Icon(MdiIcons.cog),
+                    label: Text(
+                      context.loc.settings,
                     ),
-                  ),
-                ),
-                destinations: destinations
-                    .map((e) => NavigationRailDestination(
-                          icon: e.icon,
-                          selectedIcon: e.selectedIcon,
-                          label: Text(e.pageType.name(context)),
-                        ))
-                    .toList(),
+                  )
+                ],
               );
             },
           ),
@@ -81,7 +87,6 @@ class HomeTabletWidget extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: floatingActionButton,
     );
   }
 }

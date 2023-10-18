@@ -66,7 +66,10 @@ class ExpenseItemWidget extends StatelessWidget {
           ),
         ),
         trailing: Text(
-          expense.currency!.toFormateCurrency(context),
+          expense.currency!.toFormateCurrency(
+            context,
+            selectedCountry: account.country,
+          ),
           style: context.bodyMedium?.copyWith(
             color: expense.type?.color(context),
           ),
