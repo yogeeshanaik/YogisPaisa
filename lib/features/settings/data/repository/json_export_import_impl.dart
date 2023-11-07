@@ -7,6 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/category/data/data_sources/local/category_data_source.dart';
+import 'package:paisa/features/debit/data/data_sources/debit_data_manager.dart';
+import 'package:paisa/features/debit/data/data_sources/transaction_data_manager.dart';
+import 'package:paisa/features/debit/data/models/debit_model.dart';
+import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:paisa/config/routes.dart';
@@ -27,9 +31,13 @@ class JSONExportImpl implements Export {
     @Named('local-account') this.accountDataManager,
     this.categoryDataManager,
     this.expenseDataManager,
+    this.debitDataManager,
+    this.transactionDataManager,
   );
 
   final AccountManager accountDataManager;
+  final TransactionDataManager transactionDataManager;
+  final DebitDataManager debitDataManager;
   final LocalCategoryManager categoryDataManager;
   final LocalTransactionManager expenseDataManager;
 
@@ -50,12 +58,17 @@ class JSONExportImpl implements Export {
     final Iterable<TransactionModel> expenses = expenseDataManager.export();
     final Iterable<AccountModel> accounts = accountDataManager.export();
     final Iterable<CategoryModel> categories = categoryDataManager.export();
+    final Iterable<DebitModel> debits = debitDataManager.export();
+    final Iterable<DebitTransactionsModel> transactions =
+        transactionDataManager.export();
 
     final Map<String, dynamic> data = {
       'version': 1,
       'expenses': expenses.toJson(),
       'accounts': accounts.toJson(),
       'categories': categories.toJson(),
+      'debits': debits.toJson(),
+      'transactions': transactions.toJson(),
     };
     return utf8.encode(jsonEncode(data));
   }
@@ -69,12 +82,16 @@ class JSONImportImpl implements Import {
     @Named('local-account') this.accountDataManager,
     this.categoryDataManager,
     this.expenseDataManager,
+    this.transactionDataManager,
+    this.debitDataManager,
   );
 
   final AccountManager accountDataManager;
   final LocalCategoryManager categoryDataManager;
   final DeviceInfoPlugin deviceInfo;
   final LocalTransactionManager expenseDataManager;
+  final TransactionDataManager transactionDataManager;
+  final DebitDataManager debitDataManager;
 
   @override
   Future<bool> import() async {
@@ -90,6 +107,8 @@ class JSONImportImpl implements Import {
       await expenseDataManager.clear();
       await categoryDataManager.clear();
       await accountDataManager.clear();
+      await debitDataManager.clear();
+      await transactionDataManager.clear();
 
       for (var element in data.accounts) {
         await accountDataManager.update(element);
@@ -101,6 +120,14 @@ class JSONImportImpl implements Import {
 
       for (var element in data.expenses) {
         await expenseDataManager.update(element);
+      }
+
+      for (var element in data.debits) {
+        await debitDataManager.update(element);
+      }
+
+      for (var element in data.debitTransactions) {
+        await transactionDataManager.update(element);
       }
 
       return settings.put(expenseFixKey, true).then((value) => true);

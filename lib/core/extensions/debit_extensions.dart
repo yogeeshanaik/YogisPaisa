@@ -16,9 +16,9 @@ extension DebitTypeHelper on DebitType {
   }
 }
 
-extension AccountMapping on DebitModel {
-  Debit toEntity() {
-    return Debit(
+extension DebitModelHelper on DebitModel {
+  DebitEntity toEntity() {
+    return DebitEntity(
       description: description,
       name: name,
       amount: amount,
@@ -27,5 +27,11 @@ extension AccountMapping on DebitModel {
       debtType: debtType,
       superId: superId,
     );
+  }
+}
+
+extension DebitModelsHelper on Iterable<DebitModel> {
+  List<Map<String, dynamic>> toJson() {
+    return map((e) => e.toJson()).toList();
   }
 }

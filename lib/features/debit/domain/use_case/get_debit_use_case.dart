@@ -6,13 +6,13 @@ import 'package:paisa/features/debit/domain/entities/debit.dart';
 import 'package:paisa/features/debit/domain/repository/debit_repository.dart';
 
 @singleton
-class GetDebitUseCase implements UseCase<Debit?, GetDebitParams> {
+class GetDebitUseCase implements UseCase<DebitEntity?, GetDebitParams> {
   GetDebitUseCase({required this.debtRepository});
 
   final DebitRepository debtRepository;
 
   @override
-  Debit? call(GetDebitParams params) {
+  DebitEntity? call(GetDebitParams params) {
     return debtRepository.fetchDebtOrCreditFromId(params.debitId)?.toEntity();
   }
 }

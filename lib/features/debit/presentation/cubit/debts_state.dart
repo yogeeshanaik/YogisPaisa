@@ -28,12 +28,12 @@ class DebtsTabState extends DebtsState {
 }
 
 class DebtsSuccessState extends DebtsState {
-  const DebtsSuccessState(this.debt);
+  const DebtsSuccessState(this.debtEntity);
 
-  final DebitModel debt;
+  final DebitEntity debtEntity;
 
   @override
-  List<Object> get props => [debt];
+  List<Object> get props => [debtEntity];
 }
 
 class DebtErrorState extends DebtsState {

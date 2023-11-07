@@ -1,6 +1,6 @@
 import 'package:paisa/core/enum/debt_type.dart';
 import 'package:paisa/features/debit/data/models/debit_model.dart';
-import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
+import 'package:paisa/features/debit/domain/entities/debit_transaction.dart';
 
 abstract class DebitRepository {
   Future<void> addDebtOrCredit(
@@ -36,5 +36,5 @@ abstract class DebitRepository {
     int parentId,
   );
 
-  Iterable<DebitTransactionsModel> fetchTransactionsFromId(int id);
+  List<DebitTransactionEntity> fetchTransactionsFromId(int id);
 }

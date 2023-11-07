@@ -4,7 +4,6 @@ import 'package:paisa/core/common.dart';
 import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/account/domain/repository/account_repository.dart';
-import 'package:paisa/features/country_picker/data/models/country_model.dart';
 import 'package:paisa/features/country_picker/domain/entities/country.dart';
 
 @Singleton(as: AccountRepository)

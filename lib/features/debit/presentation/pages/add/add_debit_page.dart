@@ -60,19 +60,19 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
             if (state is DebtsAdded) {
               GoRouter.of(context).pop();
             } else if (state is DebtsSuccessState) {
-              amountController.text = state.debt.amount.toString();
+              amountController.text = state.debtEntity.amount.toString();
               amountController.selection = TextSelection.collapsed(
-                offset: state.debt.amount.toString().length,
+                offset: state.debtEntity.amount.toString().length,
               );
 
-              nameController.text = state.debt.name.toString();
+              nameController.text = state.debtEntity.name.toString();
               nameController.selection = TextSelection.collapsed(
-                offset: state.debt.name.toString().length,
+                offset: state.debtEntity.name.toString().length,
               );
 
-              descController.text = state.debt.description.toString();
+              descController.text = state.debtEntity.description.toString();
               descController.selection = TextSelection.collapsed(
-                offset: state.debt.description.toString().length,
+                offset: state.debtEntity.description.toString().length,
               );
             } else if (state is DebtErrorState) {
               context.showMaterialSnackBar(
@@ -156,7 +156,7 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                       builder: (context, value, child) {
                         final int? parentId = int.tryParse(widget.debtId ?? '');
                         if (parentId == null) return const SizedBox.shrink();
-                        final List<DebitTransaction> transactions =
+                        final List<DebitTransactionEntity> transactions =
                             value.getTransactionsFromId(parentId);
 
                         return ListView.builder(
@@ -164,7 +164,7 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: transactions.length,
                           itemBuilder: (_, index) {
-                            final DebitTransaction transaction =
+                            final DebitTransactionEntity transaction =
                                 transactions[index];
                             return ListTile(
                               leading: IconButton(
@@ -176,9 +176,11 @@ class _AddOrEditDebitPageState extends State<AddOrEditDebitPage> {
                                 },
                                 icon: const Icon(Icons.delete),
                               ),
-                              title: Text(transaction.now.formattedDate),
-                              trailing: Text(transaction.amount
-                                  .toFormateCurrency(context)),
+                              title: Text(transaction.now!.formattedDate),
+                              trailing: Text(
+                                transaction.amount!.toFormateCurrency(context),
+                                style: context.bodyMedium,
+                              ),
                             );
                           },
                         );

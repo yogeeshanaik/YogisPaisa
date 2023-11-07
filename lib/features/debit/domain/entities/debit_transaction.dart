@@ -1,10 +1,23 @@
-import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
+import 'package:equatable/equatable.dart';
 
-class DebitTransaction extends DebitTransactionsModel {
-  DebitTransaction({
-    required super.amount,
-    required super.now,
-    required super.parentId,
-    required super.superId,
+class DebitTransactionEntity extends Equatable {
+  final double? amount;
+  final DateTime? now;
+  final int? parentId;
+  final int? superId;
+
+  const DebitTransactionEntity({
+    this.amount,
+    this.now,
+    this.parentId,
+    this.superId,
   });
+
+  @override
+  List<Object?> get props => [
+        amount,
+        now,
+        parentId,
+        superId,
+      ];
 }

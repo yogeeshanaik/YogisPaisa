@@ -134,10 +134,11 @@ class DebtItemWidget extends StatelessWidget {
     return ValueListenableBuilder<Box<DebitTransactionsModel>>(
       valueListenable: getIt.get<Box<DebitTransactionsModel>>().listenable(),
       builder: (context, value, child) {
-        final List<DebitTransaction> transactions =
-            value.getTransactionsFromId(debt.superId ?? 0).toEntities();
-        final double amount = transactions.fold<double>(
-            0, (previousValue, element) => previousValue + element.amount);
+        final List<DebitTransactionEntity> transactions =
+            value.getTransactionsFromId(debt.superId ?? 0);
+        final double amount = transactions.fold<double>(0,
+            (previousValue, element) => previousValue + (element.amount ?? 0));
+        double progress = amount / (debt.amount ?? -1);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: PaisaFilledCard(
@@ -150,13 +151,13 @@ class DebtItemWidget extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                      debt.name,
+                      debt.name ?? '-',
                       style: context.headlineSmall?.copyWith(
                         color: context.onSurfaceVariant,
                       ),
                     ),
                     subtitle: Text(
-                      debt.description,
+                      debt.description ?? '-',
                       style: TextStyle(
                         color: Theme.of(context)
                             .colorScheme
@@ -165,7 +166,7 @@ class DebtItemWidget extends StatelessWidget {
                       ),
                     ),
                     trailing: Text(
-                      (debt.amount - amount).toFormateCurrency(context),
+                      (debt.amount ?? 0 - amount).toFormateCurrency(context),
                       style: context.titleLarge?.copyWith(),
                     ),
                   ),
@@ -174,7 +175,7 @@ class DebtItemWidget extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: LinearProgressIndicator(
-                        value: amount / debt.amount,
+                        value: progress,
                         backgroundColor: context.secondaryContainer,
                       ),
                     ),
@@ -185,7 +186,7 @@ class DebtItemWidget extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: Text(
-                            '${debt.expiryDateTime.daysDifference.isNegative ? '0' : debt.expiryDateTime.daysDifference}  Days Left',
+                            '${debt.expiryDateTime!.daysDifference.isNegative ? '0' : debt.expiryDateTime!.daysDifference}  Days Left',
                           ),
                         ),
                       ),

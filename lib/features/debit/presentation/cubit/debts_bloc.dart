@@ -40,7 +40,7 @@ class DebitBloc extends Bloc<DebtsEvent, DebtsState> {
   final AddDebitUseCase addDebtUseCase;
   final AddDebitTransactionUseCase addTransactionUseCase;
   double? currentAmount;
-  Debit? currentDebt;
+  DebitEntity? currentDebt;
   DebitType currentDebtType = DebitType.debit;
   String? currentDescription;
   String? currentName;
@@ -147,14 +147,14 @@ class DebitBloc extends Bloc<DebtsEvent, DebtsState> {
       return;
     }
 
-    final Debit? debt = getDebtUseCase(GetDebitParams(debitId));
+    final DebitEntity? debt = getDebtUseCase(GetDebitParams(debitId));
     if (debt != null) {
       currentAmount = debt.amount;
       currentName = debt.name;
       currentDescription = debt.description;
       startDateTime = debt.dateTime;
       endDateTime = debt.expiryDateTime;
-      currentDebtType = debt.debtType;
+      currentDebtType = debt.debtType ?? DebitType.credit;
       currentDebt = debt;
       emit(DebtsSuccessState(debt));
 

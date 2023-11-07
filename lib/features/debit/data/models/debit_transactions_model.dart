@@ -1,33 +1,21 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/adapters.dart';
 
 part 'debit_transactions_model.g.dart';
+part 'debit_transactions_model.freezed.dart';
 
-@HiveType(typeId: 3)
-class DebitTransactionsModel extends HiveObject with EquatableMixin {
-  DebitTransactionsModel({
-    required this.amount,
-    required this.now,
-    required this.parentId,
-    this.superId,
-  });
+@unfreezed
+class DebitTransactionsModel extends HiveObject with _$DebitTransactionsModel {
+  @HiveType(typeId: 3, adapterName: 'DebitTransactionsModelAdapter')
+  factory DebitTransactionsModel({
+    @HiveField(1) double? amount,
+    @HiveField(2) DateTime? now,
+    @HiveField(4, defaultValue: -1) int? parentId,
+    @HiveField(3) int? superId,
+  }) = _DebitTransactionsModel;
 
-  @HiveField(1)
-  final double amount;
+  DebitTransactionsModel._();
 
-  @HiveField(2)
-  final DateTime now;
-
-  @HiveField(4, defaultValue: -1)
-  int? parentId;
-
-  @HiveField(3)
-  int? superId;
-
-  @override
-  List<Object?> get props => [
-        now,
-        amount,
-        parentId,
-      ];
+  factory DebitTransactionsModel.fromJson(Map<String, dynamic> json) =>
+      _$DebitTransactionsModelFromJson(json);
 }
