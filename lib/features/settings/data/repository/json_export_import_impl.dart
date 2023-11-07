@@ -36,10 +36,10 @@ class JSONExportImpl implements Export {
   );
 
   final AccountManager accountDataManager;
-  final TransactionDataManager transactionDataManager;
-  final DebitDataManager debitDataManager;
   final LocalCategoryManager categoryDataManager;
+  final DebitDataManager debitDataManager;
   final LocalTransactionManager expenseDataManager;
+  final TransactionDataManager transactionDataManager;
 
   @override
   Future<String> export() async {
@@ -88,10 +88,10 @@ class JSONImportImpl implements Import {
 
   final AccountManager accountDataManager;
   final LocalCategoryManager categoryDataManager;
+  final DebitDataManager debitDataManager;
   final DeviceInfoPlugin deviceInfo;
   final LocalTransactionManager expenseDataManager;
   final TransactionDataManager transactionDataManager;
-  final DebitDataManager debitDataManager;
 
   @override
   Future<bool> import() async {
