@@ -22,7 +22,7 @@ import '../core/in_app.dart' as _i79;
 import '../features/account/data/data_sources/account_manager.dart' as _i3;
 import '../features/account/data/data_sources/local/local_account_manager_impl.dart'
     as _i41;
-import '../features/account/data/data_sources/remote/account_data_manager_impl.dart'
+import '../features/account/data/data_sources/remote/remote_account_data_manager_impl.dart'
     as _i4;
 import '../features/account/data/model/account_model.dart' as _i11;
 import '../features/account/data/repository/account_repository_impl.dart'
@@ -71,8 +71,8 @@ import '../features/debit/data/data_sources/local/transaction_manager_impl.dart'
     as _i37;
 import '../features/debit/data/data_sources/transaction_data_manager.dart'
     as _i36;
-import '../features/debit/data/models/debit_model.dart' as _i8;
-import '../features/debit/data/models/debit_transactions_model.dart' as _i12;
+import '../features/debit/data/models/debit_model.dart' as _i10;
+import '../features/debit/data/models/debit_transactions_model.dart' as _i8;
 import '../features/debit/data/repository/debit_repository_impl.dart' as _i51;
 import '../features/debit/domain/repository/debit_repository.dart' as _i50;
 import '../features/debit/domain/use_case/add_debit_transaction_use_case.dart'
@@ -138,7 +138,7 @@ import '../features/settings/domain/use_case/settings_use_case.dart' as _i33;
 import '../features/settings/presentation/cubit/settings_cubit.dart' as _i102;
 import '../features/transaction/data/data_sources/local/transaction_data_manager.dart'
     as _i25;
-import '../features/transaction/data/model/transaction_model.dart' as _i10;
+import '../features/transaction/data/model/transaction_model.dart' as _i12;
 import '../features/transaction/data/repository/transaction_repository_impl.dart'
     as _i39;
 import '../features/transaction/domain/repository/transaction_repository.dart'
@@ -190,24 +190,24 @@ Future<_i1.GetIt> init(
     () => hiveBoxModule.recurringBox,
     preResolve: true,
   );
-  await gh.singletonAsync<_i6.Box<_i8.DebitModel>>(
-    () => hiveBoxModule.debtsBox,
+  await gh.singletonAsync<_i6.Box<_i8.DebitTransactionsModel>>(
+    () => hiveBoxModule.transactionsBox,
     preResolve: true,
   );
   await gh.singletonAsync<_i6.Box<_i9.CategoryModel>>(
     () => hiveBoxModule.categoryBox,
     preResolve: true,
   );
-  await gh.singletonAsync<_i6.Box<_i10.TransactionModel>>(
-    () => hiveBoxModule.expenseBox,
+  await gh.singletonAsync<_i6.Box<_i10.DebitModel>>(
+    () => hiveBoxModule.debtsBox,
     preResolve: true,
   );
   await gh.singletonAsync<_i6.Box<_i11.AccountModel>>(
     () => hiveBoxModule.accountBox,
     preResolve: true,
   );
-  await gh.singletonAsync<_i6.Box<_i12.DebitTransactionsModel>>(
-    () => hiveBoxModule.transactionsBox,
+  await gh.singletonAsync<_i6.Box<_i12.TransactionModel>>(
+    () => hiveBoxModule.expenseBox,
     preResolve: true,
   );
   await gh.singletonAsync<_i6.Box<dynamic>>(
@@ -217,7 +217,7 @@ Future<_i1.GetIt> init(
   );
   gh.singleton<_i13.CountryRepository>(_i14.CountryRepositoryImpl());
   gh.singleton<_i15.DebitDataManager>(
-      _i16.LocalDebitDataManagerImpl(debtBox: gh<_i6.Box<_i8.DebitModel>>()));
+      _i16.LocalDebitDataManagerImpl(debtBox: gh<_i6.Box<_i10.DebitModel>>()));
   gh.singleton<_i17.DeviceInfoPlugin>(
       serviceBoxModule.providesDeviceInfoPlugin());
   gh.singleton<_i18.EventBus>(serviceBoxModule.providerEventBus());
@@ -231,7 +231,7 @@ Future<_i1.GetIt> init(
   gh.factory<_i23.LocalRecurringDataManager>(() =>
       _i24.LocalRecurringDataManagerImpl(gh<_i6.Box<_i7.RecurringModel>>()));
   gh.factory<_i25.LocalTransactionManager>(() =>
-      _i25.LocalTransactionManagerImpl(gh<_i26.Box<_i10.TransactionModel>>()));
+      _i25.LocalTransactionManagerImpl(gh<_i26.Box<_i12.TransactionModel>>()));
   gh.singleton<_i27.ProfileRepository>(_i28.ProfileRepositoryImpl(
     gh<_i20.ImagePicker>(),
     gh<_i6.Box<dynamic>>(instanceName: 'settings'),
@@ -248,7 +248,7 @@ Future<_i1.GetIt> init(
       _i34.SummaryController(gh<_i35.SettingsUseCase>()));
   gh.singleton<_i36.TransactionDataManager>(
       _i37.LocalTransactionDataManagerImpl(
-          transactionsBox: gh<_i6.Box<_i12.DebitTransactionsModel>>()));
+          transactionsBox: gh<_i6.Box<_i8.DebitTransactionsModel>>()));
   gh.singleton<_i38.TransactionRepository>(_i39.ExpenseRepositoryImpl(
       dataSource: gh<_i25.LocalTransactionManager>()));
   gh.singleton<_i40.UpdateTransactionUseCase>(_i40.UpdateTransactionUseCase(

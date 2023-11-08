@@ -1,3 +1,7 @@
+# Generated Dart files  
+**/*.g.dart
+**/*.freezed.dart
+
 # Miscellaneous
 *.class
 *.log
@@ -76,5 +80,3 @@ android/app/google-services.json
 .fvm/flutter_sdk
 .fvm/
 
-# Generated Dart files  
-**/*.g.dart
