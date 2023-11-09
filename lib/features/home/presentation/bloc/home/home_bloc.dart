@@ -72,5 +72,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       getAccountUseCase(GetAccountParams(accountId));
 
   List<TransactionEntity> fetchExpensesFromCategoryId(int categoryId) =>
-      getExpensesFromCategoryIdUseCase(categoryId);
+      getExpensesFromCategoryIdUseCase(
+          ParamsGetTransactionsByCategoryId(categoryId));
 }
