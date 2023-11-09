@@ -34,9 +34,6 @@ const buyMeCoffeeUrl = 'https://www.buymeacoffee.com/h4h13';
 const loginPath = '/login';
 const loginName = 'login';
 
-const countrySelectorPath = '/country-selector';
-const countrySelectorName = 'country-selector';
-
 const biometricPath = '/biometric';
 const biometricName = 'biometric';
 
@@ -102,12 +99,6 @@ const addDebitPath = 'add-debit';
 
 const introPageName = 'intro';
 const introPagePath = '/intro';
-
-const categorySelectorName = 'category-selector';
-const categorySelectorPath = '/category-selector';
-
-const accountSelectorName = 'account-selector';
-const accountSelectorPath = '/account-selector';
 
 const iconPickerName = 'icon-picker';
 const iconPickerPath = 'icon-picker';

@@ -1,5 +1,5 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -12,18 +12,20 @@ import 'package:paisa/core/extensions/color_extension.dart';
 import 'package:paisa/features/category/data/data_sources/default_category.dart';
 import 'package:paisa/features/category/data/data_sources/local/category_data_source.dart';
 import 'package:paisa/features/category/data/model/category_model.dart';
+import 'package:paisa/features/intro/presentation/widgets/intro_image_picker_widget.dart';
 import 'package:paisa/main.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class CategorySelectorPage extends StatefulWidget {
-  const CategorySelectorPage({super.key});
+class IntroCategoryAddWidget extends StatefulWidget {
+  const IntroCategoryAddWidget({super.key});
 
   @override
-  State<CategorySelectorPage> createState() => _CategorySelectorPageState();
+  State<IntroCategoryAddWidget> createState() => _IntroCategoryAddWidgetState();
 }
 
-class _CategorySelectorPageState extends State<CategorySelectorPage> {
+class _IntroCategoryAddWidgetState extends State<IntroCategoryAddWidget>
+    with AutomaticKeepAliveClientMixin {
   final LocalCategoryManager dataSource = getIt.get();
   final List<CategoryModel> defaultModels = defaultCategoriesData;
   final settings = getIt.get<Box<dynamic>>(instanceName: BoxType.settings.name);
@@ -36,15 +38,9 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
     });
   }
 
-  Future<void> saveAndNavigate() async {
-    await settings.put(userCategorySelectorKey, false);
-    if (mounted) {
-      context.go(accountSelectorPath);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ValueListenableBuilder<Box<CategoryModel>>(
       valueListenable: getIt.get<Box<CategoryModel>>().listenable(),
       builder: (context, value, child) {
@@ -53,68 +49,60 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
         return PaisaAnnotatedRegionWidget(
           color: context.background,
           child: Scaffold(
-            appBar: context.materialYouAppBar(
-              context.loc.categories,
-              actions: [
-                PaisaButton(
-                  onPressed: saveAndNavigate,
-                  title: context.loc.done,
-                ),
-                const SizedBox(width: 16)
-              ],
-            ),
             body: ListView(
               children: [
-                ListTile(
-                  title: Text(
-                    context.loc.addedCategories,
-                    style: context.titleMedium,
-                  ),
+                IntroTopWidget(
+                  title: context.loc.addCategory,
+                  icon: Icons.category,
                 ),
-                ScreenTypeLayout.builder(
-                  mobile: (p0) => PaisaFilledCard(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const Divider(),
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: categoryModels.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final CategoryModel model = categoryModels[index];
-                        return CategoryItemWidget(
-                          model: model,
-                          onPress: () async {
-                            await model.delete();
-                            defaultModels.add(model);
+                Builder(
+                  builder: (context) {
+                    return ScreenTypeLayout.builder(
+                      mobile: (p0) => PaisaFilledCard(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => const Divider(),
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: categoryModels.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final CategoryModel model = categoryModels[index];
+                            return CategoryItemWidget(
+                              model: model,
+                              onPress: () async {
+                                await model.delete();
+                                defaultModels.add(model);
+                              },
+                            );
                           },
-                        );
-                      },
-                    ),
-                  ),
-                  tablet: (p0) => GridView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      childAspectRatio: 2,
-                    ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: categoryModels.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final CategoryModel model = categoryModels[index];
-                      return CategoryItemWidget(
-                        model: model,
-                        onPress: () async {
-                          await model.delete();
-                          defaultModels.add(model);
+                        ),
+                      ),
+                      tablet: (p0) => GridView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 2,
+                        ),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: categoryModels.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final CategoryModel model = categoryModels[index];
+                          return CategoryItemWidget(
+                            model: model,
+                            onPress: () async {
+                              await model.delete();
+                              defaultModels.add(model);
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                   title: Text(
-                    context.loc.defaultCategories,
+                    context.loc.recommendedCategories,
                     style: context.titleMedium,
                   ),
                 ),
@@ -124,6 +112,7 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
                     spacing: 12.0,
                     runSpacing: 12.0,
                     children: defaultModels
+                        .sorted((a, b) => a.name!.compareTo(b.name!))
                         .map((model) => FilterChip(
                               label: Text(model.name ?? ''),
                               onSelected: (value) {
@@ -163,6 +152,9 @@ class _CategorySelectorPageState extends State<CategorySelectorPage> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class CategoryItemWidget extends StatelessWidget {

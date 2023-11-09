@@ -920,18 +920,23 @@
         "description": "Text shown on the add category section title",
         "type": "text"
     },
-    "defaultCategories": "Default categories",
-    "@defaultCategories": {
+    "back": "Back",
+    "@back": {
+        "description": "Text shown on the button on intro page",
+        "type": "text"
+    },
+    "recommendedCategories": "Recommended categories",
+    "@recommendedCategories": {
         "description": "Text shown on the add category section title",
         "type": "text"
     },
-    "addedAccounts": "Added accounts",
+    "addedAccounts": "Selected accounts",
     "@addedAccounts": {
         "description": "Text shown on the add account section title",
         "type": "text"
     },
-    "defaultAccounts": "Default accounts",
-    "@defaultAccounts": {
+    "recommendedAccounts": "Recommended accounts",
+    "@recommendedAccounts": {
         "description": "Text shown on the add account section title",
         "type": "text"
     },
@@ -1033,6 +1038,16 @@
     "accountColorError": "Set account color name",
     "@accountColorError": {
         "description": "Text shown on snackbar when adding account",
+        "type": "text"
+    },
+    "emptySelectedAccountsInfo": "Select account from above to start",
+    "@accountsIntroInfo": {
+        "description": "Text shown on intro page accounts info",
+        "type": "text"
+    },
+    "emptyrecommendedAccountsInfo": "No accounts left to add",
+    "@emptyrecommendedAccountsInfo": {
+        "description": "Text shown on intro page accounts info",
         "type": "text"
     }
 }
