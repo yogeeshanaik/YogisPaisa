@@ -7,35 +7,27 @@ import 'package:paisa/features/home/presentation/pages/summary/widgets/summary_d
 import 'package:paisa/features/home/presentation/pages/summary/widgets/summary_mobile_widget.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/summary_tablet_widget.dart';
 
-class SummaryPage extends StatefulWidget {
+class SummaryPage extends StatelessWidget {
   const SummaryPage({
     Key? key,
-    required this.summaryCubit,
   }) : super(key: key);
-
-  final SummaryCubit summaryCubit;
-
-  @override
-  State<SummaryPage> createState() => _SummaryPageState();
-}
-
-class _SummaryPageState extends State<SummaryPage> {
-  @override
-  void initState() {
-    super.initState();
-    widget.summaryCubit.fetchTransactions();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
-      bloc: widget.summaryCubit,
+    return BlocBuilder<SummaryCubit, SummaryState>(
+      buildWhen: (previous, current) => current is TransactionsSuccessState,
       builder: (context, state) {
         if (state is TransactionsSuccessState) {
           return ScreenTypeLayout.builder(
-            mobile: (p0) => SummaryMobileWidget(expenses: state.transactions),
-            tablet: (p0) => SummaryTabletWidget(expenses: state.transactions),
-            desktop: (p0) => SummaryDesktopWidget(expenses: state.transactions),
+            mobile: (p0) => SummaryMobileWidget(
+                expenses: state.transactions,
+                accountEntity: state.accountEntity),
+            tablet: (p0) => SummaryTabletWidget(
+                expenses: state.transactions,
+                accountEntity: state.accountEntity),
+            desktop: (p0) => SummaryDesktopWidget(
+                expenses: state.transactions,
+                accountEntity: state.accountEntity),
           );
         } else {
           return const SizedBox.shrink();

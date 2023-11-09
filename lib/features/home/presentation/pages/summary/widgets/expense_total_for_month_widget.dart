@@ -7,11 +7,11 @@ class ExpenseTotalForMonthWidget extends StatelessWidget {
   const ExpenseTotalForMonthWidget({
     Key? key,
     required this.income,
-    required this.outcome,
+    required this.expense,
   }) : super(key: key);
 
   final double income;
-  final double outcome;
+  final double expense;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class ExpenseTotalForMonthWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '-${outcome.toFormateCurrency(context)}',
+                    expense.toFormateCurrency(context),
                     style: context.titleLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),

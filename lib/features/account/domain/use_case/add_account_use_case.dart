@@ -6,13 +6,13 @@ import 'package:paisa/features/account/domain/repository/account_repository.dart
 import 'package:paisa/features/country_picker/domain/entities/country.dart';
 
 @singleton
-class AddAccountUseCase implements UseCase<void, AddAccountParams> {
+class AddAccountUseCase implements UseCase<Future<int>, AddAccountParams> {
   AddAccountUseCase({required this.accountRepository});
 
   final AccountRepository accountRepository;
 
   @override
-  Future<void> call(AddAccountParams params) {
+  Future<int> call(AddAccountParams params) {
     return accountRepository.add(
       bankName: params.bankName,
       holderName: params.holderName,

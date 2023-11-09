@@ -42,7 +42,6 @@ class PaisaUserImageWidget extends StatelessWidget {
                   child: Icon(
                     Icons.account_circle_outlined,
                     color: context.onPrimary,
-                    size: (maxRadius ?? 0 / 4),
                   ),
                 );
               } else {

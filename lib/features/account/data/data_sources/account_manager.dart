@@ -3,7 +3,7 @@ export 'package:paisa/features/account/data/data_sources/local/local_account_man
 export 'package:paisa/features/account/data/data_sources/remote/remote_account_data_manager_impl.dart';
 
 abstract class AccountManager {
-  Future<void> add(AccountModel account);
+  Future<int> add(AccountModel account);
 
   Future<void> delete(int key);
 

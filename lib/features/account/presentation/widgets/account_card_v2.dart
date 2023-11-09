@@ -66,6 +66,7 @@ class AccountCardV2 extends StatelessWidget {
                     ),
                   ),
                 ),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
@@ -78,35 +79,27 @@ class AccountCardV2 extends StatelessWidget {
                 ),
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    context.loc.thisMonth,
-                    style: context.titleMedium?.copyWith(
-                      color: onPrimary,
-                    ),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ThisMonthTransactionWidget(
+                          title: context.loc.income,
+                          content: income,
+                          color: onPrimary,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: ThisMonthTransactionWidget(
+                          title: context.loc.expense,
+                          color: onPrimary,
+                          content: expense,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ThisMonthTransactionWidget(
-                        title: context.loc.income,
-                        content: income,
-                        color: onPrimary,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: ThisMonthTransactionWidget(
-                        title: context.loc.expense,
-                        color: onPrimary,
-                        content: expense,
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
               ],
             ),
           ),

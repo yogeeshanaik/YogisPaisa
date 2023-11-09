@@ -34,12 +34,10 @@ extension AccountBoxMapping on Box<AccountModel> {
       .sorted((a, b) => b.name!.compareTo(a.name!))
       .toList();
 
-  double get totalAccountInitialAmount =>
-      groupBy(values, (AccountModel account) => account.key)
-          .keys
-          .map((accountId) => get(accountId)!)
-          .map((account) => account.initialAmount)
-          .fold<double>(0, (previousValue, element) => previousValue + element);
+  double totalAmount(int accountId) => values
+      .where((element) => element.superId == accountId)
+      .map((e) => e.initialAmount)
+      .fold(0, (previousValue, element) => previousValue + element);
 }
 
 extension AccountEntityHelper on AccountEntity {

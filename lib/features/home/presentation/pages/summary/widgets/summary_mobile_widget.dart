@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_history_widget.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_total_widget.dart';
 import 'package:paisa/features/home/presentation/pages/summary/widgets/welcome_name_widget.dart';
@@ -10,9 +11,11 @@ class SummaryMobileWidget extends StatelessWidget {
   const SummaryMobileWidget({
     super.key,
     required this.expenses,
+    required this.accountEntity,
   });
 
   final List<TransactionEntity> expenses;
+  final AccountEntity accountEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,10 @@ class SummaryMobileWidget extends StatelessWidget {
           if (index == 0) {
             return const WelcomeNameWidget();
           } else if (index == 1) {
-            return ExpenseTotalWidget(expenses: expenses);
+            return ExpenseTotalWidget(
+              expenses: expenses,
+              accountEntity: accountEntity,
+            );
           } else if (index == 2) {
             return ListTile(
               contentPadding: const EdgeInsets.symmetric(

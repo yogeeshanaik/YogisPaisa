@@ -12,7 +12,7 @@ class RemoteAccountManagerImpl implements AccountManager {
   }
 
   @override
-  Future<void> add(AccountModel account) {
+  Future<int> add(AccountModel account) {
     // TODO: implement add
     throw UnimplementedError();
   }

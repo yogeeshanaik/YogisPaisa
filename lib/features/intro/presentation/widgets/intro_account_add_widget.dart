@@ -31,10 +31,6 @@ class _IntroAccountAddWidgetState extends State<IntroAccountAddWidget>
       getIt.get<AccountManager>(instanceName: 'local-account');
 
   final List<AccountModel> defaultModels = defaultAccountsData();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   bool get wantKeepAlive => true;

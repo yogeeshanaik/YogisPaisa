@@ -15,7 +15,7 @@ class AccountRepositoryImpl extends AccountRepository {
   final AccountManager dataSource;
 
   @override
-  Future<void> add({
+  Future<int> add({
     required String bankName,
     required String holderName,
     required CardType cardType,

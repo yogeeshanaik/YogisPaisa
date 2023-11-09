@@ -9,7 +9,6 @@ import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
 import 'package:paisa/features/account/presentation/widgets/card_type_drop_down.dart';
 import 'package:paisa/features/country_picker/domain/entities/country.dart';
-import 'package:paisa/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -567,10 +566,8 @@ class AccountDefaultSwitchWidget extends StatefulWidget {
 
 class _AccountDefaultSwitchWidgetState
     extends State<AccountDefaultSwitchWidget> {
-  late final SettingCubit settingCubit = BlocProvider.of<SettingCubit>(context);
-
   late bool isAccountDefault =
-      settingCubit.defaultAccountId == widget.accountId;
+      BlocProvider.of<AccountBloc>(context).isAccountDefault;
   @override
   Widget build(BuildContext context) {
     return SwitchListTile(
@@ -579,11 +576,7 @@ class _AccountDefaultSwitchWidgetState
       title: Text(context.loc.defaultAccount),
       value: isAccountDefault,
       onChanged: (value) {
-        if (value) {
-          settingCubit.setDefaultAccountId(widget.accountId);
-        } else {
-          settingCubit.setDefaultAccountId(-1);
-        }
+        BlocProvider.of<AccountBloc>(context).isAccountDefault = value;
         setState(() {
           isAccountDefault = value;
         });

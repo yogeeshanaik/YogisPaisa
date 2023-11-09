@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:event_bus_plus/event_bus_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -12,6 +13,7 @@ import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/domain/use_case/account_use_case.dart';
 import 'package:paisa/features/category/domain/entities/category.dart';
 import 'package:paisa/features/category/domain/use_case/category_use_case.dart';
+import 'package:paisa/features/home/presentation/cubit/summary/summary_cubit.dart';
 import 'package:paisa/features/settings/domain/use_case/settings_use_case.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 import 'package:paisa/features/transaction/domain/use_case/transaction_use_case.dart';
@@ -22,7 +24,8 @@ part 'transaction_state.dart';
 @injectable
 class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
   TransactionBloc(
-    this.settingsUseCase, {
+    this.settingsUseCase,
+    this.eventBus, {
     required this.getTransactionUseCase,
     required this.accountUseCase,
     required this.addTransactionUseCase,
@@ -61,7 +64,7 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
   TimeOfDay timeOfDay = TimeOfDay.now();
   AccountEntity? fromAccount, toAccount;
   TransactionType transactionType = TransactionType.expense;
-
+  final EventBus eventBus;
   final UpdateTransactionUseCase updateTransactionUseCase;
 
   Future<void> _fetchExpenseFromId(
@@ -186,6 +189,7 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
         ));
       }
       emit(TransactionAdded(isAddOrUpdate: event.isAdding));
+      eventBus.fire(RefreshSummaryEvent());
     }
   }
 
