@@ -11,7 +11,7 @@ class DeleteDebitUseCase implements UseCase<void, DeleteDebitParams> {
 
   @override
   Future<void> call(DeleteDebitParams params) {
-    return debtRepository.deleteDebtOrCreditFromId(params.debitId);
+    return debtRepository.deleteById(params.debitId);
   }
 }
 

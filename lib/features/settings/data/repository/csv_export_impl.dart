@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:injectable/injectable.dart';
+import 'package:paisa/core/common.dart';
 import 'package:paisa/features/account/data/data_sources/account_manager.dart';
 import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/category/data/data_sources/local/category_data_source.dart';
@@ -51,8 +52,9 @@ class CSVExport extends Export {
   List<List<String>> csvDataList(List<TransactionModel> expenses) {
     return [
       [
-        'No',
-        'Expense Name',
+        'No.',
+        'Transaction Name',
+        'Transaction Type',
         'Amount',
         'Date',
         'Description',
@@ -88,6 +90,7 @@ class CSVExport extends Export {
     return [
       '$index',
       expense.name ?? '',
+      '${expense.type?.index}',
       '${expense.currency}',
       expense.time?.toIso8601String() ?? '',
       expense.description ?? '',

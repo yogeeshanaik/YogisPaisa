@@ -6,7 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
-import 'package:paisa/features/debit/domain/entities/debit_transaction.dart';
+import 'package:paisa/features/debit/domain/entities/debit_transaction_entity.dart';
 
 import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/debit/presentation/cubit/debts_bloc.dart';
