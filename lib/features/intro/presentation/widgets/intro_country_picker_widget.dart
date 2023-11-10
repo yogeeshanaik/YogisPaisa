@@ -39,11 +39,11 @@ class _IntroCountryPickerWidgetState extends State<IntroCountryPickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? json =
-        settings.get(userCountryKey) as Map<String, dynamic>?;
+    final Map<dynamic, dynamic>? json = settings.get(userCountryKey);
     CountryModel? countryModel;
     if (json != null) {
-      countryModel = CountryModel.fromJson(json);
+      countryModel = CountryModel.fromJson(
+          json.map<String, dynamic>((key, value) => MapEntry(key, value)));
     }
     return BlocProvider(
       create: (context) => widget.countryCubit,

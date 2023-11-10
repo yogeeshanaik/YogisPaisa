@@ -7,6 +7,20 @@
 
 const List<Map<String, dynamic>> localCountriesData = [
   {
+    "code": "HNL",
+    "name": "Honduran Lempira",
+    "symbol": "L",
+    "flag": "HNL",
+    "decimal_digits": 2,
+    "number": 340,
+    "name_plural": "Honduran Lempiras",
+    "thousands_separator": ",",
+    "decimal_separator": ".",
+    "space_between_amount_and_symbol": true,
+    "symbol_on_left": true,
+    "pattern": "#,##0.00",
+  },
+  {
     "code": "USD",
     "name": "United States Dollar",
     "symbol": "\$",
