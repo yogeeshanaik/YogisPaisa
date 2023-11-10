@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:paisa/core/common.dart';
+import 'package:paisa/core/widgets/paisa_widget.dart';
 
 Future<int> paisaColorPicker(
   BuildContext context, {
@@ -21,46 +22,184 @@ Future<int> paisaColorPicker(
           MediaQuery.of(context).size.width >= 700 ? 700 : double.infinity,
     ),
     builder: (context) => Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          ListTile(
-            title: Text(
-              context.loc.pickColor,
-              style: context.titleLarge,
-            ),
-          ),
-          ColorPickerGridWidget(
-            onSelected: (color) => selectedColor = color,
-            selectedColor: selectedColor,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0, bottom: 16),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
-                ),
+      padding: MediaQuery.of(context).viewInsets.copyWith(
+          left: 16,
+          right: 16,
+          top: 16,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 16),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ListTile(
+              title: Text(
+                context.loc.pickColor,
+                style: context.titleLarge,
               ),
-              onPressed: () {
-                Navigator.pop(context, selectedColor);
+            ),
+            ColorSliderWidegt(
+              selectedColor: selectedColor,
+              onChanged: (value) {
+                selectedColor = value;
               },
-              child: Text(
-                context.loc.done,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context, selectedColor);
+                },
+                child: Text(
+                  context.loc.done,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );
   return color ?? selectedColor;
+}
+
+class ColorSliderWidegt extends StatefulWidget {
+  const ColorSliderWidegt({
+    super.key,
+    required this.selectedColor,
+    required this.onChanged,
+  });
+
+  final ValueChanged<int> onChanged;
+  final int selectedColor;
+
+  @override
+  State<ColorSliderWidegt> createState() => _ColorSliderWidegtState();
+}
+
+class _ColorSliderWidegtState extends State<ColorSliderWidegt> {
+  final TextEditingController editingController = TextEditingController();
+  late Color selectedColor = Color(widget.selectedColor);
+
+  @override
+  void initState() {
+    super.initState();
+    convertColorToHex();
+  }
+
+  void convertColorToHex() {
+    widget.onChanged(selectedColor.value);
+    editingController.text =
+        '#${selectedColor.value.toRadixString(16)}'.toUpperCase();
+  }
+
+  Widget _buildSlider({
+    required Color sliderColor,
+    required int value,
+    required ValueChanged<double> onChanged,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: Slider(
+            activeColor: sliderColor,
+            value: value.toDouble(),
+            min: 0,
+            max: 255,
+            onChanged: onChanged,
+          ),
+        ),
+        Text(value.toString()),
+        const SizedBox(width: 16)
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: ColoredBox(
+              color: selectedColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        _buildSlider(
+          sliderColor: Colors.red,
+          value: selectedColor.red,
+          onChanged: (value) {
+            convertColorToHex();
+            setState(() {
+              selectedColor = Color.fromARGB(
+                selectedColor.alpha,
+                value.toInt(),
+                selectedColor.green,
+                selectedColor.blue,
+              );
+            });
+          },
+        ),
+        _buildSlider(
+          sliderColor: Colors.green,
+          value: selectedColor.green,
+          onChanged: (value) {
+            convertColorToHex();
+            setState(() {
+              selectedColor = Color.fromARGB(
+                selectedColor.alpha,
+                selectedColor.red,
+                value.toInt(),
+                selectedColor.blue,
+              );
+            });
+          },
+        ),
+        _buildSlider(
+          sliderColor: Colors.blue,
+          value: selectedColor.blue,
+          onChanged: (value) {
+            convertColorToHex();
+            setState(() {
+              selectedColor = Color.fromARGB(
+                selectedColor.alpha,
+                selectedColor.red,
+                selectedColor.green,
+                value.toInt(),
+              );
+            });
+          },
+        ),
+        const SizedBox(height: 16),
+        TextField(
+          controller: editingController,
+          decoration: const InputDecoration(labelText: 'Hexadecimal Color'),
+          onChanged: (hex) {
+            if (hex.isNotEmpty && hex.length == 6) {
+              setState(() {
+                selectedColor = Color(int.parse('0xFF$hex', radix: 16));
+              });
+            }
+          },
+        ),
+      ],
+    );
+  }
 }
 
 class ColorPickerGridWidget extends StatefulWidget {
