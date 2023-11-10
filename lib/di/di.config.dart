@@ -24,38 +24,40 @@ import '../features/account/data/data_sources/local/local_account_manager_impl.d
     as _i47;
 import '../features/account/data/data_sources/remote/remote_account_data_manager_impl.dart'
     as _i4;
-import '../features/account/data/model/account_model.dart' as _i12;
+import '../features/account/data/model/account_model.dart' as _i8;
 import '../features/account/data/repository/account_repository_impl.dart'
     as _i49;
 import '../features/account/domain/repository/account_repository.dart' as _i48;
-import '../features/account/domain/use_case/account_use_case.dart' as _i82;
+import '../features/account/domain/use_case/account_use_case.dart' as _i83;
 import '../features/account/domain/use_case/add_account_use_case.dart' as _i50;
 import '../features/account/domain/use_case/delete_account_use_case.dart'
     as _i59;
 import '../features/account/domain/use_case/get_account_use_case.dart' as _i70;
 import '../features/account/domain/use_case/get_accounts_use_case.dart' as _i71;
 import '../features/account/domain/use_case/update_account_use_case.dart'
-    as _i94;
-import '../features/account/presentation/bloc/accounts_bloc.dart' as _i96;
+    as _i95;
+import '../features/account/presentation/bloc/accounts_bloc.dart' as _i97;
 import '../features/category/data/data_sources/local/category_data_source.dart'
     as _i27;
-import '../features/category/data/model/category_model.dart' as _i11;
+import '../features/category/data/model/category_model.dart' as _i7;
 import '../features/category/data/repository/category_repository_impl.dart'
     as _i55;
 import '../features/category/domain/repository/category_repository.dart'
     as _i54;
 import '../features/category/domain/use_case/add_category_use_case.dart'
-    as _i97;
-import '../features/category/domain/use_case/category_use_case.dart' as _i81;
+    as _i98;
+import '../features/category/domain/use_case/category_use_case.dart' as _i82;
 import '../features/category/domain/use_case/delete_category_use_case.dart'
     as _i60;
-import '../features/category/domain/use_case/get_category_use_case.dart'
+import '../features/category/domain/use_case/get_categories_use_case.dart'
     as _i72;
+import '../features/category/domain/use_case/get_category_use_case.dart'
+    as _i73;
 import '../features/category/domain/use_case/get_default_categories_use_case.dart'
-    as _i74;
+    as _i75;
 import '../features/category/domain/use_case/update_category_use_case.dart'
-    as _i95;
-import '../features/category/presentation/bloc/category_bloc.dart' as _i100;
+    as _i96;
+import '../features/category/presentation/bloc/category_bloc.dart' as _i101;
 import '../features/country_picker/data/repository/country_repository_impl.dart'
     as _i14;
 import '../features/country_picker/domain/repository/country_repository.dart'
@@ -69,78 +71,78 @@ import '../features/debit/data/data_sources/local/transaction_manager_impl.dart'
     as _i42;
 import '../features/debit/data/data_sources/transaction_data_manager.dart'
     as _i41;
-import '../features/debit/data/models/debit_model.dart' as _i8;
-import '../features/debit/data/models/debit_transactions_model.dart' as _i10;
+import '../features/debit/data/models/debit_model.dart' as _i10;
+import '../features/debit/data/models/debit_transactions_model.dart' as _i12;
 import '../features/debit/data/repository/debit_repository_impl.dart' as _i18;
 import '../features/debit/data/repository/debit_transaction_impl.dart' as _i58;
 import '../features/debit/domain/repository/debit_repository.dart' as _i17;
 import '../features/debit/domain/repository/debit_transaction_repository.dart'
     as _i57;
 import '../features/debit/domain/use_case/add_debit_transaction_use_case.dart'
-    as _i98;
+    as _i99;
 import '../features/debit/domain/use_case/add_debit_use.case.dart' as _i51;
-import '../features/debit/domain/use_case/debit_use_case.dart' as _i102;
+import '../features/debit/domain/use_case/debit_use_case.dart' as _i104;
 import '../features/debit/domain/use_case/delete_debit_transaction_use_case.dart'
     as _i61;
 import '../features/debit/domain/use_case/delete_debit_transactions_by_debit_id_use_case.dart'
     as _i62;
 import '../features/debit/domain/use_case/delete_debit_use_case.dart' as _i19;
 import '../features/debit/domain/use_case/get_debit_transactions_use_case.dart'
-    as _i73;
+    as _i74;
 import '../features/debit/domain/use_case/get_debit_use_case.dart' as _i23;
 import '../features/debit/domain/use_case/update_debit_use.case.dart' as _i45;
-import '../features/debit/presentation/cubit/debts_bloc.dart' as _i101;
-import '../features/home/presentation/bloc/home/home_bloc.dart' as _i79;
+import '../features/debit/presentation/cubit/debts_bloc.dart' as _i103;
+import '../features/home/presentation/bloc/home/home_bloc.dart' as _i80;
 import '../features/home/presentation/controller/summary_controller.dart'
     as _i39;
 import '../features/home/presentation/cubit/overview/overview_cubit.dart'
-    as _i86;
-import '../features/home/presentation/cubit/summary/summary_cubit.dart' as _i92;
+    as _i87;
+import '../features/home/presentation/cubit/summary/summary_cubit.dart' as _i93;
 import '../features/intro/presentation/cubit/country_picker_cubit.dart' as _i56;
 import '../features/profile/data/repository/profile_repository_impl.dart'
     as _i33;
 import '../features/profile/domain/repository/profile_repository.dart' as _i32;
-import '../features/profile/domain/use_case/image_picker_use_case.dart' as _i83;
-import '../features/profile/domain/use_case/profile_use_case.dart' as _i88;
-import '../features/profile/presentation/cubit/profile_cubit.dart' as _i87;
+import '../features/profile/domain/use_case/image_picker_use_case.dart' as _i84;
+import '../features/profile/domain/use_case/profile_use_case.dart' as _i89;
+import '../features/profile/presentation/cubit/profile_cubit.dart' as _i88;
 import '../features/recurring/data/data_sources/local_recurring_data_manager.dart'
     as _i28;
 import '../features/recurring/data/data_sources/local_recurring_data_manager_impl.dart'
     as _i29;
-import '../features/recurring/data/model/recurring.dart' as _i9;
+import '../features/recurring/data/model/recurring.dart' as _i11;
 import '../features/recurring/data/repository/recurring_repository_impl.dart'
     as _i35;
 import '../features/recurring/domain/repository/recurring_repository.dart'
     as _i34;
 import '../features/recurring/domain/use_case/add_recurring_use_case.dart'
     as _i52;
-import '../features/recurring/domain/use_case/recurring_use_case.dart' as _i90;
-import '../features/recurring/presentation/cubit/recurring_cubit.dart' as _i89;
+import '../features/recurring/domain/use_case/recurring_use_case.dart' as _i91;
+import '../features/recurring/presentation/cubit/recurring_cubit.dart' as _i90;
 import '../features/search/domain/use_case/filter_expense_use_case.dart'
-    as _i91;
-import '../features/search/presentation/cubit/search_cubit.dart' as _i103;
+    as _i92;
+import '../features/search/presentation/cubit/search_cubit.dart' as _i105;
 import '../features/settings/data/authenticate.dart' as _i5;
 import '../features/settings/data/file_handler.dart' as _i69;
-import '../features/settings/data/repository/csv_export_impl.dart' as _i67;
+import '../features/settings/data/repository/csv_export_impl.dart' as _i68;
 import '../features/settings/data/repository/json_export_import_impl.dart'
-    as _i68;
+    as _i67;
 import '../features/settings/data/repository/settings_repository_impl.dart'
     as _i37;
 import '../features/settings/domain/repository/import_export.dart' as _i66;
 import '../features/settings/domain/repository/settings_repository.dart'
     as _i36;
 import '../features/settings/domain/use_case/csv_file_export_use_case.dart'
-    as _i99;
+    as _i100;
 import '../features/settings/domain/use_case/json_file_export_use_case.dart'
-    as _i84;
-import '../features/settings/domain/use_case/json_file_import_use_case.dart'
     as _i85;
+import '../features/settings/domain/use_case/json_file_import_use_case.dart'
+    as _i86;
 import '../features/settings/domain/use_case/setting_use_case.dart' as _i40;
 import '../features/settings/domain/use_case/settings_use_case.dart' as _i38;
-import '../features/settings/presentation/cubit/settings_cubit.dart' as _i104;
+import '../features/settings/presentation/cubit/settings_cubit.dart' as _i106;
 import '../features/transaction/data/data_sources/local/transaction_data_manager.dart'
     as _i30;
-import '../features/transaction/data/model/transaction_model.dart' as _i7;
+import '../features/transaction/data/model/transaction_model.dart' as _i9;
 import '../features/transaction/data/repository/transaction_repository_impl.dart'
     as _i44;
 import '../features/transaction/domain/repository/transaction_repository.dart'
@@ -154,21 +156,23 @@ import '../features/transaction/domain/use_case/delete_transaction_use_case.dart
 import '../features/transaction/domain/use_case/delete_transactions_by_account_id_use_case.dart'
     as _i64;
 import '../features/transaction/domain/use_case/get_transaction_use_case.dart'
-    as _i75;
-import '../features/transaction/domain/use_case/get_transactions_by_account_id_use_case.dart'
     as _i76;
-import '../features/transaction/domain/use_case/get_transactions_by_category_id_use_case.dart'
+import '../features/transaction/domain/use_case/get_transactions_by_account_id_use_case.dart'
     as _i77;
-import '../features/transaction/domain/use_case/get_transactions_use_case.dart'
+import '../features/transaction/domain/use_case/get_transactions_by_category_id_use_case.dart'
     as _i78;
+import '../features/transaction/domain/use_case/get_transactions_use_case.dart'
+    as _i79;
 import '../features/transaction/domain/use_case/transaction_use_case.dart'
-    as _i80;
+    as _i81;
 import '../features/transaction/domain/use_case/update_expense_use_case.dart'
     as _i46;
+import '../features/transaction/presentation/bloc/category/category_cubit.dart'
+    as _i102;
 import '../features/transaction/presentation/bloc/transaction_bloc.dart'
-    as _i93;
-import 'module/hive_module.dart' as _i105;
-import 'module/service_module.dart' as _i106;
+    as _i94;
+import 'module/hive_module.dart' as _i107;
+import 'module/service_module.dart' as _i108;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> init(
@@ -188,12 +192,12 @@ Future<_i1.GetIt> init(
     instanceName: 'remote-account',
   );
   gh.singleton<_i5.Authenticate>(_i5.Authenticate());
-  await gh.singletonAsync<_i6.Box<_i7.TransactionModel>>(
-    () => hiveBoxModule.expenseBox,
+  await gh.singletonAsync<_i6.Box<_i7.CategoryModel>>(
+    () => hiveBoxModule.categoryBox,
     preResolve: true,
   );
-  await gh.singletonAsync<_i6.Box<_i8.DebitModel>>(
-    () => hiveBoxModule.debtsBox,
+  await gh.singletonAsync<_i6.Box<_i8.AccountModel>>(
+    () => hiveBoxModule.accountBox,
     preResolve: true,
   );
   await gh.singletonAsync<_i6.Box<dynamic>>(
@@ -201,25 +205,25 @@ Future<_i1.GetIt> init(
     instanceName: 'settings',
     preResolve: true,
   );
-  await gh.singletonAsync<_i6.Box<_i9.RecurringModel>>(
+  await gh.singletonAsync<_i6.Box<_i9.TransactionModel>>(
+    () => hiveBoxModule.expenseBox,
+    preResolve: true,
+  );
+  await gh.singletonAsync<_i6.Box<_i10.DebitModel>>(
+    () => hiveBoxModule.debtsBox,
+    preResolve: true,
+  );
+  await gh.singletonAsync<_i6.Box<_i11.RecurringModel>>(
     () => hiveBoxModule.recurringBox,
     preResolve: true,
   );
-  await gh.singletonAsync<_i6.Box<_i10.DebitTransactionsModel>>(
+  await gh.singletonAsync<_i6.Box<_i12.DebitTransactionsModel>>(
     () => hiveBoxModule.transactionsBox,
-    preResolve: true,
-  );
-  await gh.singletonAsync<_i6.Box<_i11.CategoryModel>>(
-    () => hiveBoxModule.categoryBox,
-    preResolve: true,
-  );
-  await gh.singletonAsync<_i6.Box<_i12.AccountModel>>(
-    () => hiveBoxModule.accountBox,
     preResolve: true,
   );
   gh.singleton<_i13.CountryRepository>(_i14.CountryRepositoryImpl());
   gh.singleton<_i15.DebitDataManager>(
-      _i16.LocalDebitDataManagerImpl(debtBox: gh<_i6.Box<_i8.DebitModel>>()));
+      _i16.LocalDebitDataManagerImpl(debtBox: gh<_i6.Box<_i10.DebitModel>>()));
   gh.singleton<_i17.DebitRepository>(
       _i18.DebtRepositoryImpl(gh<_i15.DebitDataManager>()));
   gh.singleton<_i19.DeleteDebitUseCase>(
@@ -236,11 +240,11 @@ Future<_i1.GetIt> init(
   gh.singleton<_i26.InAppUpdate>(serviceBoxModule.providesInAppUpdate());
   gh.singleton<_i27.LocalCategoryManager>(
       _i27.LocalCategoryManagerDataSourceImpl(
-          gh<_i6.Box<_i11.CategoryModel>>()));
+          gh<_i6.Box<_i7.CategoryModel>>()));
   gh.factory<_i28.LocalRecurringDataManager>(() =>
-      _i29.LocalRecurringDataManagerImpl(gh<_i6.Box<_i9.RecurringModel>>()));
+      _i29.LocalRecurringDataManagerImpl(gh<_i6.Box<_i11.RecurringModel>>()));
   gh.factory<_i30.LocalTransactionManager>(() =>
-      _i30.LocalTransactionManagerImpl(gh<_i31.Box<_i7.TransactionModel>>()));
+      _i30.LocalTransactionManagerImpl(gh<_i31.Box<_i9.TransactionModel>>()));
   gh.singleton<_i32.ProfileRepository>(_i33.ProfileRepositoryImpl(
     gh<_i24.ImagePicker>(),
     gh<_i6.Box<dynamic>>(instanceName: 'settings'),
@@ -257,7 +261,7 @@ Future<_i1.GetIt> init(
       _i39.SummaryController(gh<_i40.SettingsUseCase>()));
   gh.singleton<_i41.TransactionDataManager>(
       _i42.LocalTransactionDataManagerImpl(
-          transactionsBox: gh<_i6.Box<_i10.DebitTransactionsModel>>()));
+          transactionsBox: gh<_i6.Box<_i12.DebitTransactionsModel>>()));
   gh.singleton<_i43.TransactionRepository>(_i44.ExpenseRepositoryImpl(
       dataSource: gh<_i30.LocalTransactionManager>()));
   gh.singleton<_i45.UpdateDebitUseCase>(
@@ -265,7 +269,7 @@ Future<_i1.GetIt> init(
   gh.singleton<_i46.UpdateTransactionUseCase>(_i46.UpdateTransactionUseCase(
       expenseRepository: gh<_i43.TransactionRepository>()));
   gh.singleton<_i3.AccountManager>(
-    _i47.LocalAccountManagerImpl(accountBox: gh<_i6.Box<_i12.AccountModel>>()),
+    _i47.LocalAccountManagerImpl(accountBox: gh<_i6.Box<_i8.AccountModel>>()),
     instanceName: 'local-account',
   );
   gh.singleton<_i48.AccountRepository>(_i49.AccountRepositoryImpl(
@@ -308,16 +312,7 @@ Future<_i1.GetIt> init(
       _i65.DeleteTransactionsByCategoryIdUseCase(
           transactionRepository: gh<_i43.TransactionRepository>()));
   gh.lazySingleton<_i66.Export>(
-    () => _i67.CSVExport(
-      gh<_i20.DeviceInfoPlugin>(),
-      gh<_i3.AccountManager>(instanceName: 'local-account'),
-      gh<_i27.LocalCategoryManager>(),
-      gh<_i30.LocalTransactionManager>(),
-    ),
-    instanceName: 'csv',
-  );
-  gh.lazySingleton<_i66.Export>(
-    () => _i68.JSONExportImpl(
+    () => _i67.JSONExportImpl(
       gh<_i3.AccountManager>(instanceName: 'local-account'),
       gh<_i27.LocalCategoryManager>(),
       gh<_i30.LocalTransactionManager>(),
@@ -325,6 +320,15 @@ Future<_i1.GetIt> init(
       gh<_i41.TransactionDataManager>(),
     ),
     instanceName: 'json_export',
+  );
+  gh.lazySingleton<_i66.Export>(
+    () => _i68.CSVExport(
+      gh<_i20.DeviceInfoPlugin>(),
+      gh<_i3.AccountManager>(instanceName: 'local-account'),
+      gh<_i27.LocalCategoryManager>(),
+      gh<_i30.LocalTransactionManager>(),
+    ),
+    instanceName: 'csv',
   );
   gh.singleton<_i69.FileHandler>(_i69.FileHandler(
     gh<_i20.DeviceInfoPlugin>(),
@@ -336,35 +340,37 @@ Future<_i1.GetIt> init(
       _i70.GetAccountUseCase(accountRepository: gh<_i48.AccountRepository>()));
   gh.singleton<_i71.GetAccountsUseCase>(
       _i71.GetAccountsUseCase(accountRepository: gh<_i48.AccountRepository>()));
-  gh.singleton<_i72.GetCategoryUseCase>(_i72.GetCategoryUseCase(
+  gh.singleton<_i72.GetCategoriesUseCase>(_i72.GetCategoriesUseCase(
       categoryRepository: gh<_i54.CategoryRepository>()));
-  gh.singleton<_i73.GetDebitTransactionsUseCase>(
-      _i73.GetDebitTransactionsUseCase(
+  gh.singleton<_i73.GetCategoryUseCase>(_i73.GetCategoryUseCase(
+      categoryRepository: gh<_i54.CategoryRepository>()));
+  gh.singleton<_i74.GetDebitTransactionsUseCase>(
+      _i74.GetDebitTransactionsUseCase(
           debtRepository: gh<_i57.DebitTransactionRepository>()));
-  gh.singleton<_i74.GetDefaultCategoriesUseCase>(
-      _i74.GetDefaultCategoriesUseCase(
+  gh.singleton<_i75.GetDefaultCategoriesUseCase>(
+      _i75.GetDefaultCategoriesUseCase(
           categoryRepository: gh<_i54.CategoryRepository>()));
-  gh.singleton<_i75.GetTransactionUseCase>(_i75.GetTransactionUseCase(
+  gh.singleton<_i76.GetTransactionUseCase>(_i76.GetTransactionUseCase(
       transactionRepository: gh<_i43.TransactionRepository>()));
-  gh.singleton<_i76.GetTransactionsByAccountIdUseCase>(
-      _i76.GetTransactionsByAccountIdUseCase(
+  gh.singleton<_i77.GetTransactionsByAccountIdUseCase>(
+      _i77.GetTransactionsByAccountIdUseCase(
           expenseRepository: gh<_i43.TransactionRepository>()));
-  gh.singleton<_i77.GetTransactionsByCategoryIdUseCase>(
-      _i77.GetTransactionsByCategoryIdUseCase(
+  gh.singleton<_i78.GetTransactionsByCategoryIdUseCase>(
+      _i78.GetTransactionsByCategoryIdUseCase(
           expenseRepository: gh<_i43.TransactionRepository>()));
-  gh.singleton<_i78.GetTransactionsUseCase>(_i78.GetTransactionsUseCase(
+  gh.singleton<_i79.GetTransactionsUseCase>(_i79.GetTransactionsUseCase(
       expenseRepository: gh<_i43.TransactionRepository>()));
-  gh.factory<_i79.HomeBloc>(() => _i79.HomeBloc(
-        gh<_i80.GetTransactionsUseCase>(),
-        gh<_i81.GetDefaultCategoriesUseCase>(),
-        gh<_i82.GetAccountUseCase>(),
-        gh<_i81.GetCategoryUseCase>(),
-        gh<_i80.GetTransactionsByCategoryIdUseCase>(),
+  gh.factory<_i80.HomeBloc>(() => _i80.HomeBloc(
+        gh<_i81.GetTransactionsUseCase>(),
+        gh<_i82.GetDefaultCategoriesUseCase>(),
+        gh<_i83.GetAccountUseCase>(),
+        gh<_i82.GetCategoryUseCase>(),
+        gh<_i81.GetTransactionsByCategoryIdUseCase>(),
       ));
-  gh.singleton<_i83.ImagePickerUseCase>(
-      _i83.ImagePickerUseCase(gh<_i32.ProfileRepository>()));
+  gh.singleton<_i84.ImagePickerUseCase>(
+      _i84.ImagePickerUseCase(gh<_i32.ProfileRepository>()));
   gh.lazySingleton<_i66.Import>(
-    () => _i68.JSONImportImpl(
+    () => _i67.JSONImportImpl(
       gh<_i20.DeviceInfoPlugin>(),
       gh<_i3.AccountManager>(instanceName: 'local-account'),
       gh<_i27.LocalCategoryManager>(),
@@ -374,93 +380,95 @@ Future<_i1.GetIt> init(
     ),
     instanceName: 'json_import',
   );
-  gh.singleton<_i84.JSONFileExportUseCase>(_i84.JSONFileExportUseCase(
+  gh.singleton<_i85.JSONFileExportUseCase>(_i85.JSONFileExportUseCase(
     gh<_i36.SettingsRepository>(),
     gh<_i66.Export>(instanceName: 'json_export'),
   ));
-  gh.singleton<_i85.JSONFileImportUseCase>(_i85.JSONFileImportUseCase(
+  gh.singleton<_i86.JSONFileImportUseCase>(_i86.JSONFileImportUseCase(
     gh<_i36.SettingsRepository>(),
     gh<_i66.Import>(instanceName: 'json_import'),
   ));
-  gh.factory<_i86.OverviewCubit>(() => _i86.OverviewCubit(
-        gh<_i80.GetTransactionsUseCase>(),
-        gh<_i81.GetCategoryUseCase>(),
-        gh<_i81.GetDefaultCategoriesUseCase>(),
+  gh.factory<_i87.OverviewCubit>(() => _i87.OverviewCubit(
+        gh<_i81.GetTransactionsUseCase>(),
+        gh<_i82.GetCategoryUseCase>(),
+        gh<_i82.GetDefaultCategoriesUseCase>(),
       ));
-  gh.factory<_i87.ProfileCubit>(() => _i87.ProfileCubit(
-        gh<_i88.ImagePickerUseCase>(),
+  gh.factory<_i88.ProfileCubit>(() => _i88.ProfileCubit(
+        gh<_i89.ImagePickerUseCase>(),
         gh<_i6.Box<dynamic>>(instanceName: 'settings'),
       ));
-  gh.factory<_i89.RecurringCubit>(
-      () => _i89.RecurringCubit(gh<_i90.AddRecurringUseCase>()));
-  gh.singleton<_i91.SearchUseCase>(
-      _i91.SearchUseCase(gh<_i43.TransactionRepository>()));
-  gh.factory<_i92.SummaryCubit>(() => _i92.SummaryCubit(
+  gh.factory<_i90.RecurringCubit>(
+      () => _i90.RecurringCubit(gh<_i91.AddRecurringUseCase>()));
+  gh.singleton<_i92.SearchUseCase>(
+      _i92.SearchUseCase(gh<_i43.TransactionRepository>()));
+  gh.factory<_i93.SummaryCubit>(() => _i93.SummaryCubit(
         gh<_i21.EventBus>(),
-        gh<_i80.GetTransactionsUseCase>(),
-        gh<_i82.GetAccountsUseCase>(),
+        gh<_i81.GetTransactionsUseCase>(),
+        gh<_i83.GetAccountsUseCase>(),
         gh<_i6.Box<dynamic>>(instanceName: 'settings'),
       ));
-  gh.factory<_i93.TransactionBloc>(() => _i93.TransactionBloc(
+  gh.factory<_i94.TransactionBloc>(() => _i94.TransactionBloc(
         gh<_i38.SettingsUseCase>(),
         gh<_i21.EventBus>(),
-        getTransactionUseCase: gh<_i80.GetTransactionUseCase>(),
-        accountUseCase: gh<_i82.GetAccountUseCase>(),
-        addTransactionUseCase: gh<_i80.AddTransactionUseCase>(),
-        deleteTransactionUseCase: gh<_i80.DeleteTransactionUseCase>(),
-        updateTransactionUseCase: gh<_i80.UpdateTransactionUseCase>(),
-        accountsUseCase: gh<_i82.GetAccountsUseCase>(),
-        getDefaultCategoriesUseCase: gh<_i81.GetDefaultCategoriesUseCase>(),
+        getTransactionUseCase: gh<_i81.GetTransactionUseCase>(),
+        accountUseCase: gh<_i83.GetAccountUseCase>(),
+        addTransactionUseCase: gh<_i81.AddTransactionUseCase>(),
+        deleteTransactionUseCase: gh<_i81.DeleteTransactionUseCase>(),
+        updateTransactionUseCase: gh<_i81.UpdateTransactionUseCase>(),
+        accountsUseCase: gh<_i83.GetAccountsUseCase>(),
+        getDefaultCategoriesUseCase: gh<_i82.GetDefaultCategoriesUseCase>(),
       ));
-  gh.singleton<_i94.UpdateAccountUseCase>(_i94.UpdateAccountUseCase(
+  gh.singleton<_i95.UpdateAccountUseCase>(_i95.UpdateAccountUseCase(
       accountRepository: gh<_i48.AccountRepository>()));
-  gh.singleton<_i95.UpdateCategoryUseCase>(_i95.UpdateCategoryUseCase(
+  gh.singleton<_i96.UpdateCategoryUseCase>(_i96.UpdateCategoryUseCase(
       categoryRepository: gh<_i54.CategoryRepository>()));
-  gh.factory<_i96.AccountBloc>(() => _i96.AccountBloc(
-        gh<_i82.GetAccountUseCase>(),
-        gh<_i82.DeleteAccountUseCase>(),
-        gh<_i80.GetTransactionsByAccountIdUseCase>(),
-        gh<_i82.AddAccountUseCase>(),
-        gh<_i72.GetCategoryUseCase>(),
-        gh<_i80.DeleteTransactionsByAccountIdUseCase>(),
-        gh<_i82.UpdateAccountUseCase>(),
+  gh.factory<_i97.AccountBloc>(() => _i97.AccountBloc(
+        gh<_i83.GetAccountUseCase>(),
+        gh<_i83.DeleteAccountUseCase>(),
+        gh<_i81.GetTransactionsByAccountIdUseCase>(),
+        gh<_i83.AddAccountUseCase>(),
+        gh<_i73.GetCategoryUseCase>(),
+        gh<_i81.DeleteTransactionsByAccountIdUseCase>(),
+        gh<_i83.UpdateAccountUseCase>(),
         gh<_i22.GetCountriesUseCase>(),
         gh<_i6.Box<dynamic>>(instanceName: 'settings'),
       ));
-  gh.singleton<_i97.AddCategoryUseCase>(_i97.AddCategoryUseCase(
+  gh.singleton<_i98.AddCategoryUseCase>(_i98.AddCategoryUseCase(
       categoryRepository: gh<_i54.CategoryRepository>()));
-  gh.singleton<_i98.AddDebitTransactionUseCase>(_i98.AddDebitTransactionUseCase(
+  gh.singleton<_i99.AddDebitTransactionUseCase>(_i99.AddDebitTransactionUseCase(
       debtRepository: gh<_i57.DebitTransactionRepository>()));
-  gh.singleton<_i99.CSVFileExportUseCase>(_i99.CSVFileExportUseCase(
+  gh.singleton<_i100.CSVFileExportUseCase>(_i100.CSVFileExportUseCase(
     gh<_i36.SettingsRepository>(),
     gh<_i66.Export>(instanceName: 'csv'),
   ));
-  gh.factory<_i100.CategoryBloc>(() => _i100.CategoryBloc(
-        getCategoryUseCase: gh<_i81.GetCategoryUseCase>(),
-        addCategoryUseCase: gh<_i81.AddCategoryUseCase>(),
-        deleteCategoryUseCase: gh<_i81.DeleteCategoryUseCase>(),
+  gh.factory<_i101.CategoryBloc>(() => _i101.CategoryBloc(
+        getCategoryUseCase: gh<_i82.GetCategoryUseCase>(),
+        addCategoryUseCase: gh<_i82.AddCategoryUseCase>(),
+        deleteCategoryUseCase: gh<_i82.DeleteCategoryUseCase>(),
         deleteExpensesFromCategoryIdUseCase:
-            gh<_i80.DeleteTransactionsByCategoryIdUseCase>(),
-        updateCategoryUseCase: gh<_i81.UpdateCategoryUseCase>(),
+            gh<_i81.DeleteTransactionsByCategoryIdUseCase>(),
+        updateCategoryUseCase: gh<_i82.UpdateCategoryUseCase>(),
       ));
-  gh.factory<_i101.DebitBloc>(() => _i101.DebitBloc(
-        addDebtUseCase: gh<_i102.AddDebitUseCase>(),
-        getDebtUseCase: gh<_i102.GetDebitUseCase>(),
-        getTransactionsUseCase: gh<_i102.GetDebitTransactionsUseCase>(),
-        addTransactionUseCase: gh<_i102.AddDebitTransactionUseCase>(),
-        updateDebtUseCase: gh<_i102.UpdateDebitUseCase>(),
-        deleteDebtUseCase: gh<_i102.DeleteDebitUseCase>(),
+  gh.factory<_i102.CategoryCubit>(
+      () => _i102.CategoryCubit(gh<_i82.GetCategoriesUseCase>()));
+  gh.factory<_i103.DebitBloc>(() => _i103.DebitBloc(
+        addDebtUseCase: gh<_i104.AddDebitUseCase>(),
+        getDebtUseCase: gh<_i104.GetDebitUseCase>(),
+        getTransactionsUseCase: gh<_i104.GetDebitTransactionsUseCase>(),
+        addTransactionUseCase: gh<_i104.AddDebitTransactionUseCase>(),
+        updateDebtUseCase: gh<_i104.UpdateDebitUseCase>(),
+        deleteDebtUseCase: gh<_i104.DeleteDebitUseCase>(),
         deleteDebitTransactionUseCase:
-            gh<_i102.DeleteDebitTransactionUseCase>(),
+            gh<_i104.DeleteDebitTransactionUseCase>(),
         deleteDebitTransactionsByDebitIdUseCase:
             gh<_i62.DeleteDebitTransactionsByDebitIdUseCase>(),
       ));
-  gh.factory<_i103.SearchCubit>(
-      () => _i103.SearchCubit(gh<_i91.SearchUseCase>()));
-  gh.factory<_i104.SettingCubit>(() => _i104.SettingCubit(
-        gh<_i80.GetTransactionsUseCase>(),
-        gh<_i81.GetDefaultCategoriesUseCase>(),
-        gh<_i80.UpdateTransactionUseCase>(),
+  gh.factory<_i105.SearchCubit>(
+      () => _i105.SearchCubit(gh<_i92.SearchUseCase>()));
+  gh.factory<_i106.SettingCubit>(() => _i106.SettingCubit(
+        gh<_i81.GetTransactionsUseCase>(),
+        gh<_i82.GetDefaultCategoriesUseCase>(),
+        gh<_i81.UpdateTransactionUseCase>(),
         gh<_i40.JSONFileImportUseCase>(),
         gh<_i40.JSONFileExportUseCase>(),
         gh<_i40.SettingsUseCase>(),
@@ -469,6 +477,6 @@ Future<_i1.GetIt> init(
   return getIt;
 }
 
-class _$HiveBoxModule extends _i105.HiveBoxModule {}
+class _$HiveBoxModule extends _i107.HiveBoxModule {}
 
-class _$ServiceBoxModule extends _i106.ServiceBoxModule {}
+class _$ServiceBoxModule extends _i108.ServiceBoxModule {}

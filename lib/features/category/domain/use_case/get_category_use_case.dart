@@ -14,7 +14,7 @@ class GetCategoryUseCase
 
   @override
   CategoryEntity? call(GetCategoryParams params) {
-    return categoryRepository.fetchById(params.categoryId)?.toEntity();
+    return categoryRepository.fetchById(params.categoryId);
   }
 }
 

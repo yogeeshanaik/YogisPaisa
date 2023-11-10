@@ -59,6 +59,7 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
   RecurringType recurringType = RecurringType.daily;
   int? selectedAccountId;
   int? selectedCategoryId;
+  CategoryEntity? selectedCategory;
   DateTime selectedDate = DateTime.now();
   final SettingsUseCase settingsUseCase;
   TimeOfDay timeOfDay = TimeOfDay.now();
@@ -151,9 +152,6 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
       final DateTime dateTime = selectedDate;
       final String? description = currentDescription;
 
-      if (name == null) {
-        return emit(const TransactionErrorState('Enter expense name'));
-      }
       if (validAmount == null || validAmount == 0.0) {
         return emit(const TransactionErrorState('Enter valid amount'));
       }
@@ -167,7 +165,7 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
 
       if (event.isAdding) {
         await addTransactionUseCase(AddTransactionParams(
-          name: name,
+          name: (name == null || name.isEmpty) ? selectedCategory?.name : name,
           amount: validAmount,
           time: dateTime,
           categoryId: categoryId,
@@ -183,7 +181,7 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
           categoryId: categoryId,
           currency: validAmount,
           description: description,
-          name: name,
+          name: (name == null || name.isEmpty) ? selectedCategory?.name : name,
           time: dateTime,
           type: transactionType,
         ));
@@ -224,6 +222,7 @@ class TransactionBloc extends Bloc<ExpenseEvent, TransactionState> {
     Emitter<TransactionState> emit,
   ) {
     selectedCategoryId = event.category.superId;
+    selectedCategory = event.category;
     emit(ChangeCategoryState(event.category));
   }
 

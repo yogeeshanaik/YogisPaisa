@@ -78,7 +78,11 @@ class SelectedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final expenseBloc = BlocProvider.of<TransactionBloc>(context);
+    final TransactionBloc transactionBloc =
+        BlocProvider.of<TransactionBloc>(context);
+    transactionBloc.selectedCategory = categories.firstWhere(
+        (element) => element.superId == transactionBloc.selectedCategoryId);
+
     return BlocBuilder<TransactionBloc, TransactionState>(
       builder: (context, state) {
         return Padding(
@@ -101,11 +105,11 @@ class SelectedItem extends StatelessWidget {
                 } else {
                   final CategoryEntity category = categories[index - 1];
                   final bool selected =
-                      category.superId == expenseBloc.selectedCategoryId;
+                      category.superId == transactionBloc.selectedCategoryId;
                   return CategoryChip(
                     selected: selected,
                     onSelected: (value) =>
-                        expenseBloc.add(ChangeCategoryEvent(category)),
+                        transactionBloc.add(ChangeCategoryEvent(category)),
                     icon: category.icon ?? 0,
                     title: category.name ?? '',
                     titleColor: Color(category.color ?? context.primary.value),
