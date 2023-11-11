@@ -80,10 +80,20 @@ class SelectedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final TransactionBloc transactionBloc =
         BlocProvider.of<TransactionBloc>(context);
-    transactionBloc.selectedCategory = categories.firstWhere(
-        (element) => element.superId == transactionBloc.selectedCategoryId);
 
+    transactionBloc.selectedCategory = categories.firstWhere(
+      (element) => element.superId == transactionBloc.selectedCategoryId,
+      orElse: () => categories.first,
+    );
+
+    transactionBloc.selectedCategoryId = categories
+        .firstWhere(
+          (element) => element.superId == transactionBloc.selectedCategoryId,
+          orElse: () => categories.first,
+        )
+        .superId;
     return BlocBuilder<TransactionBloc, TransactionState>(
+      buildWhen: (previous, current) => current is ChangeCategoryState,
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -108,8 +118,8 @@ class SelectedItem extends StatelessWidget {
                       category.superId == transactionBloc.selectedCategoryId;
                   return CategoryChip(
                     selected: selected,
-                    onSelected: (value) =>
-                        transactionBloc.add(ChangeCategoryEvent(category)),
+                    onSelected: (value) => transactionBloc
+                        .add(TransactionEvent.changeCategory(category)),
                     icon: category.icon ?? 0,
                     title: category.name ?? '',
                     titleColor: Color(category.color ?? context.primary.value),
