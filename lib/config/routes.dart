@@ -15,9 +15,11 @@ import 'package:paisa/features/intro/presentation/pages/biometric_page.dart';
 import 'package:paisa/features/recurring/presentation/page/add_recurring_page.dart';
 import 'package:paisa/features/recurring/presentation/page/recurring_page.dart';
 import 'package:paisa/features/search/presentation/pages/search_page.dart';
+import 'package:paisa/features/settings/presentation/pages/app_language_changer_page.dart';
 import 'package:paisa/features/settings/presentation/pages/export_and_import_page.dart';
 import 'package:paisa/features/settings/presentation/pages/font_picker_page.dart';
 import 'package:paisa/features/settings/presentation/pages/setting_page.dart';
+import 'package:paisa/features/settings/presentation/widgets/app_language_changer.dart';
 import 'package:paisa/features/transaction/presentation/pages/transaction_page.dart';
 import 'package:paisa/features/intro/intro_page.dart';
 import 'package:paisa/features/intro/user_onboarding_page.dart';
@@ -244,6 +246,13 @@ final GoRouter goRouter = GoRouter(
               path: exportAndImportPath,
               builder: (BuildContext context, GoRouterState state) {
                 return const ExportAndImportPage();
+              },
+            ),
+            GoRoute(
+              name: appLanguageName,
+              path: appLanguagePath,
+              builder: (BuildContext context, GoRouterState state) {
+                return const AppLanguageChangerPage();
               },
             ),
             GoRoute(

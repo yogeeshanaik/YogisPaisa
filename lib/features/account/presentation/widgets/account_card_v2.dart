@@ -29,80 +29,72 @@ class AccountCardV2 extends StatelessWidget {
         .toFormateCurrency(context, selectedCountry: account.country);
     final String totalBalance = (account.initialAmount + expenses.fullTotal)
         .toFormateCurrency(context, selectedCountry: account.country);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 226,
-        child: PaisaFilledCard(
-          color: color,
-          child: InkWell(
-            onTap: () => GoRouter.of(context).pushNamed(
-              accountTransactionName,
-              pathParameters: <String, String>{
-                'aid': account.superId.toString()
-              },
+    return PaisaFilledCard(
+      color: color,
+      child: InkWell(
+        onTap: () => GoRouter.of(context).pushNamed(
+          accountTransactionName,
+          pathParameters: <String, String>{'aid': account.superId.toString()},
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              horizontalTitleGap: 0,
+              trailing: Icon(
+                account.cardType == null
+                    ? CardType.bank.icon
+                    : account.cardType!.icon,
+                color: onPrimary,
+              ),
+              title: Text(
+                account.name ?? '',
+                style: context.bodyMedium?.copyWith(
+                  color: onPrimary,
+                ),
+              ),
+              subtitle: Text(
+                account.bankName ?? '',
+                style: context.bodyMedium?.copyWith(
+                  color: onPrimary.withOpacity(0.5),
+                ),
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  horizontalTitleGap: 0,
-                  trailing: Icon(
-                    account.cardType == null
-                        ? CardType.bank.icon
-                        : account.cardType!.icon,
-                    color: onPrimary,
-                  ),
-                  title: Text(
-                    account.name ?? '',
-                    style: context.bodyMedium?.copyWith(
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                totalBalance,
+                style: context.headlineSmall?.copyWith(
+                  color: onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ThisMonthTransactionWidget(
+                      title: context.loc.income,
+                      content: income,
                       color: onPrimary,
                     ),
                   ),
-                  subtitle: Text(
-                    account.bankName ?? '',
-                    style: context.bodyMedium?.copyWith(
-                      color: onPrimary.withOpacity(0.5),
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    totalBalance,
-                    style: context.headlineSmall?.copyWith(
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: ThisMonthTransactionWidget(
+                      title: context.loc.expense,
                       color: onPrimary,
-                      fontWeight: FontWeight.bold,
+                      content: expense,
                     ),
                   ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ThisMonthTransactionWidget(
-                          title: context.loc.income,
-                          content: income,
-                          color: onPrimary,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: ThisMonthTransactionWidget(
-                          title: context.loc.expense,
-                          color: onPrimary,
-                          content: expense,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -219,7 +219,7 @@ class _$_CategoryModel extends _CategoryModel {
       {@HiveField(0) this.name,
       @HiveField(1) this.description,
       @HiveField(2) this.icon,
-      @HiveField(3, defaultValue: false) this.isDefault,
+      @HiveField(3, defaultValue: false) this.isDefault = false,
       @HiveField(4, defaultValue: 0) this.superId,
       @HiveField(6, defaultValue: 0) this.budget,
       @HiveField(7, defaultValue: false) this.isBudget,
@@ -239,6 +239,7 @@ class _$_CategoryModel extends _CategoryModel {
   @HiveField(2)
   int? icon;
   @override
+  @JsonKey()
   @HiveField(3, defaultValue: false)
   bool? isDefault;
   @override

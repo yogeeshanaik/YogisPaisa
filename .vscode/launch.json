@@ -29,7 +29,7 @@
             "flutterMode": "profile",
             "args": [
                 "--flavor",
-                "dev"
+                "prod"
             ]
         }
     ]

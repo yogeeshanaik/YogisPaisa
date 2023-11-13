@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -41,115 +42,136 @@ class _IntroCategoryAddWidgetState extends State<IntroCategoryAddWidget>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ValueListenableBuilder<Box<CategoryModel>>(
-      valueListenable: getIt.get<Box<CategoryModel>>().listenable(),
-      builder: (context, value, child) {
-        final List<CategoryModel> categoryModels =
-            value.values.filterDefault.toList();
-        return PaisaAnnotatedRegionWidget(
-          color: context.background,
-          child: Scaffold(
-            body: ListView(
-              children: [
-                IntroTopWidget(
-                  title: context.loc.addCategory,
-                  icon: Icons.category,
-                ),
-                Builder(
-                  builder: (context) {
-                    return ScreenTypeLayout.builder(
-                      mobile: (p0) => PaisaFilledCard(
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) => const Divider(),
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: categoryModels.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final CategoryModel model = categoryModels[index];
-                            return CategoryItemWidget(
-                              model: model,
-                              onPress: () async {
-                                await model.delete();
-                                defaultModels.add(model);
-                              },
-                            );
+    return PaisaAnnotatedRegionWidget(
+      color: context.background,
+      child: Scaffold(
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            IntroTopWidget(
+              title: context.loc.addCategory,
+              icon: Icons.category,
+            ),
+            ValueListenableBuilder<Box<CategoryModel>>(
+              valueListenable: getIt.get<Box<CategoryModel>>().listenable(),
+              builder: (context, value, child) {
+                final List<CategoryModel> categoryModels =
+                    value.values.toList();
+                return ScreenTypeLayout.builder(
+                  mobile: (p0) => PaisaFilledCard(
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const Divider(),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: categoryModels.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        final CategoryModel model = categoryModels[index];
+                        return CategoryItemWidget(
+                          model: model,
+                          onPress: () async {
+                            await model.delete();
+                            defaultModels.add(model);
                           },
-                        ),
-                      ),
-                      tablet: (p0) => GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 2,
-                        ),
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: categoryModels.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          final CategoryModel model = categoryModels[index];
-                          return CategoryItemWidget(
-                            model: model,
-                            onPress: () async {
-                              await model.delete();
-                              defaultModels.add(model);
-                            },
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: Text(
-                    context.loc.recommendedCategories,
-                    style: context.titleMedium,
+                        );
+                      },
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Wrap(
-                    spacing: 12.0,
-                    runSpacing: 12.0,
-                    children: defaultModels
-                        .sorted((a, b) => a.name!.compareTo(b.name!))
-                        .map((model) => FilterChip(
-                              label: Text(model.name ?? ''),
-                              onSelected: (value) {
-                                dataSource.add(model);
-                                setState(() {
-                                  defaultModels.remove(model);
-                                });
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28),
-                                side: BorderSide(
-                                  width: 1,
-                                  color: context.primary,
-                                ),
-                              ),
-                              showCheckmark: false,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              labelStyle: context.titleMedium,
-                              padding: const EdgeInsets.all(12),
-                              avatar: Icon(
-                                IconData(
-                                  model.icon ?? 0,
-                                  fontFamily: fontFamilyName,
-                                  fontPackage: fontFamilyPackageName,
-                                ),
+                  tablet: (p0) => GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 220,
+                      childAspectRatio: 2,
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: categoryModels.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final CategoryModel model = categoryModels[index];
+                      return CategoryItemWidget(
+                        model: model,
+                        onPress: () async {
+                          await model.delete();
+                          defaultModels.add(model);
+                        },
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                context.loc.recommendedCategories,
+                style: context.titleMedium,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Wrap(
+                spacing: 12.0,
+                runSpacing: 12.0,
+                children: [
+                  ...defaultModels
+                      .sorted((a, b) => a.name!.compareTo(b.name!))
+                      .map((model) => FilterChip(
+                            label: Text(model.name ?? ''),
+                            onSelected: (value) {
+                              dataSource.add(model);
+                              setState(() {
+                                defaultModels.remove(model);
+                              });
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(28),
+                              side: BorderSide(
+                                width: 1,
                                 color: context.primary,
                               ),
-                            ))
-                        .toList(),
-                  ),
-                ),
-              ],
+                            ),
+                            showCheckmark: false,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            labelStyle: context.titleMedium,
+                            padding: const EdgeInsets.all(12),
+                            avatar: Icon(
+                              IconData(
+                                model.icon ?? 0,
+                                fontFamily: fontFamilyName,
+                                fontPackage: fontFamilyPackageName,
+                              ),
+                              color: context.primary,
+                            ),
+                          ))
+                      .toList(),
+                  FilterChip(
+                    selected: false,
+                    onSelected: (value) {
+                      context.pushNamed(addCategoryName);
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      side: BorderSide(
+                        width: 1,
+                        color: context.primary,
+                      ),
+                    ),
+                    showCheckmark: false,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    label: Text(context.loc.addCategory),
+                    labelStyle: context.titleMedium,
+                    padding: const EdgeInsets.all(12),
+                    avatar: Icon(
+                      Icons.add_rounded,
+                      color: context.primary,
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 

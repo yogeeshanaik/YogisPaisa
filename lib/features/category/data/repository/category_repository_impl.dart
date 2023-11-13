@@ -34,7 +34,7 @@ class CategoryRepositoryImpl extends CategoryRepository {
       budget: budget,
       isBudget: isBudget,
       color: color,
-      isDefault: isDefault,
+      isDefault: isDefault ?? false,
     ));
   }
 

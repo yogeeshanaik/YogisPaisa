@@ -27,9 +27,9 @@ extension CategoryModelsHelper on Iterable<CategoryModel> {
       sorted((a, b) => a.name!.compareTo(b.name!));
 
   Iterable<CategoryModel> get filterDefault {
-    return sort()
-        .where((element) => element.isDefault != null)
-        .where((element) => !element.isDefault!);
+    return where((element) => element.isDefault != null)
+        .where((element) => !element.isDefault!)
+        .sort();
   }
 
   List<CategoryEntity> toEntities() =>

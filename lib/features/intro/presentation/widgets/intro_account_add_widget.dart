@@ -41,139 +41,133 @@ class _IntroAccountAddWidgetState extends State<IntroAccountAddWidget>
     return PaisaAnnotatedRegionWidget(
       color: context.background,
       child: Scaffold(
-        body: ValueListenableBuilder<Box<AccountModel>>(
-          valueListenable: getIt.get<Box<AccountModel>>().listenable(),
-          builder: (context, value, child) {
-            final List<AccountModel> categoryModels = value.values.toList();
-            return ListView(
-              children: [
-                IntroTopWidget(
-                  title: context.loc.addAccount,
-                  icon: Icons.credit_card_outlined,
-                ),
-                Builder(
-                  builder: (context) {
-                    return ScreenTypeLayout.builder(
-                      mobile: (p0) => PaisaFilledCard(
-                        child: ListView.separated(
-                          separatorBuilder: (context, index) => const Divider(),
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: categoryModels.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final AccountModel model = categoryModels[index];
-                            return AccountItemWidget(
-                              model: model,
-                              onPress: () async {
-                                await model.delete();
-                                defaultModels.add(model);
-                              },
-                            );
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            IntroTopWidget(
+              title: context.loc.addAccount,
+              icon: Icons.credit_card_outlined,
+            ),
+            ValueListenableBuilder<Box<AccountModel>>(
+              valueListenable: getIt.get<Box<AccountModel>>().listenable(),
+              builder: (context, value, child) {
+                final List<AccountModel> categoryModels = value.values.toList();
+                return ScreenTypeLayout.builder(
+                  mobile: (p0) => PaisaFilledCard(
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const Divider(),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: categoryModels.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        final AccountModel model = categoryModels[index];
+                        return AccountItemWidget(
+                          model: model,
+                          onPress: () async {
+                            await model.delete();
+                            defaultModels.add(model);
                           },
-                        ),
-                      ),
-                      tablet: (p0) => GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 2,
-                        ),
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: categoryModels.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          final AccountModel model = categoryModels[index];
-                          return AccountItemWidget(
-                            model: model,
-                            onPress: () async {
-                              await model.delete();
-                              defaultModels.add(model);
-                            },
-                          );
-                        },
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: Text(
-                    context.loc.recommendedAccounts,
-                    style: context.titleMedium,
-                  ),
-                ),
-                Builder(builder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 16,
+                        );
+                      },
                     ),
-                    child: Wrap(
-                      spacing: 12.0,
-                      runSpacing: 12.0,
-                      children: [
-                        ...defaultModels
-                            .sorted((a, b) => a.name!.compareTo(b.name!))
-                            .map((model) => FilterChip(
-                                  onSelected: (value) {
-                                    dataSource.add(model.copyWith(
-                                        name: settings.get(
-                                      userNameKey,
-                                      defaultValue: model.name,
-                                    )));
-                                    setState(() {
-                                      defaultModels.remove(model);
-                                    });
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28),
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: context.primary,
-                                    ),
-                                  ),
-                                  showCheckmark: false,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  label: Text(model.bankName ?? ''),
-                                  labelStyle: context.titleMedium,
-                                  padding: const EdgeInsets.all(12),
-                                  avatar: Icon(
-                                    model.cardType!.icon,
-                                    color: context.primary,
-                                  ),
-                                ))
-                            .toList(),
-                        FilterChip(
-                          selected: false,
-                          onSelected: (value) {
-                            context.pushNamed(addAccountName);
-                          },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(28),
-                            side: BorderSide(
-                              width: 1,
+                  ),
+                  tablet: (p0) => GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 240,
+                      childAspectRatio: 2,
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: categoryModels.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final AccountModel model = categoryModels[index];
+                      return AccountItemWidget(
+                        model: model,
+                        onPress: () async {
+                          await model.delete();
+                          defaultModels.add(model);
+                        },
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                context.loc.recommendedAccounts,
+                style: context.titleMedium,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 16,
+              ),
+              child: Wrap(
+                spacing: 12.0,
+                runSpacing: 12.0,
+                children: [
+                  ...defaultModels
+                      .sorted((a, b) => a.name!.compareTo(b.name!))
+                      .map((model) => FilterChip(
+                            onSelected: (value) {
+                              dataSource.add(model.copyWith(
+                                  name: settings.get(
+                                userNameKey,
+                                defaultValue: model.name,
+                              )));
+                              setState(() {
+                                defaultModels.remove(model);
+                              });
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(28),
+                              side: BorderSide(
+                                width: 1,
+                                color: context.primary,
+                              ),
+                            ),
+                            showCheckmark: false,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            label: Text(model.bankName ?? ''),
+                            labelStyle: context.titleMedium,
+                            padding: const EdgeInsets.all(12),
+                            avatar: Icon(
+                              model.cardType!.icon,
                               color: context.primary,
                             ),
-                          ),
-                          showCheckmark: false,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          label: Text(context.loc.addAccount),
-                          labelStyle: context.titleMedium,
-                          padding: const EdgeInsets.all(12),
-                          avatar: Icon(
-                            Icons.add_rounded,
-                            color: context.primary,
-                          ),
-                        )
-                      ],
+                          ))
+                      .toList(),
+                  FilterChip(
+                    selected: false,
+                    onSelected: (value) {
+                      context.pushNamed(addAccountName);
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                      side: BorderSide(
+                        width: 1,
+                        color: context.primary,
+                      ),
                     ),
-                  );
-                }),
-              ],
-            );
-          },
+                    showCheckmark: false,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    label: Text(context.loc.addAccount),
+                    labelStyle: context.titleMedium,
+                    padding: const EdgeInsets.all(12),
+                    avatar: Icon(
+                      Icons.add_rounded,
+                      color: context.primary,
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

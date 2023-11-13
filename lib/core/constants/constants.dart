@@ -82,6 +82,9 @@ const exportAndImportPath = 'import-export';
 const fontPickerName = 'font-picker';
 const fontPickerPath = 'font-picker';
 
+const appLanguageName = 'app-language';
+const appLanguagePath = 'app-language';
+
 const recurringTransactionsName = 'recurring';
 const recurringTransactionsPath = 'recurring';
 

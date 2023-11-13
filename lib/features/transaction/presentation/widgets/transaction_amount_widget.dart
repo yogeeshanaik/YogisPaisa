@@ -21,24 +21,14 @@ class TransactionAmountWidget extends StatelessWidget {
       child: PaisaTextFormField(
         controller: controller,
         hintText: context.loc.amount,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.text,
         maxLength: 13,
         maxLines: 1,
         counterText: '',
-        inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
-          TextInputFormatter.withFunction((oldValue, newValue) {
-            try {
-              final text = newValue.text;
-              if (text.isNotEmpty) double.parse(text);
-              return newValue;
-            } catch (_) {}
-            return oldValue;
-          }),
-        ],
         onChanged: (value) {
           double? amount = double.tryParse(value);
-          BlocProvider.of<TransactionBloc>(context).transactionAmount = amount;
+          BlocProvider.of<TransactionBloc>(context).transactionAmountString =
+              value;
         },
         validator: (value) {
           if (value!.isNotEmpty) {

@@ -70,7 +70,7 @@ _$_CategoryModel _$$_CategoryModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       description: json['description'] as String?,
       icon: json['icon'] as int?,
-      isDefault: json['isDefault'] as bool?,
+      isDefault: json['isDefault'] as bool? ?? false,
       superId: json['superId'] as int?,
       budget: (json['budget'] as num?)?.toDouble(),
       isBudget: json['isBudget'] as bool?,

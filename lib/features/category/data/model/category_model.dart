@@ -11,7 +11,7 @@ class CategoryModel extends HiveObject with _$CategoryModel {
     @HiveField(0) String? name,
     @HiveField(1) String? description,
     @HiveField(2) int? icon,
-    @HiveField(3, defaultValue: false) bool? isDefault,
+    @Default(false) @HiveField(3, defaultValue: false) bool? isDefault,
     @HiveField(4, defaultValue: 0) int? superId,
     @HiveField(6, defaultValue: 0) double? budget,
     @HiveField(7, defaultValue: false) bool? isBudget,

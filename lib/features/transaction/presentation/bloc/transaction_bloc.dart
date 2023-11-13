@@ -55,6 +55,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final GetDefaultCategoriesUseCase getDefaultCategoriesUseCase;
   final DeleteTransactionUseCase deleteTransactionUseCase;
   double? transactionAmount;
+  String? transactionAmountString;
   String? expenseName;
   final GetTransactionUseCase getTransactionUseCase;
   RecurringType recurringType = RecurringType.daily;
@@ -148,7 +149,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
       emit(const TransactionState.transactionAdded(isAddOrUpdate: true));
     } else {
-      final double? validAmount = transactionAmount;
+      final double? validAmount =
+          evaluateExpression(transactionAmountString ?? '');
       final String? name = expenseName;
       final int? categoryId = selectedCategoryId;
       final int? accountId = selectedAccountId;
@@ -271,4 +273,47 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         getDefaultCategoriesUseCase(NoParams());
     emit(TransactionState.defaultCategory(categories));
   }
+}
+
+double? evaluateExpression(String expression) {
+  // Remove spaces from the expression
+  expression = expression.replaceAll(' ', '');
+
+  // Split the expression into a list of operands and operators
+  List<String> tokens = expression.split(RegExp(r'(\+|\-|\*|\/)'));
+
+  // Split the expression into a list of operators
+  List<String> operators = expression.split(RegExp(r'[0-9]+'));
+
+  // Remove empty strings from the list
+  tokens.removeWhere((element) => element.isEmpty);
+  operators.removeWhere((element) => element.isEmpty);
+
+  // Initial result is the first operand
+  double? result = double.tryParse(tokens[0]);
+
+  // Iterate through the tokens and operators to perform the calculations
+  for (int i = 1; i < tokens.length; i++) {
+    String operator = operators[i - 1];
+    double? operand = double.tryParse(tokens[i]);
+
+    switch (operator) {
+      case '+':
+        result = (result ?? 0) + (operand ?? 0);
+        break;
+      case '-':
+        result = (result ?? 0) - (operand ?? 0);
+        break;
+      case '*':
+        result = (result ?? 0) * (operand ?? 0);
+        break;
+      case '/':
+        result = (result ?? 0) / (operand ?? 0);
+        break;
+      default:
+        throw Exception("Invalid operator");
+    }
+  }
+
+  return result;
 }
