@@ -24,6 +24,7 @@ class AccountRepositoryImpl extends AccountRepository {
     int? color,
     bool? isAccountExcluded,
     Country? currencySymbol,
+    bool? isAccountDefault,
   }) {
     return dataSource.add(AccountModel(
       name: holderName,
@@ -33,6 +34,7 @@ class AccountRepositoryImpl extends AccountRepository {
       amount: amount,
       color: color,
       isAccountExcluded: isAccountExcluded,
+      isAccountDefault: isAccountDefault,
       currencySymbol: currencySymbol?.toEntity(),
     ));
   }
@@ -67,6 +69,7 @@ class AccountRepositoryImpl extends AccountRepository {
     double? amount,
     int? color,
     bool? isAccountExcluded,
+    bool? isAccountDefault,
     Country? currencySymbol,
   }) {
     return dataSource.update(
@@ -79,6 +82,7 @@ class AccountRepositoryImpl extends AccountRepository {
         color: color,
         currencySymbol: currencySymbol?.toEntity(),
         isAccountExcluded: isAccountExcluded,
+        isAccountDefault: isAccountDefault,
         superId: key,
       ),
     );

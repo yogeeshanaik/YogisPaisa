@@ -25,7 +25,7 @@ class ContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<int, Widget> pages = {
       0: BlocProvider(
-        create: (context) => getIt.get<SummaryCubit>()..fetchAccounts(),
+        create: (context) => getIt.get<SummaryCubit>(),
         child: const SummaryPage(),
       ),
       1: const AccountsPage(),

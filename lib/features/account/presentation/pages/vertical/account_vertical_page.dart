@@ -29,9 +29,12 @@ class AccountMobileVerticalPage extends StatelessWidget {
                   .expensesFromAccountId(accounts[index].superId!)
                   .map((e) => e.toEntity())
                   .toList();
-              return AccountCardV2(
-                account: accounts[index],
-                expenses: expenses,
+              return AspectRatio(
+                aspectRatio: 16 / 9,
+                child: AccountCardV2(
+                  account: accounts[index],
+                  expenses: expenses,
+                ),
               );
             },
           ),

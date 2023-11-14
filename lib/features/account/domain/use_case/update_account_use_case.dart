@@ -23,6 +23,7 @@ class UpdateAccountUseCase implements UseCase<void, UpdateAccountParams> {
       color: params.color,
       currencySymbol: params.currencySymbol,
       isAccountExcluded: params.isAccountExcluded,
+      isAccountDefault: params.isAccountDefault,
     );
   }
 }
@@ -37,6 +38,7 @@ class UpdateAccountParams extends Equatable {
     this.amount,
     this.color,
     this.isAccountExcluded,
+    this.isAccountDefault,
     this.currencySymbol,
   });
 
@@ -47,6 +49,7 @@ class UpdateAccountParams extends Equatable {
   final Country? currencySymbol;
   final String holderName;
   final bool? isAccountExcluded;
+  final bool? isAccountDefault;
   final int key;
   final String? number;
 
@@ -60,5 +63,6 @@ class UpdateAccountParams extends Equatable {
         amount,
         color,
         isAccountExcluded,
+        isAccountDefault,
       ];
 }

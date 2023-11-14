@@ -11,6 +11,7 @@ abstract class AccountRepository {
     double? amount,
     int? color,
     bool? isAccountExcluded,
+    bool? isAccountDefault,
     Country? currencySymbol,
   });
 
@@ -23,6 +24,7 @@ abstract class AccountRepository {
     double? amount,
     int? color,
     bool? isAccountExcluded,
+    bool? isAccountDefault,
     Country? currencySymbol,
   });
 

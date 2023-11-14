@@ -76,7 +76,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   ) async {
     final int? expenseId = int.tryParse(event.expenseId ?? '');
     if (expenseId == null) {
-      selectedAccountId = settingsUseCase.get(defaultAccountIdKey);
       return;
     }
 
@@ -97,8 +96,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       currentDescription = transaction.description;
       currentExpense = transaction;
       emit(TransactionState.transaction(transaction));
-      Future.delayed(Duration.zero).then((value) =>
-          add(TransactionEvent.changeTransactionType(transactionType)));
+      Future.delayed(Duration.zero).then((_) {
+        add(TransactionEvent.changeTransactionType(transactionType));
+      });
     } else {
       emit(const TransactionState.transactionError('Expense not found!'));
     }

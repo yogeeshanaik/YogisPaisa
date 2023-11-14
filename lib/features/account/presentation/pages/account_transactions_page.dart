@@ -148,7 +148,7 @@ class AccountTransactionsPage extends StatelessWidget {
                   onPressed: () {
                     GoRouter.of(context).pushNamed(
                       addTransactionsName,
-                      queryParameters: {'aid': accountId, 'type': '1'},
+                      queryParameters: {'aid': accountId, 'type': '0'},
                     );
                   },
                   title: context.loc.income,
@@ -161,7 +161,7 @@ class AccountTransactionsPage extends StatelessWidget {
                   onPressed: () {
                     GoRouter.of(context).pushNamed(
                       addTransactionsName,
-                      queryParameters: {'aid': accountId, 'type': '0'},
+                      queryParameters: {'aid': accountId, 'type': '1'},
                     );
                   },
                   title: context.loc.expense,

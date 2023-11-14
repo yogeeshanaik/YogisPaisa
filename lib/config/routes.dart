@@ -19,7 +19,6 @@ import 'package:paisa/features/settings/presentation/pages/app_language_changer_
 import 'package:paisa/features/settings/presentation/pages/export_and_import_page.dart';
 import 'package:paisa/features/settings/presentation/pages/font_picker_page.dart';
 import 'package:paisa/features/settings/presentation/pages/setting_page.dart';
-import 'package:paisa/features/settings/presentation/widgets/app_language_changer.dart';
 import 'package:paisa/features/transaction/presentation/pages/transaction_page.dart';
 import 'package:paisa/features/intro/intro_page.dart';
 import 'package:paisa/features/intro/user_onboarding_page.dart';

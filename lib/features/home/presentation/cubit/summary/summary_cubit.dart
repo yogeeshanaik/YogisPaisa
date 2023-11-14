@@ -2,9 +2,7 @@ import 'package:event_bus_plus/event_bus_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
-import 'package:paisa/core/common.dart';
 import 'package:paisa/core/use_case/use_case.dart';
 import 'package:paisa/features/account/domain/entities/account_entity.dart';
 import 'package:paisa/features/account/domain/use_case/account_use_case.dart';
@@ -18,28 +16,27 @@ class SummaryCubit extends Cubit<SummaryState> {
     this._eventBus,
     this._getTransactionsUseCase,
     this._getAccountsUseCase,
-    @Named('settings') this._settings,
   ) : super(const SummaryInitial()) {
     _eventBus.on<RefreshSummaryEvent>().listen((event) {
       fetchAccounts();
     });
   }
-  final Box<dynamic> _settings;
   final GetTransactionsUseCase _getTransactionsUseCase;
   final GetAccountsUseCase _getAccountsUseCase;
   final EventBus _eventBus;
 
   void _fetchTransactions(AccountEntity accountEntity) {
     final transactions = _getTransactionsUseCase(
-        ParamsDefaultAccountId(accountEntity.superId ?? -1));
+      ParamsDefaultAccountId(accountEntity.superId ?? -1),
+    );
     emit(SummaryState.update(transactions, accountEntity));
   }
 
   void fetchAccounts() {
-    final accounts = _getAccountsUseCase(NoParams());
+    final List<AccountEntity> accounts = _getAccountsUseCase(NoParams());
     if (accounts.isNotEmpty) {
       final AccountEntity account = accounts.firstWhere(
-        (element) => element.superId == _settings.get(defaultAccountIdKey),
+        (element) => element.isAccountDefault ?? false,
         orElse: () => accounts.first,
       );
       _fetchTransactions(account);

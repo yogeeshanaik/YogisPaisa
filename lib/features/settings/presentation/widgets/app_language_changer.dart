@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
 
 import 'package:paisa/core/common.dart';
 
 class AppLanguageChanger extends StatelessWidget {
-  const AppLanguageChanger({super.key});
+  const AppLanguageChanger({
+    super.key,
+    required this.settings,
+  });
+  final Box<dynamic> settings;
 
   @override
   Widget build(BuildContext context) {
-    final code = Provider.of<Box<dynamic>>(context, listen: false)
-        .get(appLanguageKey, defaultValue: 'en');
+    final code = settings.get(appLanguageKey, defaultValue: 'en');
     return ListTile(
       leading: Icon(
         MdiIcons.translate,
@@ -21,8 +23,7 @@ class AppLanguageChanger extends StatelessWidget {
       onTap: () async {
         final code = await context.pushNamed<String?>(appLanguageName);
         if (code != null && context.mounted) {
-          Provider.of<Box<dynamic>>(context, listen: false)
-              .put(appLanguageKey, code);
+          settings.put(appLanguageKey, code);
         }
       },
       title: Text(context.loc.appLanguage),

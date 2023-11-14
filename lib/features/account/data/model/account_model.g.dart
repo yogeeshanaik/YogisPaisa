@@ -26,13 +26,14 @@ class AccountModelAdapter extends TypeAdapter<_$_AccountModel> {
       superId: fields[7] as int?,
       amount: fields[8] == null ? 0 : fields[8] as double?,
       color: fields[9] == null ? 4294951175 : fields[9] as int?,
+      isAccountDefault: fields[10] == null ? false : fields[10] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_AccountModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class AccountModelAdapter extends TypeAdapter<_$_AccountModel> {
       ..writeByte(8)
       ..write(obj.amount)
       ..writeByte(9)
-      ..write(obj.color);
+      ..write(obj.color)
+      ..writeByte(10)
+      ..write(obj.isAccountDefault);
   }
 
   @override
@@ -82,6 +85,7 @@ _$_AccountModel _$$_AccountModelFromJson(Map<String, dynamic> json) =>
       superId: json['superId'] as int?,
       amount: (json['amount'] as num?)?.toDouble(),
       color: json['color'] as int?,
+      isAccountDefault: json['isAccountDefault'] as bool?,
     );
 
 Map<String, dynamic> _$$_AccountModelToJson(_$_AccountModel instance) =>
@@ -95,6 +99,7 @@ Map<String, dynamic> _$$_AccountModelToJson(_$_AccountModel instance) =>
       'superId': instance.superId,
       'amount': instance.amount,
       'color': instance.color,
+      'isAccountDefault': instance.isAccountDefault,
     };
 
 const _$CardTypeEnumMap = {

@@ -19,6 +19,7 @@ class AccountModel extends HiveObject with _$AccountModel {
     @HiveField(7) int? superId,
     @HiveField(8, defaultValue: 0) double? amount,
     @HiveField(9, defaultValue: 0xFFFFC107) int? color,
+    @HiveField(10, defaultValue: false) bool? isAccountDefault,
   }) = _AccountModel;
 
   AccountModel._();

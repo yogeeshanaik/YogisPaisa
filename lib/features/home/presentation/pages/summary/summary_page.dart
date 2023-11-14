@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'package:paisa/features/home/presentation/cubit/summary/summary_cubit.dart';
@@ -14,20 +16,24 @@ class SummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<SummaryCubit>(context).fetchAccounts();
     return BlocBuilder<SummaryCubit, SummaryState>(
       buildWhen: (previous, current) => current is TransactionsSuccessState,
       builder: (context, state) {
         if (state is TransactionsSuccessState) {
-          return ScreenTypeLayout.builder(
-            mobile: (p0) => SummaryMobileWidget(
+          return Provider<AccountEntity>.value(
+            value: state.accountEntity,
+            child: ScreenTypeLayout.builder(
+              mobile: (p0) => SummaryMobileWidget(
                 expenses: state.transactions,
-                accountEntity: state.accountEntity),
-            tablet: (p0) => SummaryTabletWidget(
+              ),
+              tablet: (p0) => SummaryTabletWidget(
                 expenses: state.transactions,
-                accountEntity: state.accountEntity),
-            desktop: (p0) => SummaryDesktopWidget(
+              ),
+              desktop: (p0) => SummaryDesktopWidget(
                 expenses: state.transactions,
-                accountEntity: state.accountEntity),
+              ),
+            ),
           );
         } else {
           return const SizedBox.shrink();

@@ -112,7 +112,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     }
 
     if (event.addOrUpdate) {
-      int accountId = await addAccountUseCase(AddAccountParams(
+      await addAccountUseCase(AddAccountParams(
         bankName: bankName,
         holderName: holderName,
         number: number,
@@ -121,10 +121,8 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
         color: color,
         isAccountExcluded: isAccountExcluded,
         currencySymbol: currencySymbol,
+        isAccountDefault: isAccountDefault,
       ));
-      if (isAccountDefault) {
-        settings.put(defaultAccountIdKey, accountId);
-      }
     } else {
       if (currentAccount == null) return;
       await updateAccountUseCase(UpdateAccountParams(
@@ -137,6 +135,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
         color: color,
         isAccountExcluded: isAccountExcluded,
         currencySymbol: currencySymbol,
+        isAccountDefault: isAccountDefault,
       ));
     }
     emit(AccountState.addAccountState(event.addOrUpdate));

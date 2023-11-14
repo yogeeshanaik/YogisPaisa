@@ -6,22 +6,23 @@ import 'package:paisa/features/home/presentation/pages/summary/widgets/expense_t
 import 'package:paisa/features/home/presentation/pages/summary/widgets/total_balance_widget.dart';
 import 'package:paisa/features/transaction/domain/entities/transaction.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
+import 'package:provider/provider.dart';
 
 class ExpenseTotalWidget extends StatelessWidget {
   const ExpenseTotalWidget({
     Key? key,
     required this.expenses,
-    required this.accountEntity,
   }) : super(key: key);
 
   final List<TransactionEntity> expenses;
-  final AccountEntity accountEntity;
+
   @override
   Widget build(BuildContext context) {
     final totalExpenseBalance = expenses.fullTotal;
     final totalExpenses = expenses.totalExpense;
     final totalIncome = expenses.totalIncome;
-    final totalAccountBalance = accountEntity.initialAmount;
+    final totalAccountBalance =
+        Provider.of<AccountEntity>(context).initialAmount;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

@@ -8,68 +8,36 @@ import 'package:provider/provider.dart';
 
 import 'package:paisa/core/common.dart';
 
-class AppLanguageChangerPage extends StatefulWidget {
+class AppLanguageChangerPage extends StatelessWidget {
   const AppLanguageChangerPage({super.key});
 
   @override
-  State<AppLanguageChangerPage> createState() => _AppLanguageChangerPageState();
-}
-
-class _AppLanguageChangerPageState extends State<AppLanguageChangerPage> {
-  final List<LanguageEntity> languages = Languages.languages.sorted(
-    (a, b) => a.value.compareTo(b.value),
-  );
-
-  late String selectedCode = Provider.of<Box<dynamic>>(context, listen: false)
-      .get(appLanguageKey, defaultValue: 'en');
-
-  @override
   Widget build(BuildContext context) {
+    final List<LanguageEntity> languages = Languages.languages.sorted(
+      (a, b) => a.value.compareTo(b.value),
+    );
+
+    late String selectedCode = Provider.of<Box<dynamic>>(context, listen: false)
+        .get(appLanguageKey, defaultValue: 'en');
+
     return PaisaAnnotatedRegionWidget(
       color: context.background,
       child: Scaffold(
         appBar: context.materialYouAppBar(context.loc.chooseAppLanguage),
-        bottomNavigationBar: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                  ),
-                  padding: const EdgeInsets.all(16),
-                ),
-                onPressed: () => context.pop(),
-                child: Text(context.loc.cancel),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                  ),
-                  padding: const EdgeInsets.all(16),
-                ),
-                onPressed: () => context.pop(selectedCode),
-                child: Text(context.loc.done),
-              ),
-            ],
-          ),
-        ),
         body: ListView.builder(
           shrinkWrap: true,
           itemCount: languages.length,
-          itemBuilder: (context, index) {
+          itemBuilder: (_, index) {
             final LanguageEntity entity = languages[index];
             return ListTile(
               onTap: () {
-                setState(() {
-                  selectedCode = entity.code;
-                });
+                Provider.of<Box<dynamic>>(_, listen: false)
+                    .put(appLanguageKey, entity.code)
+                    .then((_) => context.pop());
               },
               title: Text(
                 entity.value,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: selectedCode == entity.code
                         ? Theme.of(context).colorScheme.primary
                         : null),

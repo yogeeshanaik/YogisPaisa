@@ -21,6 +21,7 @@ class AddAccountUseCase implements UseCase<Future<int>, AddAccountParams> {
       amount: params.amount,
       color: params.color,
       isAccountExcluded: params.isAccountExcluded,
+      isAccountDefault: params.isAccountDefault,
       currencySymbol: params.currencySymbol,
     );
   }
@@ -36,6 +37,7 @@ class AddAccountParams extends Equatable {
     this.color,
     this.currencySymbol,
     this.isAccountExcluded,
+    this.isAccountDefault,
   });
 
   final double? amount;
@@ -45,6 +47,7 @@ class AddAccountParams extends Equatable {
   final Country? currencySymbol;
   final String holderName;
   final bool? isAccountExcluded;
+  final bool? isAccountDefault;
   final String? number;
 
   @override
@@ -56,5 +59,6 @@ class AddAccountParams extends Equatable {
         amount,
         color,
         isAccountExcluded,
+        isAccountDefault,
       ];
 }

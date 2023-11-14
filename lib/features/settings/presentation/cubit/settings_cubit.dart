@@ -93,11 +93,6 @@ class SettingCubit extends Cubit<SettingsState> {
         ));
   }
 
-  int? get defaultAccountId => settingsUseCase.get(defaultAccountIdKey);
-
-  dynamic setDefaultAccountId(int accountId) =>
-      settingsUseCase.put(defaultAccountIdKey, accountId);
-
   void setDefaultCalendarFormat(String format) =>
       settingsUseCase.put(calendarFormatKey, format);
 }

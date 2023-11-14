@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:paisa/config/routes.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
 import 'package:paisa/core/error/bloc_errors.dart';
@@ -52,56 +54,58 @@ class AddAccountPageState extends State<AddAccountPage> {
     }
   }
 
-  void _showInfo() => showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
+  void _showInfo() {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
         ),
-        context: context,
-        builder: (context) {
-          return SafeArea(
-            maintainBottomViewPadding: true,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.info_rounded),
-                  title: Text(
-                    context.loc.accountInformationTitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
+      ),
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          maintainBottomViewPadding: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.info_rounded),
+                title: Text(
+                  context.loc.accountInformationTitle,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(context.loc.accountInformationSubTitle),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                      ),
-                      onPressed: () {
-                        GoRouter.of(context).pop();
-                      },
-                      child: Text(context.loc.ok),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(context.loc.accountInformationSubTitle),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: Text(context.loc.ok),
                   ),
                 ),
-                const SizedBox(height: 10)
-              ],
-            ),
-          );
-        },
-      );
+              ),
+              const SizedBox(height: 10)
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,10 +216,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                                 },
                               ),
                               const SizedBox(height: 16),
-                              AccountDefaultSwitchWidget(
-                                accountId:
-                                    int.tryParse(widget.accountId ?? '') ?? -1,
-                              ),
+                              const AccountDefaultSwitchWidget(),
                               const AccountExcludedSwitchWidget(),
                               const AccountColorPickerWidget(),
                               const AccountCountrySelectorWidget()
@@ -312,11 +313,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                                   },
                                 ),
                                 const SizedBox(height: 16),
-                                AccountDefaultSwitchWidget(
-                                  accountId:
-                                      int.tryParse(widget.accountId ?? '') ??
-                                          -1,
-                                ),
+                                const AccountDefaultSwitchWidget(),
                                 const AccountExcludedSwitchWidget(),
                                 const AccountColorPickerWidget()
                               ],
@@ -554,11 +551,7 @@ class AccountInitialAmountWidget extends StatelessWidget {
 class AccountDefaultSwitchWidget extends StatefulWidget {
   const AccountDefaultSwitchWidget({
     super.key,
-    required this.accountId,
   });
-
-  final int accountId;
-
   @override
   State<AccountDefaultSwitchWidget> createState() =>
       _AccountDefaultSwitchWidgetState();
@@ -567,19 +560,31 @@ class AccountDefaultSwitchWidget extends StatefulWidget {
 class _AccountDefaultSwitchWidgetState
     extends State<AccountDefaultSwitchWidget> {
   late bool isAccountDefault =
-      BlocProvider.of<AccountBloc>(context).isAccountDefault;
+      BlocProvider.of<AccountBloc>(context, listen: false).isAccountDefault;
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      title: Text(context.loc.defaultAccount),
-      value: isAccountDefault,
-      onChanged: (value) {
-        BlocProvider.of<AccountBloc>(context).isAccountDefault = value;
-        setState(() {
-          isAccountDefault = value;
-        });
+    return BlocBuilder<AccountBloc, AccountState>(
+      buildWhen: (previous, current) => current is AccountSuccessState,
+      builder: (context, state) {
+        if (state is AccountSuccessState) {
+          isAccountDefault =
+              isAccountDefault || (state.account.isAccountDefault ?? false);
+        }
+        return SwitchListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+          title: Text(context.loc.defaultAccount),
+          value: isAccountDefault,
+          onChanged: (value) {
+            BlocProvider.of<AccountBloc>(context, listen: false)
+                .isAccountDefault = value;
+            setState(() {
+              isAccountDefault = value;
+            });
+          },
+        );
       },
     );
   }

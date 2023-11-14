@@ -20,7 +20,9 @@ class PaisaCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: shape ??
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
       color: color ?? context.surfaceVariant,
       clipBehavior: Clip.antiAlias,
       elevation: elevation ?? 2.0,
