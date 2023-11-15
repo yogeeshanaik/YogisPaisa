@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
@@ -30,6 +31,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     this.deleteExpensesFromAccountIdUseCase,
     this.updateAccountUseCase,
     this.getCountryUseCase,
+    @Named('settings') this.settings,
   ) : super(const AccountsInitial()) {
     on<AccountsEvent>((event, emit) {});
     on<AddOrUpdateAccountEvent>(_addAccount);
@@ -40,7 +42,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     on<FetchAccountAndExpenseFromIdEvent>(_fetchAccountAndExpensesFromId);
     on<FetchCountriesEvent>(_fetchCountries);
   }
-
+  final Box<dynamic> settings;
   String? accountHolderName;
   String? accountName;
   String? accountNumber;
@@ -55,6 +57,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
   final GetTransactionsByAccountIdUseCase getTransactionsByAccountIdUseCase;
   double? initialAmount;
   bool isAccountExcluded = false;
+  bool isAccountDefault = false;
   int? selectedColor;
   CardType selectedType = CardType.cash;
   final UpdateAccountUseCase updateAccountUseCase;
@@ -104,7 +107,8 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
     }
     if (color == null) {
       return emit(
-          const AccountState.errorAccountState(AccountErrors.colorError()));
+        const AccountState.errorAccountState(AccountErrors.colorError()),
+      );
     }
 
     if (event.addOrUpdate) {
@@ -117,6 +121,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
         color: color,
         isAccountExcluded: isAccountExcluded,
         currencySymbol: currencySymbol,
+        isAccountDefault: isAccountDefault,
       ));
     } else {
       if (currentAccount == null) return;
@@ -130,6 +135,7 @@ class AccountBloc extends Bloc<AccountsEvent, AccountState> {
         color: color,
         isAccountExcluded: isAccountExcluded,
         currencySymbol: currencySymbol,
+        isAccountDefault: isAccountDefault,
       ));
     }
     emit(AccountState.addAccountState(event.addOrUpdate));

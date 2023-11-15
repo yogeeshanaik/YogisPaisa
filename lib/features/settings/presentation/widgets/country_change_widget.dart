@@ -22,7 +22,7 @@ class CountryChangeWidget extends StatelessWidget {
       ),
       onTap: () {
         context.pushNamed(
-          countrySelectorName,
+          userOnboardingName,
           queryParameters: {'force_country_selector': 'true'},
         );
       },

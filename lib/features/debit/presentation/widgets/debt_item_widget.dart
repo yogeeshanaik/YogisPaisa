@@ -7,7 +7,7 @@ import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/debt_type.dart';
 import 'package:paisa/features/debit/data/models/debit_model.dart';
 import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
-import 'package:paisa/features/debit/domain/entities/debit_transaction.dart';
+import 'package:paisa/features/debit/domain/entities/debit_transaction_entity.dart';
 import 'package:paisa/features/debit/presentation/cubit/debts_bloc.dart';
 import 'package:paisa/main.dart';
 import 'package:paisa/core/widgets/paisa_widget.dart';
@@ -138,7 +138,7 @@ class DebtItemWidget extends StatelessWidget {
             value.getTransactionsFromId(debt.superId ?? 0);
         final double amount = transactions.fold<double>(0,
             (previousValue, element) => previousValue + (element.amount ?? 0));
-        double progress = amount / (debt.amount ?? -1);
+        double progress = amount == 0 ? 1 : amount / (debt.amount ?? 1);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: PaisaFilledCard(

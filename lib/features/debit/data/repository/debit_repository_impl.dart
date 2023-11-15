@@ -2,24 +2,20 @@ import 'package:injectable/injectable.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/debt_type.dart';
 import 'package:paisa/features/debit/data/data_sources/debit_data_manager.dart';
-import 'package:paisa/features/debit/data/data_sources/transaction_data_manager.dart';
 import 'package:paisa/features/debit/data/models/debit_model.dart';
-import 'package:paisa/features/debit/data/models/debit_transactions_model.dart';
-import 'package:paisa/features/debit/domain/entities/debit_transaction.dart';
+import 'package:paisa/features/debit/domain/entities/debit_entity.dart';
 import 'package:paisa/features/debit/domain/repository/debit_repository.dart';
 
 @Singleton(as: DebitRepository)
 class DebtRepositoryImpl extends DebitRepository {
   DebtRepositoryImpl(
-    this.localTransactionDataManager,
     this.localDataManager,
   );
 
   final DebitDataManager localDataManager;
-  final TransactionDataManager localTransactionDataManager;
 
   @override
-  Future<void> addDebtOrCredit(
+  Future<void> add(
     String description,
     String name,
     double amount,
@@ -40,46 +36,16 @@ class DebtRepositoryImpl extends DebitRepository {
   }
 
   @override
-  Future<void> addTransaction(
-    double amount,
-    DateTime currentDateTime,
-    int parentId,
-  ) {
-    return localTransactionDataManager.addTransaction(DebitTransactionsModel(
-      amount: amount,
-      now: currentDateTime,
-      parentId: parentId,
-    ));
-  }
+  DebitEntity? fetchFromId(int debtId) =>
+      localDataManager.fetchDebtOrCreditFromId(debtId)?.toEntity();
 
   @override
-  Future<void> deleteDebitTransactionFromDebitId(int transactionId) {
-    return localTransactionDataManager
-        .deleteDebitTransactionFromDebitId(transactionId);
-  }
-
-  @override
-  Future<void> deleteDebitTransactionsFromDebitId(int parentId) {
-    return localTransactionDataManager
-        .deleteDebitTransactionsFromDebitId(parentId);
-  }
-
-  @override
-  Future<void> deleteDebtOrCreditFromId(int debtId) {
+  Future<void> deleteById(int debtId) {
     return localDataManager.deleteDebtOrCreditFromId(debtId);
   }
 
   @override
-  DebitModel? fetchDebtOrCreditFromId(int debtId) =>
-      localDataManager.fetchDebtOrCreditFromId(debtId);
-
-  @override
-  List<DebitTransactionEntity> fetchTransactionsFromId(int id) {
-    return localTransactionDataManager.getTransactionsFromId(id).toEntities();
-  }
-
-  @override
-  Future<void> updateDebt({
+  Future<void> update({
     required String description,
     required String name,
     required double amount,

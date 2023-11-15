@@ -25,7 +25,6 @@ const String fontFamilyName = 'Material Design Icons';
 const String fontFamilyPackageName = 'material_design_icons_flutter';
 const String selectedFilterExpenseKey = "selected_filter_expense_key";
 const String selectedHomeFilterExpenseKey = "selected_home_filter_expense_key";
-const String defaultAccountIdKey = "default_account_id_key";
 const String calendarFormatKey = "calendar_format_key";
 const String appLanguageKey = "app_language_key";
 const String appFontChangerKey = "app_font_changer_key";
@@ -33,9 +32,6 @@ const buyMeCoffeeUrl = 'https://www.buymeacoffee.com/h4h13';
 
 const loginPath = '/login';
 const loginName = 'login';
-
-const countrySelectorPath = '/country-selector';
-const countrySelectorName = 'country-selector';
 
 const biometricPath = '/biometric';
 const biometricName = 'biometric';
@@ -85,6 +81,9 @@ const exportAndImportPath = 'import-export';
 const fontPickerName = 'font-picker';
 const fontPickerPath = 'font-picker';
 
+const appLanguageName = 'app-language';
+const appLanguagePath = 'app-language';
+
 const recurringTransactionsName = 'recurring';
 const recurringTransactionsPath = 'recurring';
 
@@ -102,12 +101,6 @@ const addDebitPath = 'add-debit';
 
 const introPageName = 'intro';
 const introPagePath = '/intro';
-
-const categorySelectorName = 'category-selector';
-const categorySelectorPath = '/category-selector';
-
-const accountSelectorName = 'account-selector';
-const accountSelectorPath = '/account-selector';
 
 const iconPickerName = 'icon-picker';
 const iconPickerPath = 'icon-picker';

@@ -29,9 +29,12 @@ class AccountMobileVerticalPage extends StatelessWidget {
                   .expensesFromAccountId(accounts[index].superId!)
                   .map((e) => e.toEntity())
                   .toList();
-              return AccountCardV2(
-                account: accounts[index],
-                expenses: expenses,
+              return AspectRatio(
+                aspectRatio: 16 / 9,
+                child: AccountCardV2(
+                  account: accounts[index],
+                  expenses: expenses,
+                ),
               );
             },
           ),
@@ -39,9 +42,9 @@ class AccountMobileVerticalPage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 124),
             shrinkWrap: true,
             itemCount: accounts.length,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 450,
-              childAspectRatio: 16 / 11,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.4, // Adjust the aspect ratio as needed
             ),
             itemBuilder: (BuildContext context, int index) {
               final List<TransactionEntity> expenses = value

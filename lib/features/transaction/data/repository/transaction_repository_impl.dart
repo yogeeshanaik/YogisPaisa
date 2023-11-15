@@ -74,31 +74,33 @@ class ExpenseRepositoryImpl extends TransactionRepository {
       dataSource.expenses(accountId).toEntities();
 
   @override
-  TransactionModel? fetchExpenseFromId(int expenseId) {
-    return dataSource.findById(expenseId);
+  TransactionEntity? fetchExpenseFromId(int expenseId) {
+    return dataSource.findById(expenseId)?.toEntity();
   }
 
   @override
-  List<TransactionModel> fetchExpensesFromAccountId(int accountId) {
-    return dataSource.findByAccountId(accountId);
+  List<TransactionEntity> fetchExpensesFromAccountId(int accountId) {
+    return dataSource.findByAccountId(accountId).toEntities();
   }
 
   @override
-  List<TransactionModel> fetchExpensesFromCategoryId(int accountId) {
-    return dataSource.findByCategoryId(accountId);
+  List<TransactionEntity> fetchExpensesFromCategoryId(int accountId) {
+    return dataSource.findByCategoryId(accountId).toEntities();
   }
 
   @override
-  List<TransactionModel> filterExpenses(
+  List<TransactionEntity> filterExpenses(
     String query,
     List<int> accounts,
     List<int> categories,
   ) {
-    return dataSource.filterExpenses(SearchQuery(
-      query: query,
-      accounts: accounts,
-      categories: categories,
-    ));
+    return dataSource
+        .filterExpenses(SearchQuery(
+          query: query,
+          accounts: accounts,
+          categories: categories,
+        ))
+        .toEntities();
   }
 
   @override

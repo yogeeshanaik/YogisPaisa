@@ -1280,12 +1280,12 @@ mixin _$AccountState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1296,12 +1296,12 @@ mixin _$AccountState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1312,12 +1312,12 @@ mixin _$AccountState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1329,13 +1329,13 @@ mixin _$AccountState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1345,12 +1345,12 @@ mixin _$AccountState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1360,12 +1360,12 @@ mixin _$AccountState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1477,12 +1477,12 @@ class _$AccountAndExpensesState implements AccountAndExpensesState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return accountAndExpenseState(account, expenses);
   }
@@ -1496,12 +1496,12 @@ class _$AccountAndExpensesState implements AccountAndExpensesState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return accountAndExpenseState?.call(account, expenses);
   }
@@ -1515,12 +1515,12 @@ class _$AccountAndExpensesState implements AccountAndExpensesState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (accountAndExpenseState != null) {
@@ -1538,13 +1538,13 @@ class _$AccountAndExpensesState implements AccountAndExpensesState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return accountAndExpenseState(this);
   }
@@ -1557,12 +1557,12 @@ class _$AccountAndExpensesState implements AccountAndExpensesState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return accountAndExpenseState?.call(this);
   }
@@ -1575,12 +1575,12 @@ class _$AccountAndExpensesState implements AccountAndExpensesState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (accountAndExpenseState != null) {
@@ -1674,12 +1674,12 @@ class _$AccountSuccessState implements AccountSuccessState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return accountState(account);
   }
@@ -1693,12 +1693,12 @@ class _$AccountSuccessState implements AccountSuccessState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return accountState?.call(account);
   }
@@ -1712,12 +1712,12 @@ class _$AccountSuccessState implements AccountSuccessState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (accountState != null) {
@@ -1735,13 +1735,13 @@ class _$AccountSuccessState implements AccountSuccessState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return accountState(this);
   }
@@ -1754,12 +1754,12 @@ class _$AccountSuccessState implements AccountSuccessState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return accountState?.call(this);
   }
@@ -1772,12 +1772,12 @@ class _$AccountSuccessState implements AccountSuccessState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (accountState != null) {
@@ -1875,12 +1875,12 @@ class _$AccountListState implements AccountListState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return accountsState(account);
   }
@@ -1894,12 +1894,12 @@ class _$AccountListState implements AccountListState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return accountsState?.call(account);
   }
@@ -1913,12 +1913,12 @@ class _$AccountListState implements AccountListState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (accountsState != null) {
@@ -1936,13 +1936,13 @@ class _$AccountListState implements AccountListState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return accountsState(this);
   }
@@ -1955,12 +1955,12 @@ class _$AccountListState implements AccountListState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return accountsState?.call(this);
   }
@@ -1973,12 +1973,12 @@ class _$AccountListState implements AccountListState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (accountsState != null) {
@@ -2070,12 +2070,12 @@ class _$AccountAddedState implements AccountAddedState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return addAccountState(isAddOrUpdate);
   }
@@ -2089,12 +2089,12 @@ class _$AccountAddedState implements AccountAddedState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return addAccountState?.call(isAddOrUpdate);
   }
@@ -2108,12 +2108,12 @@ class _$AccountAddedState implements AccountAddedState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (addAccountState != null) {
@@ -2131,13 +2131,13 @@ class _$AccountAddedState implements AccountAddedState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return addAccountState(this);
   }
@@ -2150,12 +2150,12 @@ class _$AccountAddedState implements AccountAddedState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return addAccountState?.call(this);
   }
@@ -2168,12 +2168,12 @@ class _$AccountAddedState implements AccountAddedState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (addAccountState != null) {
@@ -2266,12 +2266,12 @@ class _$AccountColorSelectedState implements AccountColorSelectedState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return colorSelected(color);
   }
@@ -2285,12 +2285,12 @@ class _$AccountColorSelectedState implements AccountColorSelectedState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return colorSelected?.call(color);
   }
@@ -2304,12 +2304,12 @@ class _$AccountColorSelectedState implements AccountColorSelectedState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (colorSelected != null) {
@@ -2327,13 +2327,13 @@ class _$AccountColorSelectedState implements AccountColorSelectedState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return colorSelected(this);
   }
@@ -2346,12 +2346,12 @@ class _$AccountColorSelectedState implements AccountColorSelectedState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return colorSelected?.call(this);
   }
@@ -2364,12 +2364,12 @@ class _$AccountColorSelectedState implements AccountColorSelectedState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (colorSelected != null) {
@@ -2387,6 +2387,208 @@ abstract class AccountColorSelectedState implements AccountState {
   @JsonKey(ignore: true)
   _$$AccountColorSelectedStateCopyWith<_$AccountColorSelectedState>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CountriesStateCopyWith<$Res> {
+  factory _$$CountriesStateCopyWith(
+          _$CountriesState value, $Res Function(_$CountriesState) then) =
+      __$$CountriesStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Country> countries});
+}
+
+/// @nodoc
+class __$$CountriesStateCopyWithImpl<$Res>
+    extends _$AccountStateCopyWithImpl<$Res, _$CountriesState>
+    implements _$$CountriesStateCopyWith<$Res> {
+  __$$CountriesStateCopyWithImpl(
+      _$CountriesState _value, $Res Function(_$CountriesState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? countries = null,
+  }) {
+    return _then(_$CountriesState(
+      null == countries
+          ? _value._countries
+          : countries // ignore: cast_nullable_to_non_nullable
+              as List<Country>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CountriesState implements CountriesState {
+  const _$CountriesState(final List<Country> countries)
+      : _countries = countries;
+
+  final List<Country> _countries;
+  @override
+  List<Country> get countries {
+    if (_countries is EqualUnmodifiableListView) return _countries;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_countries);
+  }
+
+  @override
+  String toString() {
+    return 'AccountState.countries(countries: $countries)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CountriesState &&
+            const DeepCollectionEquality()
+                .equals(other._countries, _countries));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_countries));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CountriesStateCopyWith<_$CountriesState> get copyWith =>
+      __$$CountriesStateCopyWithImpl<_$CountriesState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            AccountEntity account, List<TransactionEntity> expenses)
+        accountAndExpenseState,
+    required TResult Function(AccountEntity account) accountState,
+    required TResult Function(List<AccountEntity> account) accountsState,
+    required TResult Function(bool isAddOrUpdate) addAccountState,
+    required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
+    required TResult Function() deleteAccountState,
+    required TResult Function(AccountErrors accountErrors) errorAccountState,
+    required TResult Function() idle,
+    required TResult Function(bool isAccountExcluded) updateAccountExcluded,
+    required TResult Function(CardType cardType) updateCardType,
+  }) {
+    return countries(this.countries);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AccountEntity account, List<TransactionEntity> expenses)?
+        accountAndExpenseState,
+    TResult? Function(AccountEntity account)? accountState,
+    TResult? Function(List<AccountEntity> account)? accountsState,
+    TResult? Function(bool isAddOrUpdate)? addAccountState,
+    TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
+    TResult? Function()? deleteAccountState,
+    TResult? Function(AccountErrors accountErrors)? errorAccountState,
+    TResult? Function()? idle,
+    TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
+    TResult? Function(CardType cardType)? updateCardType,
+  }) {
+    return countries?.call(this.countries);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AccountEntity account, List<TransactionEntity> expenses)?
+        accountAndExpenseState,
+    TResult Function(AccountEntity account)? accountState,
+    TResult Function(List<AccountEntity> account)? accountsState,
+    TResult Function(bool isAddOrUpdate)? addAccountState,
+    TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
+    TResult Function()? deleteAccountState,
+    TResult Function(AccountErrors accountErrors)? errorAccountState,
+    TResult Function()? idle,
+    TResult Function(bool isAccountExcluded)? updateAccountExcluded,
+    TResult Function(CardType cardType)? updateCardType,
+    required TResult orElse(),
+  }) {
+    if (countries != null) {
+      return countries(this.countries);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AccountAndExpensesState value)
+        accountAndExpenseState,
+    required TResult Function(AccountSuccessState value) accountState,
+    required TResult Function(AccountListState value) accountsState,
+    required TResult Function(AccountAddedState value) addAccountState,
+    required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
+    required TResult Function(AccountDeletedState value) deleteAccountState,
+    required TResult Function(AccountErrorState value) errorAccountState,
+    required TResult Function(AccountsInitial value) idle,
+    required TResult Function(UpdateAccountExcludeState value)
+        updateAccountExcluded,
+    required TResult Function(UpdateCardTypeState value) updateCardType,
+  }) {
+    return countries(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AccountAndExpensesState value)? accountAndExpenseState,
+    TResult? Function(AccountSuccessState value)? accountState,
+    TResult? Function(AccountListState value)? accountsState,
+    TResult? Function(AccountAddedState value)? addAccountState,
+    TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
+    TResult? Function(AccountDeletedState value)? deleteAccountState,
+    TResult? Function(AccountErrorState value)? errorAccountState,
+    TResult? Function(AccountsInitial value)? idle,
+    TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
+    TResult? Function(UpdateCardTypeState value)? updateCardType,
+  }) {
+    return countries?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AccountAndExpensesState value)? accountAndExpenseState,
+    TResult Function(AccountSuccessState value)? accountState,
+    TResult Function(AccountListState value)? accountsState,
+    TResult Function(AccountAddedState value)? addAccountState,
+    TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
+    TResult Function(AccountDeletedState value)? deleteAccountState,
+    TResult Function(AccountErrorState value)? errorAccountState,
+    TResult Function(AccountsInitial value)? idle,
+    TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
+    TResult Function(UpdateCardTypeState value)? updateCardType,
+    required TResult orElse(),
+  }) {
+    if (countries != null) {
+      return countries(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CountriesState implements AccountState {
+  const factory CountriesState(final List<Country> countries) =
+      _$CountriesState;
+
+  List<Country> get countries;
+  @JsonKey(ignore: true)
+  _$$CountriesStateCopyWith<_$CountriesState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2434,12 +2636,12 @@ class _$AccountDeletedState implements AccountDeletedState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return deleteAccountState();
   }
@@ -2453,12 +2655,12 @@ class _$AccountDeletedState implements AccountDeletedState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return deleteAccountState?.call();
   }
@@ -2472,12 +2674,12 @@ class _$AccountDeletedState implements AccountDeletedState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (deleteAccountState != null) {
@@ -2495,13 +2697,13 @@ class _$AccountDeletedState implements AccountDeletedState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return deleteAccountState(this);
   }
@@ -2514,12 +2716,12 @@ class _$AccountDeletedState implements AccountDeletedState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return deleteAccountState?.call(this);
   }
@@ -2532,12 +2734,12 @@ class _$AccountDeletedState implements AccountDeletedState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (deleteAccountState != null) {
@@ -2633,12 +2835,12 @@ class _$AccountErrorState implements AccountErrorState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return errorAccountState(accountErrors);
   }
@@ -2652,12 +2854,12 @@ class _$AccountErrorState implements AccountErrorState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return errorAccountState?.call(accountErrors);
   }
@@ -2671,12 +2873,12 @@ class _$AccountErrorState implements AccountErrorState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (errorAccountState != null) {
@@ -2694,13 +2896,13 @@ class _$AccountErrorState implements AccountErrorState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return errorAccountState(this);
   }
@@ -2713,12 +2915,12 @@ class _$AccountErrorState implements AccountErrorState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return errorAccountState?.call(this);
   }
@@ -2731,12 +2933,12 @@ class _$AccountErrorState implements AccountErrorState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (errorAccountState != null) {
@@ -2801,12 +3003,12 @@ class _$AccountsInitial implements AccountsInitial {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return idle();
   }
@@ -2820,12 +3022,12 @@ class _$AccountsInitial implements AccountsInitial {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return idle?.call();
   }
@@ -2839,12 +3041,12 @@ class _$AccountsInitial implements AccountsInitial {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -2862,13 +3064,13 @@ class _$AccountsInitial implements AccountsInitial {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return idle(this);
   }
@@ -2881,12 +3083,12 @@ class _$AccountsInitial implements AccountsInitial {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return idle?.call(this);
   }
@@ -2899,12 +3101,12 @@ class _$AccountsInitial implements AccountsInitial {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -2992,12 +3194,12 @@ class _$UpdateAccountExcludeState implements UpdateAccountExcludeState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return updateAccountExcluded(isAccountExcluded);
   }
@@ -3011,12 +3213,12 @@ class _$UpdateAccountExcludeState implements UpdateAccountExcludeState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return updateAccountExcluded?.call(isAccountExcluded);
   }
@@ -3030,12 +3232,12 @@ class _$UpdateAccountExcludeState implements UpdateAccountExcludeState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (updateAccountExcluded != null) {
@@ -3053,13 +3255,13 @@ class _$UpdateAccountExcludeState implements UpdateAccountExcludeState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return updateAccountExcluded(this);
   }
@@ -3072,12 +3274,12 @@ class _$UpdateAccountExcludeState implements UpdateAccountExcludeState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return updateAccountExcluded?.call(this);
   }
@@ -3090,12 +3292,12 @@ class _$UpdateAccountExcludeState implements UpdateAccountExcludeState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (updateAccountExcluded != null) {
@@ -3188,12 +3390,12 @@ class _$UpdateCardTypeState implements UpdateCardTypeState {
     required TResult Function(List<AccountEntity> account) accountsState,
     required TResult Function(bool isAddOrUpdate) addAccountState,
     required TResult Function(int color) colorSelected,
+    required TResult Function(List<Country> countries) countries,
     required TResult Function() deleteAccountState,
     required TResult Function(AccountErrors accountErrors) errorAccountState,
     required TResult Function() idle,
     required TResult Function(bool isAccountExcluded) updateAccountExcluded,
     required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
   }) {
     return updateCardType(cardType);
   }
@@ -3207,12 +3409,12 @@ class _$UpdateCardTypeState implements UpdateCardTypeState {
     TResult? Function(List<AccountEntity> account)? accountsState,
     TResult? Function(bool isAddOrUpdate)? addAccountState,
     TResult? Function(int color)? colorSelected,
+    TResult? Function(List<Country> countries)? countries,
     TResult? Function()? deleteAccountState,
     TResult? Function(AccountErrors accountErrors)? errorAccountState,
     TResult? Function()? idle,
     TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
   }) {
     return updateCardType?.call(cardType);
   }
@@ -3226,12 +3428,12 @@ class _$UpdateCardTypeState implements UpdateCardTypeState {
     TResult Function(List<AccountEntity> account)? accountsState,
     TResult Function(bool isAddOrUpdate)? addAccountState,
     TResult Function(int color)? colorSelected,
+    TResult Function(List<Country> countries)? countries,
     TResult Function()? deleteAccountState,
     TResult Function(AccountErrors accountErrors)? errorAccountState,
     TResult Function()? idle,
     TResult Function(bool isAccountExcluded)? updateAccountExcluded,
     TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
     required TResult orElse(),
   }) {
     if (updateCardType != null) {
@@ -3249,13 +3451,13 @@ class _$UpdateCardTypeState implements UpdateCardTypeState {
     required TResult Function(AccountListState value) accountsState,
     required TResult Function(AccountAddedState value) addAccountState,
     required TResult Function(AccountColorSelectedState value) colorSelected,
+    required TResult Function(CountriesState value) countries,
     required TResult Function(AccountDeletedState value) deleteAccountState,
     required TResult Function(AccountErrorState value) errorAccountState,
     required TResult Function(AccountsInitial value) idle,
     required TResult Function(UpdateAccountExcludeState value)
         updateAccountExcluded,
     required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
   }) {
     return updateCardType(this);
   }
@@ -3268,12 +3470,12 @@ class _$UpdateCardTypeState implements UpdateCardTypeState {
     TResult? Function(AccountListState value)? accountsState,
     TResult? Function(AccountAddedState value)? addAccountState,
     TResult? Function(AccountColorSelectedState value)? colorSelected,
+    TResult? Function(CountriesState value)? countries,
     TResult? Function(AccountDeletedState value)? deleteAccountState,
     TResult? Function(AccountErrorState value)? errorAccountState,
     TResult? Function(AccountsInitial value)? idle,
     TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
   }) {
     return updateCardType?.call(this);
   }
@@ -3286,12 +3488,12 @@ class _$UpdateCardTypeState implements UpdateCardTypeState {
     TResult Function(AccountListState value)? accountsState,
     TResult Function(AccountAddedState value)? addAccountState,
     TResult Function(AccountColorSelectedState value)? colorSelected,
+    TResult Function(CountriesState value)? countries,
     TResult Function(AccountDeletedState value)? deleteAccountState,
     TResult Function(AccountErrorState value)? errorAccountState,
     TResult Function(AccountsInitial value)? idle,
     TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
     TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
     required TResult orElse(),
   }) {
     if (updateCardType != null) {
@@ -3308,207 +3510,5 @@ abstract class UpdateCardTypeState implements AccountState {
   CardType get cardType;
   @JsonKey(ignore: true)
   _$$UpdateCardTypeStateCopyWith<_$UpdateCardTypeState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$CountriesStateCopyWith<$Res> {
-  factory _$$CountriesStateCopyWith(
-          _$CountriesState value, $Res Function(_$CountriesState) then) =
-      __$$CountriesStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<Country> countries});
-}
-
-/// @nodoc
-class __$$CountriesStateCopyWithImpl<$Res>
-    extends _$AccountStateCopyWithImpl<$Res, _$CountriesState>
-    implements _$$CountriesStateCopyWith<$Res> {
-  __$$CountriesStateCopyWithImpl(
-      _$CountriesState _value, $Res Function(_$CountriesState) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? countries = null,
-  }) {
-    return _then(_$CountriesState(
-      null == countries
-          ? _value._countries
-          : countries // ignore: cast_nullable_to_non_nullable
-              as List<Country>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$CountriesState implements CountriesState {
-  const _$CountriesState(final List<Country> countries)
-      : _countries = countries;
-
-  final List<Country> _countries;
-  @override
-  List<Country> get countries {
-    if (_countries is EqualUnmodifiableListView) return _countries;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_countries);
-  }
-
-  @override
-  String toString() {
-    return 'AccountState.countries(countries: $countries)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CountriesState &&
-            const DeepCollectionEquality()
-                .equals(other._countries, _countries));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_countries));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CountriesStateCopyWith<_$CountriesState> get copyWith =>
-      __$$CountriesStateCopyWithImpl<_$CountriesState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            AccountEntity account, List<TransactionEntity> expenses)
-        accountAndExpenseState,
-    required TResult Function(AccountEntity account) accountState,
-    required TResult Function(List<AccountEntity> account) accountsState,
-    required TResult Function(bool isAddOrUpdate) addAccountState,
-    required TResult Function(int color) colorSelected,
-    required TResult Function() deleteAccountState,
-    required TResult Function(AccountErrors accountErrors) errorAccountState,
-    required TResult Function() idle,
-    required TResult Function(bool isAccountExcluded) updateAccountExcluded,
-    required TResult Function(CardType cardType) updateCardType,
-    required TResult Function(List<Country> countries) countries,
-  }) {
-    return countries(this.countries);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(AccountEntity account, List<TransactionEntity> expenses)?
-        accountAndExpenseState,
-    TResult? Function(AccountEntity account)? accountState,
-    TResult? Function(List<AccountEntity> account)? accountsState,
-    TResult? Function(bool isAddOrUpdate)? addAccountState,
-    TResult? Function(int color)? colorSelected,
-    TResult? Function()? deleteAccountState,
-    TResult? Function(AccountErrors accountErrors)? errorAccountState,
-    TResult? Function()? idle,
-    TResult? Function(bool isAccountExcluded)? updateAccountExcluded,
-    TResult? Function(CardType cardType)? updateCardType,
-    TResult? Function(List<Country> countries)? countries,
-  }) {
-    return countries?.call(this.countries);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(AccountEntity account, List<TransactionEntity> expenses)?
-        accountAndExpenseState,
-    TResult Function(AccountEntity account)? accountState,
-    TResult Function(List<AccountEntity> account)? accountsState,
-    TResult Function(bool isAddOrUpdate)? addAccountState,
-    TResult Function(int color)? colorSelected,
-    TResult Function()? deleteAccountState,
-    TResult Function(AccountErrors accountErrors)? errorAccountState,
-    TResult Function()? idle,
-    TResult Function(bool isAccountExcluded)? updateAccountExcluded,
-    TResult Function(CardType cardType)? updateCardType,
-    TResult Function(List<Country> countries)? countries,
-    required TResult orElse(),
-  }) {
-    if (countries != null) {
-      return countries(this.countries);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AccountAndExpensesState value)
-        accountAndExpenseState,
-    required TResult Function(AccountSuccessState value) accountState,
-    required TResult Function(AccountListState value) accountsState,
-    required TResult Function(AccountAddedState value) addAccountState,
-    required TResult Function(AccountColorSelectedState value) colorSelected,
-    required TResult Function(AccountDeletedState value) deleteAccountState,
-    required TResult Function(AccountErrorState value) errorAccountState,
-    required TResult Function(AccountsInitial value) idle,
-    required TResult Function(UpdateAccountExcludeState value)
-        updateAccountExcluded,
-    required TResult Function(UpdateCardTypeState value) updateCardType,
-    required TResult Function(CountriesState value) countries,
-  }) {
-    return countries(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AccountAndExpensesState value)? accountAndExpenseState,
-    TResult? Function(AccountSuccessState value)? accountState,
-    TResult? Function(AccountListState value)? accountsState,
-    TResult? Function(AccountAddedState value)? addAccountState,
-    TResult? Function(AccountColorSelectedState value)? colorSelected,
-    TResult? Function(AccountDeletedState value)? deleteAccountState,
-    TResult? Function(AccountErrorState value)? errorAccountState,
-    TResult? Function(AccountsInitial value)? idle,
-    TResult? Function(UpdateAccountExcludeState value)? updateAccountExcluded,
-    TResult? Function(UpdateCardTypeState value)? updateCardType,
-    TResult? Function(CountriesState value)? countries,
-  }) {
-    return countries?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AccountAndExpensesState value)? accountAndExpenseState,
-    TResult Function(AccountSuccessState value)? accountState,
-    TResult Function(AccountListState value)? accountsState,
-    TResult Function(AccountAddedState value)? addAccountState,
-    TResult Function(AccountColorSelectedState value)? colorSelected,
-    TResult Function(AccountDeletedState value)? deleteAccountState,
-    TResult Function(AccountErrorState value)? errorAccountState,
-    TResult Function(AccountsInitial value)? idle,
-    TResult Function(UpdateAccountExcludeState value)? updateAccountExcluded,
-    TResult Function(UpdateCardTypeState value)? updateCardType,
-    TResult Function(CountriesState value)? countries,
-    required TResult orElse(),
-  }) {
-    if (countries != null) {
-      return countries(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CountriesState implements AccountState {
-  const factory CountriesState(final List<Country> countries) =
-      _$CountriesState;
-
-  List<Country> get countries;
-  @JsonKey(ignore: true)
-  _$$CountriesStateCopyWith<_$CountriesState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -51,8 +51,9 @@ class CSVExport extends Export {
   List<List<String>> csvDataList(List<TransactionModel> expenses) {
     return [
       [
-        'No',
-        'Expense Name',
+        'No.',
+        'Transaction Name',
+        'Transaction Type',
         'Amount',
         'Date',
         'Description',
@@ -88,6 +89,7 @@ class CSVExport extends Export {
     return [
       '$index',
       expense.name ?? '',
+      '${expense.type?.index}',
       '${expense.currency}',
       expense.time?.toIso8601String() ?? '',
       expense.description ?? '',

@@ -66,7 +66,7 @@ class SettingCubit extends Cubit<SettingsState> {
   }
 
   void shareFile() {
-    jsonFileExportUseCase().then((fileExport) => fileExport.fold(
+    jsonFileExportUseCase(NoParams()).then((fileExport) => fileExport.fold(
           (failure) => emit(ImportFileError(mapFailureToMessage(failure))),
           (path) => Share.shareXFiles(
             [XFile(path)],
@@ -76,7 +76,7 @@ class SettingCubit extends Cubit<SettingsState> {
   }
 
   void shareCSVFile() {
-    csvFileExportUseCase().then((fileExport) => fileExport.fold(
+    csvFileExportUseCase(NoParams()).then((fileExport) => fileExport.fold(
           (failure) => emit(ImportFileError(mapFailureToMessage(failure))),
           (path) => Share.shareXFiles(
             [XFile(path)],
@@ -87,16 +87,11 @@ class SettingCubit extends Cubit<SettingsState> {
 
   void importDataFromJson() {
     emit(ImportFileLoading());
-    jsonFileImportUseCase().then((fileImport) => fileImport.fold(
+    jsonFileImportUseCase(NoParams()).then((fileImport) => fileImport.fold(
           (failure) => emit(ImportFileError(mapFailureToMessage(failure))),
           (r) => emit(ImportFileSuccessState()),
         ));
   }
-
-  int? get defaultAccountId => settingsUseCase.get(defaultAccountIdKey);
-
-  dynamic setDefaultAccountId(int accountId) =>
-      settingsUseCase.put(defaultAccountIdKey, accountId);
 
   void setDefaultCalendarFormat(String format) =>
       settingsUseCase.put(calendarFormatKey, format);

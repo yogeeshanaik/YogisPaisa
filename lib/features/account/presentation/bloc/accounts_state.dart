@@ -19,6 +19,9 @@ class AccountState with _$AccountState {
   const factory AccountState.colorSelected(int color) =
       AccountColorSelectedState;
 
+  const factory AccountState.countries(List<Country> countries) =
+      CountriesState;
+
   const factory AccountState.deleteAccountState() = AccountDeletedState;
 
   const factory AccountState.errorAccountState(AccountErrors accountErrors) =
@@ -31,7 +34,4 @@ class AccountState with _$AccountState {
 
   const factory AccountState.updateCardType(CardType cardType) =
       UpdateCardTypeState;
-
-  const factory AccountState.countries(List<Country> countries) =
-      CountriesState;
 }

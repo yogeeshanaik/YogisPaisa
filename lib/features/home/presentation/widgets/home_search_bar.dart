@@ -9,8 +9,9 @@ class HomeSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints:
-          BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 3),
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width / 3,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(34),
         color: context.surfaceVariant,

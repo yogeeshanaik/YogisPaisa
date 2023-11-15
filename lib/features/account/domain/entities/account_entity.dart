@@ -12,6 +12,7 @@ class AccountEntity extends Equatable {
     this.color,
     this.superId,
     this.isAccountExcluded = false,
+    this.isAccountDefault = false,
     this.country,
   });
 
@@ -23,6 +24,7 @@ class AccountEntity extends Equatable {
   final String? number;
   final int? superId;
   final bool? isAccountExcluded;
+  final bool? isAccountDefault;
   final Country? country;
 
   @override
@@ -35,6 +37,7 @@ class AccountEntity extends Equatable {
         color,
         superId,
         isAccountExcluded,
+        isAccountDefault,
         country,
       ];
 }

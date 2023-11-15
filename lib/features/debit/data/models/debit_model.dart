@@ -9,13 +9,13 @@ part 'debit_model.freezed.dart';
 class DebitModel extends HiveObject with _$DebitModel {
   @HiveType(typeId: 4, adapterName: 'DebitModelAdapter')
   factory DebitModel({
+    @HiveField(1) String? description,
     @HiveField(2) double? amount,
     @HiveField(3) DateTime? dateTime,
-    @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
-    @HiveField(1) String? description,
     @HiveField(4) DateTime? expiryDateTime,
-    @HiveField(7, defaultValue: '') String? name,
+    @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
     @HiveField(6, defaultValue: 0) int? superId,
+    @HiveField(7, defaultValue: '') String? name,
   }) = _DebitModel;
 
   DebitModel._();

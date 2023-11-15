@@ -44,9 +44,9 @@ Future<void> initAppShortcuts() async {
       addTransactionsName,
       queryParameters: {
         'type': shortcutType == 'ic_expense'
-            ? '0'
+            ? '1'
             : shortcutType == 'ic_income'
-                ? '1'
+                ? '0'
                 : shortcutType == 'ic_transfer'
                     ? '2'
                     : '0',

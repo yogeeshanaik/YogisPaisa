@@ -21,95 +21,80 @@ class AccountCardV2 extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme =
         ColorScheme.fromSeed(seedColor: Color(account.color!));
-    final color = colorScheme.primaryContainer;
-    final onPrimary = colorScheme.onPrimaryContainer;
+    final Color color = colorScheme.primaryContainer;
+    final Color onPrimary = colorScheme.onPrimaryContainer;
     final String expense = expenses.totalExpense
         .toFormateCurrency(context, selectedCountry: account.country);
     final String income = expenses.totalIncome
         .toFormateCurrency(context, selectedCountry: account.country);
     final String totalBalance = (account.initialAmount + expenses.fullTotal)
         .toFormateCurrency(context, selectedCountry: account.country);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 226,
-        child: PaisaFilledCard(
-          color: color,
-          child: InkWell(
-            onTap: () => GoRouter.of(context).pushNamed(
-              accountTransactionName,
-              pathParameters: <String, String>{
-                'aid': account.superId.toString()
-              },
+    return PaisaFilledCard(
+      color: color,
+      child: InkWell(
+        onTap: () => GoRouter.of(context).pushNamed(
+          accountTransactionName,
+          pathParameters: <String, String>{'aid': account.superId.toString()},
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              horizontalTitleGap: 0,
+              trailing: Icon(
+                account.cardType == null
+                    ? CardType.bank.icon
+                    : account.cardType!.icon,
+                color: onPrimary,
+              ),
+              title: Text(
+                account.name ?? '',
+                style: context.bodyMedium?.copyWith(
+                  color: onPrimary,
+                ),
+              ),
+              subtitle: Text(
+                account.bankName ?? '',
+                style: context.bodyMedium?.copyWith(
+                  color: onPrimary.withOpacity(0.5),
+                ),
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  horizontalTitleGap: 0,
-                  trailing: Icon(
-                    account.cardType == null
-                        ? CardType.bank.icon
-                        : account.cardType!.icon,
-                    color: onPrimary,
-                  ),
-                  title: Text(
-                    account.name ?? '',
-                    style: context.bodyMedium?.copyWith(
-                      color: onPrimary,
-                    ),
-                  ),
-                  subtitle: Text(
-                    account.bankName ?? '',
-                    style: context.bodyMedium?.copyWith(
-                      color: onPrimary.withOpacity(0.5),
-                    ),
-                  ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                totalBalance,
+                style: context.headlineSmall?.copyWith(
+                  color: onPrimary,
+                  fontWeight: FontWeight.bold,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    totalBalance,
-                    style: context.headlineSmall?.copyWith(
-                      color: onPrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    context.loc.thisMonth,
-                    style: context.titleMedium?.copyWith(
-                      color: onPrimary,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ThisMonthTransactionWidget(
-                        title: context.loc.income,
-                        content: income,
-                        color: onPrimary,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: ThisMonthTransactionWidget(
-                        title: context.loc.expense,
-                        color: onPrimary,
-                        content: expense,
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-              ],
+              ),
             ),
-          ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ThisMonthTransactionWidget(
+                      title: context.loc.income,
+                      content: income,
+                      color: onPrimary,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: ThisMonthTransactionWidget(
+                      title: context.loc.expense,
+                      color: onPrimary,
+                      content: expense,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

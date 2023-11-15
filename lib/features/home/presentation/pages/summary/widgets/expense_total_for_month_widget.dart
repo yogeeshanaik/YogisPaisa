@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/theme/custom_color.dart';
+import 'package:paisa/features/account/domain/entities/account_entity.dart';
+import 'package:provider/provider.dart';
 
 class ExpenseTotalForMonthWidget extends StatelessWidget {
   const ExpenseTotalForMonthWidget({
     Key? key,
     required this.income,
-    required this.outcome,
+    required this.expense,
   }) : super(key: key);
 
   final double income;
-  final double outcome;
+  final double expense;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,10 @@ class ExpenseTotalForMonthWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '+${income.toFormateCurrency(context)}',
+                    '+${income.toFormateCurrency(
+                      context,
+                      selectedCountry: context.read<AccountEntity>().country,
+                    )}',
                     style: context.titleLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
@@ -85,7 +90,10 @@ class ExpenseTotalForMonthWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '-${outcome.toFormateCurrency(context)}',
+                    '-${expense.toFormateCurrency(
+                      context,
+                      selectedCountry: context.read<AccountEntity>().country,
+                    )}',
                     style: context.titleLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),

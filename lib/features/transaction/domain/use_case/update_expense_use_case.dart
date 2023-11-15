@@ -9,6 +9,7 @@ class UpdateTransactionUseCase
   UpdateTransactionUseCase({required this.expenseRepository});
 
   final TransactionRepository expenseRepository;
+
   @override
   Future<void> call(UpdateTransactionParams params) {
     return expenseRepository.updateExpense(

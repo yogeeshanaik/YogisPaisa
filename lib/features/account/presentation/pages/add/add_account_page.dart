@@ -9,7 +9,6 @@ import 'package:paisa/core/widgets/paisa_widget.dart';
 import 'package:paisa/features/account/presentation/bloc/accounts_bloc.dart';
 import 'package:paisa/features/account/presentation/widgets/card_type_drop_down.dart';
 import 'package:paisa/features/country_picker/domain/entities/country.dart';
-import 'package:paisa/features/settings/presentation/cubit/settings_cubit.dart';
 import 'package:paisa/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -53,56 +52,58 @@ class AddAccountPageState extends State<AddAccountPage> {
     }
   }
 
-  void _showInfo() => showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
+  void _showInfo() {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
         ),
-        context: context,
-        builder: (context) {
-          return SafeArea(
-            maintainBottomViewPadding: true,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.info_rounded),
-                  title: Text(
-                    context.loc.accountInformationTitle,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
+      ),
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          maintainBottomViewPadding: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.info_rounded),
+                title: Text(
+                  context.loc.accountInformationTitle,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(context.loc.accountInformationSubTitle),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                      ),
-                      onPressed: () {
-                        GoRouter.of(context).pop();
-                      },
-                      child: Text(context.loc.ok),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(context.loc.accountInformationSubTitle),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                     ),
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: Text(context.loc.ok),
                   ),
                 ),
-                const SizedBox(height: 10)
-              ],
-            ),
-          );
-        },
-      );
+              ),
+              const SizedBox(height: 10)
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -213,10 +214,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                                 },
                               ),
                               const SizedBox(height: 16),
-                              AccountDefaultSwitchWidget(
-                                accountId:
-                                    int.tryParse(widget.accountId ?? '') ?? -1,
-                              ),
+                              const AccountDefaultSwitchWidget(),
                               const AccountExcludedSwitchWidget(),
                               const AccountColorPickerWidget(),
                               const AccountCountrySelectorWidget()
@@ -313,11 +311,7 @@ class AddAccountPageState extends State<AddAccountPage> {
                                   },
                                 ),
                                 const SizedBox(height: 16),
-                                AccountDefaultSwitchWidget(
-                                  accountId:
-                                      int.tryParse(widget.accountId ?? '') ??
-                                          -1,
-                                ),
+                                const AccountDefaultSwitchWidget(),
                                 const AccountExcludedSwitchWidget(),
                                 const AccountColorPickerWidget()
                               ],
@@ -383,9 +377,10 @@ class AccountColorPickerWidget extends StatelessWidget {
 }
 
 class DeleteAccountWidget extends StatelessWidget {
+  const DeleteAccountWidget({super.key, this.accountId});
+
   final String? accountId;
 
-  const DeleteAccountWidget({super.key, this.accountId});
   void onPressed(BuildContext context) {
     paisaAlertDialog(
       context,
@@ -555,10 +550,7 @@ class AccountInitialAmountWidget extends StatelessWidget {
 class AccountDefaultSwitchWidget extends StatefulWidget {
   const AccountDefaultSwitchWidget({
     super.key,
-    required this.accountId,
   });
-
-  final int accountId;
 
   @override
   State<AccountDefaultSwitchWidget> createState() =>
@@ -567,26 +559,33 @@ class AccountDefaultSwitchWidget extends StatefulWidget {
 
 class _AccountDefaultSwitchWidgetState
     extends State<AccountDefaultSwitchWidget> {
-  late final SettingCubit settingCubit = BlocProvider.of<SettingCubit>(context);
-
   late bool isAccountDefault =
-      settingCubit.defaultAccountId == widget.accountId;
+      BlocProvider.of<AccountBloc>(context, listen: false).isAccountDefault;
+
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-      title: Text(context.loc.defaultAccount),
-      value: isAccountDefault,
-      onChanged: (value) {
-        if (value) {
-          settingCubit.setDefaultAccountId(widget.accountId);
-        } else {
-          settingCubit.setDefaultAccountId(-1);
+    return BlocBuilder<AccountBloc, AccountState>(
+      buildWhen: (previous, current) => current is AccountSuccessState,
+      builder: (context, state) {
+        if (state is AccountSuccessState) {
+          isAccountDefault =
+              isAccountDefault || (state.account.isAccountDefault ?? false);
         }
-        setState(() {
-          isAccountDefault = value;
-        });
+        return SwitchListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+          title: Text(context.loc.defaultAccount),
+          value: isAccountDefault,
+          onChanged: (value) {
+            BlocProvider.of<AccountBloc>(context, listen: false)
+                .isAccountDefault = value;
+            setState(() {
+              isAccountDefault = value;
+            });
+          },
+        );
       },
     );
   }
@@ -628,7 +627,8 @@ class AccountCountrySelectorWidget extends StatefulWidget {
 
 class _AccountCountrySelectorWidgetState
     extends State<AccountCountrySelectorWidget> {
-  String symbol = '';
+  String? symbol;
+
   @override
   void initState() {
     super.initState();
@@ -640,53 +640,78 @@ class _AccountCountrySelectorWidgetState
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
+        final List<Country> countries = [];
         if (state is CountriesState) {
-          final country = BlocProvider.of<AccountBloc>(context).currencySymbol;
-          if (country != null) {
-            symbol = '${country.name} - ${country.code}';
-          }
-          return ListTile(
-            onTap: () async {
-              final Country? result = await paisaAlertDialog<Country?>(
-                context,
-                title: Text('Select currency'),
-                confirmationButton: null,
-                child: SizedBox(
-                  width: double.maxFinite,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.countries.length,
-                    itemBuilder: (context, index) {
-                      final Country country = state.countries[index];
-                      return ListTile(
-                        onTap: () {
-                          Navigator.pop(context, country);
-                        },
-                        title: Text(country.name),
-                        subtitle: Text(country.code),
-                        leading: Text(
-                          country.symbol,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              );
-              if (result != null) {
-                symbol = '${result.name} - ${result.code}';
-                setState(() {});
-                if (context.mounted) {
-                  BlocProvider.of<AccountBloc>(context).currencySymbol = result;
-                }
-              }
-            },
-            title: Text('Set currency'),
-            subtitle: Text(symbol),
-          );
-        } else {
-          return const SizedBox.shrink();
+          countries.addAll(state.countries);
         }
+        Country? country = BlocProvider.of<AccountBloc>(context).currencySymbol;
+        if (state is AccountSuccessState) {
+          country =
+              BlocProvider.of<AccountBloc>(context).currentAccount?.country;
+        }
+        if (country != null) {
+          symbol = '${country.name} - ${country.code}';
+        }
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          onTap: () async {
+            final Country? result = await showModalBottomSheet<Country>(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => DraggableScrollableSheet(
+                expand: false,
+                initialChildSize: 1,
+                minChildSize: 1,
+                maxChildSize: 1,
+                builder: (context, scrollController) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      titleSpacing: 0,
+                      leading: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      title: Text(context.loc.selectCurrency),
+                    ),
+                    body: ListView.builder(
+                      shrinkWrap: true,
+                      controller: scrollController,
+                      itemCount: countries.length,
+                      itemBuilder: (context, index) {
+                        final Country country = countries[index];
+                        return ListTile(
+                          onTap: () {
+                            Navigator.pop(context, country);
+                          },
+                          title: Text(country.name),
+                          subtitle: Text(country.code),
+                          leading: Text(
+                            country.symbol,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            );
+
+            if (result != null) {
+              symbol = '${result.name} - ${result.code}';
+              setState(() {});
+              if (context.mounted) {
+                BlocProvider.of<AccountBloc>(context).currencySymbol = result;
+              }
+            }
+          },
+          leading: const Icon(Icons.currency_rupee_outlined),
+          title: Text(context.loc.selectCurrency),
+          subtitle: symbol == null ? null : Text(symbol ?? ''),
+        );
       },
     );
   }

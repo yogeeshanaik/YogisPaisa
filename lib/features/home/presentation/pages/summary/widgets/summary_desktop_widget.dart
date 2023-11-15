@@ -27,7 +27,9 @@ class SummaryDesktopWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     const WelcomeNameWidget(),
-                    ExpenseTotalWidget(expenses: expenses),
+                    ExpenseTotalWidget(
+                      expenses: expenses,
+                    ),
                   ],
                 ),
               ),

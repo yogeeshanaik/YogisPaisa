@@ -17,13 +17,13 @@ class DebitModelAdapter extends TypeAdapter<_$_DebitModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_DebitModel(
+      description: fields[1] as String?,
       amount: fields[2] as double?,
       dateTime: fields[3] as DateTime?,
-      debtType: fields[5] == null ? DebitType.debit : fields[5] as DebitType?,
-      description: fields[1] as String?,
       expiryDateTime: fields[4] as DateTime?,
-      name: fields[7] == null ? '' : fields[7] as String?,
+      debtType: fields[5] == null ? DebitType.debit : fields[5] as DebitType?,
       superId: fields[6] == null ? 0 : fields[6] as int?,
+      name: fields[7] == null ? '' : fields[7] as String?,
     );
   }
 
@@ -31,20 +31,20 @@ class DebitModelAdapter extends TypeAdapter<_$_DebitModel> {
   void write(BinaryWriter writer, _$_DebitModel obj) {
     writer
       ..writeByte(7)
+      ..writeByte(1)
+      ..write(obj.description)
       ..writeByte(2)
       ..write(obj.amount)
       ..writeByte(3)
       ..write(obj.dateTime)
-      ..writeByte(5)
-      ..write(obj.debtType)
-      ..writeByte(1)
-      ..write(obj.description)
       ..writeByte(4)
       ..write(obj.expiryDateTime)
-      ..writeByte(7)
-      ..write(obj.name)
+      ..writeByte(5)
+      ..write(obj.debtType)
       ..writeByte(6)
-      ..write(obj.superId);
+      ..write(obj.superId)
+      ..writeByte(7)
+      ..write(obj.name);
   }
 
   @override
@@ -64,28 +64,28 @@ class DebitModelAdapter extends TypeAdapter<_$_DebitModel> {
 
 _$_DebitModel _$$_DebitModelFromJson(Map<String, dynamic> json) =>
     _$_DebitModel(
+      description: json['description'] as String?,
       amount: (json['amount'] as num?)?.toDouble(),
       dateTime: json['dateTime'] == null
           ? null
           : DateTime.parse(json['dateTime'] as String),
-      debtType: $enumDecodeNullable(_$DebitTypeEnumMap, json['debtType']),
-      description: json['description'] as String?,
       expiryDateTime: json['expiryDateTime'] == null
           ? null
           : DateTime.parse(json['expiryDateTime'] as String),
-      name: json['name'] as String?,
+      debtType: $enumDecodeNullable(_$DebitTypeEnumMap, json['debtType']),
       superId: json['superId'] as int?,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$$_DebitModelToJson(_$_DebitModel instance) =>
     <String, dynamic>{
+      'description': instance.description,
       'amount': instance.amount,
       'dateTime': instance.dateTime?.toIso8601String(),
-      'debtType': _$DebitTypeEnumMap[instance.debtType],
-      'description': instance.description,
       'expiryDateTime': instance.expiryDateTime?.toIso8601String(),
-      'name': instance.name,
+      'debtType': _$DebitTypeEnumMap[instance.debtType],
       'superId': instance.superId,
+      'name': instance.name,
     };
 
 const _$DebitTypeEnumMap = {

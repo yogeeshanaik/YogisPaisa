@@ -12,7 +12,8 @@ class TransferCategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<TransactionBloc>(context).add(FetchDefaultCategoryEvent());
+    BlocProvider.of<TransactionBloc>(context)
+        .add(const TransactionEvent.defaultCategory());
     return BlocBuilder<TransactionBloc, TransactionState>(
       buildWhen: (previous, current) => current is DefaultCategoriesState,
       builder: (context, state) {
@@ -23,7 +24,7 @@ class TransferCategoriesWidget extends StatelessWidget {
                 await context.pushNamed(addCategoryName);
                 if (context.mounted) {
                   BlocProvider.of<TransactionBloc>(context)
-                      .add(FetchDefaultCategoryEvent());
+                      .add(const TransactionEvent.defaultCategory());
                 }
               },
               title: Text(context.loc.addCategoryEmptyTitle),
@@ -93,8 +94,8 @@ class SelectDefaultCategoryWidget extends StatelessWidget {
                       category.superId == expenseBloc.selectedCategoryId;
                   return CategoryChip(
                     selected: selected,
-                    onSelected: (value) =>
-                        expenseBloc.add(ChangeCategoryEvent(category)),
+                    onSelected: (value) => expenseBloc
+                        .add(TransactionEvent.changeCategory(category)),
                     icon: category.icon ?? 0,
                     title: category.name ?? '',
                     titleColor: Color(category.color ?? context.primary.value),

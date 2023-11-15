@@ -56,6 +56,10 @@ mixin _$AccountModel {
   int? get color => throw _privateConstructorUsedError;
   @HiveField(9, defaultValue: 0xFFFFC107)
   set color(int? value) => throw _privateConstructorUsedError;
+  @HiveField(10, defaultValue: false)
+  bool? get isAccountDefault => throw _privateConstructorUsedError;
+  @HiveField(10, defaultValue: false)
+  set isAccountDefault(bool? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -78,7 +82,8 @@ abstract class $AccountModelCopyWith<$Res> {
       @HiveField(6, defaultValue: CardType.bank) CardType? cardType,
       @HiveField(7) int? superId,
       @HiveField(8, defaultValue: 0) double? amount,
-      @HiveField(9, defaultValue: 0xFFFFC107) int? color});
+      @HiveField(9, defaultValue: 0xFFFFC107) int? color,
+      @HiveField(10, defaultValue: false) bool? isAccountDefault});
 
   $CountryModelCopyWith<$Res>? get currencySymbol;
 }
@@ -105,6 +110,7 @@ class _$AccountModelCopyWithImpl<$Res, $Val extends AccountModel>
     Object? superId = freezed,
     Object? amount = freezed,
     Object? color = freezed,
+    Object? isAccountDefault = freezed,
   }) {
     return _then(_value.copyWith(
       name: freezed == name
@@ -143,6 +149,10 @@ class _$AccountModelCopyWithImpl<$Res, $Val extends AccountModel>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as int?,
+      isAccountDefault: freezed == isAccountDefault
+          ? _value.isAccountDefault
+          : isAccountDefault // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -176,7 +186,8 @@ abstract class _$$_AccountModelCopyWith<$Res>
       @HiveField(6, defaultValue: CardType.bank) CardType? cardType,
       @HiveField(7) int? superId,
       @HiveField(8, defaultValue: 0) double? amount,
-      @HiveField(9, defaultValue: 0xFFFFC107) int? color});
+      @HiveField(9, defaultValue: 0xFFFFC107) int? color,
+      @HiveField(10, defaultValue: false) bool? isAccountDefault});
 
   @override
   $CountryModelCopyWith<$Res>? get currencySymbol;
@@ -202,6 +213,7 @@ class __$$_AccountModelCopyWithImpl<$Res>
     Object? superId = freezed,
     Object? amount = freezed,
     Object? color = freezed,
+    Object? isAccountDefault = freezed,
   }) {
     return _then(_$_AccountModel(
       name: freezed == name
@@ -240,6 +252,10 @@ class __$$_AccountModelCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as int?,
+      isAccountDefault: freezed == isAccountDefault
+          ? _value.isAccountDefault
+          : isAccountDefault // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -257,7 +273,8 @@ class _$_AccountModel extends _AccountModel {
       @HiveField(6, defaultValue: CardType.bank) this.cardType,
       @HiveField(7) this.superId,
       @HiveField(8, defaultValue: 0) this.amount,
-      @HiveField(9, defaultValue: 0xFFFFC107) this.color})
+      @HiveField(9, defaultValue: 0xFFFFC107) this.color,
+      @HiveField(10, defaultValue: false) this.isAccountDefault})
       : super._();
 
   factory _$_AccountModel.fromJson(Map<String, dynamic> json) =>
@@ -290,10 +307,13 @@ class _$_AccountModel extends _AccountModel {
   @override
   @HiveField(9, defaultValue: 0xFFFFC107)
   int? color;
+  @override
+  @HiveField(10, defaultValue: false)
+  bool? isAccountDefault;
 
   @override
   String toString() {
-    return 'AccountModel(name: $name, isAccountExcluded: $isAccountExcluded, currencySymbol: $currencySymbol, bankName: $bankName, number: $number, cardType: $cardType, superId: $superId, amount: $amount, color: $color)';
+    return 'AccountModel(name: $name, isAccountExcluded: $isAccountExcluded, currencySymbol: $currencySymbol, bankName: $bankName, number: $number, cardType: $cardType, superId: $superId, amount: $amount, color: $color, isAccountDefault: $isAccountDefault)';
   }
 
   @JsonKey(ignore: true)
@@ -312,15 +332,17 @@ class _$_AccountModel extends _AccountModel {
 
 abstract class _AccountModel extends AccountModel {
   factory _AccountModel(
-      {@HiveField(0) String? name,
-      @HiveField(1, defaultValue: false) bool? isAccountExcluded,
-      @HiveField(2) CountryModel? currencySymbol,
-      @HiveField(3) String? bankName,
-      @HiveField(5) String? number,
-      @HiveField(6, defaultValue: CardType.bank) CardType? cardType,
-      @HiveField(7) int? superId,
-      @HiveField(8, defaultValue: 0) double? amount,
-      @HiveField(9, defaultValue: 0xFFFFC107) int? color}) = _$_AccountModel;
+          {@HiveField(0) String? name,
+          @HiveField(1, defaultValue: false) bool? isAccountExcluded,
+          @HiveField(2) CountryModel? currencySymbol,
+          @HiveField(3) String? bankName,
+          @HiveField(5) String? number,
+          @HiveField(6, defaultValue: CardType.bank) CardType? cardType,
+          @HiveField(7) int? superId,
+          @HiveField(8, defaultValue: 0) double? amount,
+          @HiveField(9, defaultValue: 0xFFFFC107) int? color,
+          @HiveField(10, defaultValue: false) bool? isAccountDefault}) =
+      _$_AccountModel;
   _AccountModel._() : super._();
 
   factory _AccountModel.fromJson(Map<String, dynamic> json) =
@@ -371,6 +393,11 @@ abstract class _AccountModel extends AccountModel {
   int? get color;
   @HiveField(9, defaultValue: 0xFFFFC107)
   set color(int? value);
+  @override
+  @HiveField(10, defaultValue: false)
+  bool? get isAccountDefault;
+  @HiveField(10, defaultValue: false)
+  set isAccountDefault(bool? value);
   @override
   @JsonKey(ignore: true)
   _$$_AccountModelCopyWith<_$_AccountModel> get copyWith =>

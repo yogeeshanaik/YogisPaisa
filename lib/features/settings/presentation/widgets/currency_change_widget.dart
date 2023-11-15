@@ -15,7 +15,7 @@ class CurrencyChangeWidget extends StatelessWidget {
     return ListTile(
       onTap: () {
         context.pushNamed(
-          countrySelectorName,
+          userOnboardingPath,
           queryParameters: {
             'force_currency_selector': 'true',
           },

@@ -24,8 +24,9 @@ class ContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<int, Widget> pages = {
-      0: SummaryPage(
-        summaryCubit: getIt.get<SummaryCubit>(),
+      0: BlocProvider(
+        create: (context) => getIt.get<SummaryCubit>(),
+        child: const SummaryPage(),
       ),
       1: const AccountsPage(),
       2: const DebtsPage(),

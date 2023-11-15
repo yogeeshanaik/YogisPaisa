@@ -76,5 +76,3 @@ android/app/google-services.json
 .fvm/flutter_sdk
 .fvm/
 
-# Generated Dart files  
-**/*.g.dart

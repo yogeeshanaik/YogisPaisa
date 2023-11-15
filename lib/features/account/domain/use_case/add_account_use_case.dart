@@ -6,13 +6,13 @@ import 'package:paisa/features/account/domain/repository/account_repository.dart
 import 'package:paisa/features/country_picker/domain/entities/country.dart';
 
 @singleton
-class AddAccountUseCase implements UseCase<void, AddAccountParams> {
+class AddAccountUseCase implements UseCase<Future<int>, AddAccountParams> {
   AddAccountUseCase({required this.accountRepository});
 
   final AccountRepository accountRepository;
 
   @override
-  Future<void> call(AddAccountParams params) {
+  Future<int> call(AddAccountParams params) {
     return accountRepository.add(
       bankName: params.bankName,
       holderName: params.holderName,
@@ -21,6 +21,7 @@ class AddAccountUseCase implements UseCase<void, AddAccountParams> {
       amount: params.amount,
       color: params.color,
       isAccountExcluded: params.isAccountExcluded,
+      isAccountDefault: params.isAccountDefault,
       currencySymbol: params.currencySymbol,
     );
   }
@@ -36,6 +37,7 @@ class AddAccountParams extends Equatable {
     this.color,
     this.currencySymbol,
     this.isAccountExcluded,
+    this.isAccountDefault,
   });
 
   final double? amount;
@@ -45,6 +47,7 @@ class AddAccountParams extends Equatable {
   final Country? currencySymbol;
   final String holderName;
   final bool? isAccountExcluded;
+  final bool? isAccountDefault;
   final String? number;
 
   @override
@@ -56,5 +59,6 @@ class AddAccountParams extends Equatable {
         amount,
         color,
         isAccountExcluded,
+        isAccountDefault,
       ];
 }

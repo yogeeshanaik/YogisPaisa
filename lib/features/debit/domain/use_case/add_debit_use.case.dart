@@ -12,7 +12,7 @@ class AddDebitUseCase implements UseCase<Future<void>, ParamsAddDebit> {
 
   @override
   Future<void> call(ParamsAddDebit params) {
-    return debtRepository.addDebtOrCredit(
+    return debtRepository.add(
       params.description,
       params.name,
       params.amount,

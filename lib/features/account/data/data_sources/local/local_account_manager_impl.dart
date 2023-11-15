@@ -17,10 +17,11 @@ class LocalAccountManagerImpl implements AccountManager {
   List<AccountModel> accounts() => accountBox.values.toList();
 
   @override
-  Future<void> add(AccountModel account) async {
+  Future<int> add(AccountModel account) async {
     final int id = await accountBox.add(account);
     account.superId = id;
-    return account.save();
+    await account.save();
+    return id;
   }
 
   @override

@@ -23,70 +23,75 @@ class HomeTabletWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
-    return Scaffold(
-      appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0),
-          child: PaisaIconTitle(),
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            return NavigationRail(
+              groupAlignment: 1,
+              leading: floatingActionButton,
+              elevation: 1,
+              selectedLabelTextStyle: context.bodyLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: context.primary,
+              ),
+              unselectedLabelTextStyle: context.bodyLarge?.copyWith(
+                color: context.onSurface.withOpacity(0.75),
+              ),
+              unselectedIconTheme: IconThemeData(
+                color: context.onSurface.withOpacity(0.75),
+              ),
+              labelType: NavigationRailLabelType.all,
+              backgroundColor: context.surface,
+              selectedIndex: homeBloc.selectedIndex,
+              onDestinationSelected: (index) {
+                if (index == 7) {
+                  context.pushNamed(settingsName);
+                } else {
+                  homeBloc.add(CurrentIndexEvent(index));
+                }
+              },
+              minWidth: 55,
+              useIndicator: true,
+              destinations: [
+                ...destinations
+                    .map((e) => NavigationRailDestination(
+                          icon: e.icon,
+                          selectedIcon: e.selectedIcon,
+                          label: Text(e.pageType.name(context)),
+                        ))
+                    .toList(),
+                NavigationRailDestination(
+                  icon: Icon(MdiIcons.cog),
+                  label: Text(
+                    context.loc.settings,
+                  ),
+                )
+              ],
+            );
+          },
         ),
-        leadingWidth: 180,
-        title: const HomeSearchBar(),
-        actions: const [PaisaUserWidget()],
-      ),
-      body: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              return NavigationRail(
-                leading: floatingActionButton,
-                elevation: 1,
-                selectedLabelTextStyle: context.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: context.primary,
-                ),
-                unselectedLabelTextStyle: context.bodyLarge?.copyWith(
-                  color: context.onSurface.withOpacity(0.75),
-                ),
-                unselectedIconTheme: IconThemeData(
-                  color: context.onSurface.withOpacity(0.75),
-                ),
-                labelType: NavigationRailLabelType.all,
-                backgroundColor: context.surface,
-                selectedIndex: homeBloc.selectedIndex,
-                onDestinationSelected: (index) {
-                  if (index == 7) {
-                    context.pushNamed(settingsName);
-                  } else {
-                    homeBloc.add(CurrentIndexEvent(index));
-                  }
-                },
-                minWidth: 55,
-                useIndicator: true,
-                destinations: [
-                  ...destinations
-                      .map((e) => NavigationRailDestination(
-                            icon: e.icon,
-                            selectedIcon: e.selectedIcon,
-                            label: Text(e.pageType.name(context)),
-                          ))
-                      .toList(),
-                  NavigationRailDestination(
-                    icon: Icon(MdiIcons.cog),
-                    label: Text(
-                      context.loc.settings,
-                    ),
-                  )
-                ],
-              );
-            },
+        VerticalDivider(
+          thickness: 1,
+          width: 1,
+          color: context.background,
+        ),
+        Expanded(
+          child: Scaffold(
+            appBar: AppBar(
+              leading: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                child: PaisaIconTitle(),
+              ),
+              leadingWidth: 180,
+              title: const HomeSearchBar(),
+              actions: const [PaisaUserWidget()],
+            ),
+            body: const ContentWidget(),
           ),
-          const VerticalDivider(thickness: 1, width: 1),
-          const Expanded(
-            child: ContentWidget(),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:paisa/features/account/data/model/account_model.dart';
 import 'package:paisa/features/country_picker/domain/entities/country.dart';
 
 abstract class AccountRepository {
-  Future<void> add({
+  Future<int> add({
     required String bankName,
     required String holderName,
     required CardType cardType,
@@ -11,6 +11,7 @@ abstract class AccountRepository {
     double? amount,
     int? color,
     bool? isAccountExcluded,
+    bool? isAccountDefault,
     Country? currencySymbol,
   });
 
@@ -23,6 +24,7 @@ abstract class AccountRepository {
     double? amount,
     int? color,
     bool? isAccountExcluded,
+    bool? isAccountDefault,
     Country? currencySymbol,
   });
 

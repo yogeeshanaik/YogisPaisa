@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paisa/features/debit/data/models/debit_model.dart';
-import 'package:paisa/features/debit/domain/entities/debit.dart';
+import 'package:paisa/features/debit/domain/entities/debit_entity.dart';
 
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';

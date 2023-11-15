@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/common_enum.dart';
 import 'package:paisa/features/account/presentation/pages/account_transactions_page.dart';
 import 'package:paisa/features/account/presentation/pages/add/add_account_page.dart';
-import 'package:paisa/features/account/presentation/pages/selector/account_selector_page.dart';
 import 'package:paisa/features/category/presentation/pages/add/add_category_page.dart';
 import 'package:paisa/features/category/presentation/pages/category_icon_picker_page.dart';
 import 'package:paisa/features/category/presentation/pages/category_list_page.dart';
-import 'package:paisa/features/category/presentation/pages/selector/category_selector_page.dart';
-import 'package:paisa/features/country_picker/presentation/cubit/country_picker_cubit.dart';
-import 'package:paisa/features/country_picker/presentation/pages/country_picker_page.dart';
 import 'package:paisa/features/debit/presentation/pages/add/add_debit_page.dart';
 import 'package:paisa/features/home/presentation/pages/home/home_page.dart';
 import 'package:paisa/features/home/presentation/pages/overview/transactions_by_category_list_page.dart';
@@ -20,12 +15,11 @@ import 'package:paisa/features/intro/presentation/pages/biometric_page.dart';
 import 'package:paisa/features/recurring/presentation/page/add_recurring_page.dart';
 import 'package:paisa/features/recurring/presentation/page/recurring_page.dart';
 import 'package:paisa/features/search/presentation/pages/search_page.dart';
+import 'package:paisa/features/settings/presentation/pages/app_language_changer_page.dart';
 import 'package:paisa/features/settings/presentation/pages/export_and_import_page.dart';
 import 'package:paisa/features/settings/presentation/pages/font_picker_page.dart';
 import 'package:paisa/features/settings/presentation/pages/setting_page.dart';
 import 'package:paisa/features/transaction/presentation/pages/transaction_page.dart';
-import 'package:paisa/main.dart';
-import 'package:paisa/core/in_app.dart';
 import 'package:paisa/features/intro/intro_page.dart';
 import 'package:paisa/features/intro/user_onboarding_page.dart';
 import 'package:paisa/features/home/presentation/controller/summary_controller.dart';
@@ -47,46 +41,21 @@ final GoRouter goRouter = GoRouter(
       },
     ),
     GoRoute(
-      name: categorySelectorName,
-      path: categorySelectorPath,
-      builder: (BuildContext context, GoRouterState state) =>
-          const CategorySelectorPage(),
-    ),
-    GoRoute(
-      name: accountSelectorName,
-      path: accountSelectorPath,
-      builder: (BuildContext context, GoRouterState state) =>
-          AccountSelectorPage(
-        dataSource: getIt.get(
-          instanceName: 'local-account',
-        ),
-      ),
-    ),
-    GoRoute(
       name: userOnboardingName,
       path: userOnboardingPath,
-      builder: (BuildContext context, GoRouterState state) =>
-          const UserOnboardingPage(),
+      builder: (BuildContext context, GoRouterState state) {
+        final String? forceCountrySelector =
+            state.uri.queryParameters['force_country_selector'];
+        return UserOnboardingPage(
+          forceCountrySelector: forceCountrySelector == 'true',
+        );
+      },
     ),
     GoRoute(
       name: loginName,
       path: loginPath,
       builder: (BuildContext context, GoRouterState state) =>
           const Center(child: CircularProgressIndicator()),
-    ),
-    GoRoute(
-      name: countrySelectorName,
-      path: countrySelectorPath,
-      builder: (BuildContext context, GoRouterState state) {
-        final String? forceCountrySelector =
-            state.uri.queryParameters['force_country_selector'];
-        return BlocProvider<CountryPickerCubit>(
-          create: (BuildContext context) => getIt.get<CountryPickerCubit>(),
-          child: CountryPickerPage(
-            forceCountrySelector: forceCountrySelector == 'true',
-          ),
-        );
-      },
     ),
     GoRoute(
       name: biometricName,
@@ -98,7 +67,7 @@ final GoRouter goRouter = GoRouter(
       name: landingName,
       path: landingPath,
       builder: (BuildContext context, GoRouterState state) =>
-          LandingPage(inApp: getIt.get<InApp>()),
+          const LandingPage(),
       routes: [
         GoRoute(
           path: addTransactionPath,
@@ -279,6 +248,13 @@ final GoRouter goRouter = GoRouter(
               },
             ),
             GoRoute(
+              name: appLanguageName,
+              path: appLanguagePath,
+              builder: (BuildContext context, GoRouterState state) {
+                return const AppLanguageChangerPage();
+              },
+            ),
+            GoRoute(
               name: fontPickerName,
               path: fontPickerPath,
               builder: (BuildContext context, GoRouterState state) {
@@ -320,7 +296,7 @@ final GoRouter goRouter = GoRouter(
       defaultValue: true,
     );
     if (categorySelectorDone && isLogging) {
-      return categorySelectorPath;
+      return userOnboardingPath;
     }
 
     final bool accountSelectorDone = settings.get(
@@ -328,12 +304,12 @@ final GoRouter goRouter = GoRouter(
       defaultValue: true,
     );
     if (accountSelectorDone && isLogging) {
-      return accountSelectorPath;
+      return userOnboardingPath;
     }
 
     final Map<dynamic, dynamic>? json = settings.get(userCountryKey);
     if (json == null && isLogging) {
-      return countrySelectorPath;
+      return userOnboardingPath;
     }
 
     final isBiometricEnabled = settings.get(userAuthKey, defaultValue: false);

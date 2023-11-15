@@ -20,6 +20,10 @@ DebitModel _$DebitModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DebitModel {
+  @HiveField(1)
+  String? get description => throw _privateConstructorUsedError;
+  @HiveField(1)
+  set description(String? value) => throw _privateConstructorUsedError;
   @HiveField(2)
   double? get amount => throw _privateConstructorUsedError;
   @HiveField(2)
@@ -28,26 +32,22 @@ mixin _$DebitModel {
   DateTime? get dateTime => throw _privateConstructorUsedError;
   @HiveField(3)
   set dateTime(DateTime? value) => throw _privateConstructorUsedError;
-  @HiveField(5, defaultValue: DebitType.debit)
-  DebitType? get debtType => throw _privateConstructorUsedError;
-  @HiveField(5, defaultValue: DebitType.debit)
-  set debtType(DebitType? value) => throw _privateConstructorUsedError;
-  @HiveField(1)
-  String? get description => throw _privateConstructorUsedError;
-  @HiveField(1)
-  set description(String? value) => throw _privateConstructorUsedError;
   @HiveField(4)
   DateTime? get expiryDateTime => throw _privateConstructorUsedError;
   @HiveField(4)
   set expiryDateTime(DateTime? value) => throw _privateConstructorUsedError;
-  @HiveField(7, defaultValue: '')
-  String? get name => throw _privateConstructorUsedError;
-  @HiveField(7, defaultValue: '')
-  set name(String? value) => throw _privateConstructorUsedError;
+  @HiveField(5, defaultValue: DebitType.debit)
+  DebitType? get debtType => throw _privateConstructorUsedError;
+  @HiveField(5, defaultValue: DebitType.debit)
+  set debtType(DebitType? value) => throw _privateConstructorUsedError;
   @HiveField(6, defaultValue: 0)
   int? get superId => throw _privateConstructorUsedError;
   @HiveField(6, defaultValue: 0)
   set superId(int? value) => throw _privateConstructorUsedError;
+  @HiveField(7, defaultValue: '')
+  String? get name => throw _privateConstructorUsedError;
+  @HiveField(7, defaultValue: '')
+  set name(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -62,13 +62,13 @@ abstract class $DebitModelCopyWith<$Res> {
       _$DebitModelCopyWithImpl<$Res, DebitModel>;
   @useResult
   $Res call(
-      {@HiveField(2) double? amount,
+      {@HiveField(1) String? description,
+      @HiveField(2) double? amount,
       @HiveField(3) DateTime? dateTime,
-      @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
-      @HiveField(1) String? description,
       @HiveField(4) DateTime? expiryDateTime,
-      @HiveField(7, defaultValue: '') String? name,
-      @HiveField(6, defaultValue: 0) int? superId});
+      @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
+      @HiveField(6, defaultValue: 0) int? superId,
+      @HiveField(7, defaultValue: '') String? name});
 }
 
 /// @nodoc
@@ -84,15 +84,19 @@ class _$DebitModelCopyWithImpl<$Res, $Val extends DebitModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? description = freezed,
     Object? amount = freezed,
     Object? dateTime = freezed,
-    Object? debtType = freezed,
-    Object? description = freezed,
     Object? expiryDateTime = freezed,
-    Object? name = freezed,
+    Object? debtType = freezed,
     Object? superId = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -101,26 +105,22 @@ class _$DebitModelCopyWithImpl<$Res, $Val extends DebitModel>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      debtType: freezed == debtType
-          ? _value.debtType
-          : debtType // ignore: cast_nullable_to_non_nullable
-              as DebitType?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       expiryDateTime: freezed == expiryDateTime
           ? _value.expiryDateTime
           : expiryDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+      debtType: freezed == debtType
+          ? _value.debtType
+          : debtType // ignore: cast_nullable_to_non_nullable
+              as DebitType?,
       superId: freezed == superId
           ? _value.superId
           : superId // ignore: cast_nullable_to_non_nullable
               as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -134,13 +134,13 @@ abstract class _$$_DebitModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@HiveField(2) double? amount,
+      {@HiveField(1) String? description,
+      @HiveField(2) double? amount,
       @HiveField(3) DateTime? dateTime,
-      @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
-      @HiveField(1) String? description,
       @HiveField(4) DateTime? expiryDateTime,
-      @HiveField(7, defaultValue: '') String? name,
-      @HiveField(6, defaultValue: 0) int? superId});
+      @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
+      @HiveField(6, defaultValue: 0) int? superId,
+      @HiveField(7, defaultValue: '') String? name});
 }
 
 /// @nodoc
@@ -154,15 +154,19 @@ class __$$_DebitModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? description = freezed,
     Object? amount = freezed,
     Object? dateTime = freezed,
-    Object? debtType = freezed,
-    Object? description = freezed,
     Object? expiryDateTime = freezed,
-    Object? name = freezed,
+    Object? debtType = freezed,
     Object? superId = freezed,
+    Object? name = freezed,
   }) {
     return _then(_$_DebitModel(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       amount: freezed == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
@@ -171,26 +175,22 @@ class __$$_DebitModelCopyWithImpl<$Res>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      debtType: freezed == debtType
-          ? _value.debtType
-          : debtType // ignore: cast_nullable_to_non_nullable
-              as DebitType?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       expiryDateTime: freezed == expiryDateTime
           ? _value.expiryDateTime
           : expiryDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+      debtType: freezed == debtType
+          ? _value.debtType
+          : debtType // ignore: cast_nullable_to_non_nullable
+              as DebitType?,
       superId: freezed == superId
           ? _value.superId
           : superId // ignore: cast_nullable_to_non_nullable
               as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -200,18 +200,21 @@ class __$$_DebitModelCopyWithImpl<$Res>
 @HiveType(typeId: 4, adapterName: 'DebitModelAdapter')
 class _$_DebitModel extends _DebitModel {
   _$_DebitModel(
-      {@HiveField(2) this.amount,
+      {@HiveField(1) this.description,
+      @HiveField(2) this.amount,
       @HiveField(3) this.dateTime,
-      @HiveField(5, defaultValue: DebitType.debit) this.debtType,
-      @HiveField(1) this.description,
       @HiveField(4) this.expiryDateTime,
-      @HiveField(7, defaultValue: '') this.name,
-      @HiveField(6, defaultValue: 0) this.superId})
+      @HiveField(5, defaultValue: DebitType.debit) this.debtType,
+      @HiveField(6, defaultValue: 0) this.superId,
+      @HiveField(7, defaultValue: '') this.name})
       : super._();
 
   factory _$_DebitModel.fromJson(Map<String, dynamic> json) =>
       _$$_DebitModelFromJson(json);
 
+  @override
+  @HiveField(1)
+  String? description;
   @override
   @HiveField(2)
   double? amount;
@@ -219,24 +222,21 @@ class _$_DebitModel extends _DebitModel {
   @HiveField(3)
   DateTime? dateTime;
   @override
-  @HiveField(5, defaultValue: DebitType.debit)
-  DebitType? debtType;
-  @override
-  @HiveField(1)
-  String? description;
-  @override
   @HiveField(4)
   DateTime? expiryDateTime;
   @override
-  @HiveField(7, defaultValue: '')
-  String? name;
+  @HiveField(5, defaultValue: DebitType.debit)
+  DebitType? debtType;
   @override
   @HiveField(6, defaultValue: 0)
   int? superId;
+  @override
+  @HiveField(7, defaultValue: '')
+  String? name;
 
   @override
   String toString() {
-    return 'DebitModel(amount: $amount, dateTime: $dateTime, debtType: $debtType, description: $description, expiryDateTime: $expiryDateTime, name: $name, superId: $superId)';
+    return 'DebitModel(description: $description, amount: $amount, dateTime: $dateTime, expiryDateTime: $expiryDateTime, debtType: $debtType, superId: $superId, name: $name)';
   }
 
   @JsonKey(ignore: true)
@@ -255,18 +255,23 @@ class _$_DebitModel extends _DebitModel {
 
 abstract class _DebitModel extends DebitModel {
   factory _DebitModel(
-      {@HiveField(2) double? amount,
+      {@HiveField(1) String? description,
+      @HiveField(2) double? amount,
       @HiveField(3) DateTime? dateTime,
-      @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
-      @HiveField(1) String? description,
       @HiveField(4) DateTime? expiryDateTime,
-      @HiveField(7, defaultValue: '') String? name,
-      @HiveField(6, defaultValue: 0) int? superId}) = _$_DebitModel;
+      @HiveField(5, defaultValue: DebitType.debit) DebitType? debtType,
+      @HiveField(6, defaultValue: 0) int? superId,
+      @HiveField(7, defaultValue: '') String? name}) = _$_DebitModel;
   _DebitModel._() : super._();
 
   factory _DebitModel.fromJson(Map<String, dynamic> json) =
       _$_DebitModel.fromJson;
 
+  @override
+  @HiveField(1)
+  String? get description;
+  @HiveField(1)
+  set description(String? value);
   @override
   @HiveField(2)
   double? get amount;
@@ -278,30 +283,25 @@ abstract class _DebitModel extends DebitModel {
   @HiveField(3)
   set dateTime(DateTime? value);
   @override
-  @HiveField(5, defaultValue: DebitType.debit)
-  DebitType? get debtType;
-  @HiveField(5, defaultValue: DebitType.debit)
-  set debtType(DebitType? value);
-  @override
-  @HiveField(1)
-  String? get description;
-  @HiveField(1)
-  set description(String? value);
-  @override
   @HiveField(4)
   DateTime? get expiryDateTime;
   @HiveField(4)
   set expiryDateTime(DateTime? value);
   @override
-  @HiveField(7, defaultValue: '')
-  String? get name;
-  @HiveField(7, defaultValue: '')
-  set name(String? value);
+  @HiveField(5, defaultValue: DebitType.debit)
+  DebitType? get debtType;
+  @HiveField(5, defaultValue: DebitType.debit)
+  set debtType(DebitType? value);
   @override
   @HiveField(6, defaultValue: 0)
   int? get superId;
   @HiveField(6, defaultValue: 0)
   set superId(int? value);
+  @override
+  @HiveField(7, defaultValue: '')
+  String? get name;
+  @HiveField(7, defaultValue: '')
+  set name(String? value);
   @override
   @JsonKey(ignore: true)
   _$$_DebitModelCopyWith<_$_DebitModel> get copyWith =>

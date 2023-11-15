@@ -6,32 +6,32 @@ part of 'transaction_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TransactionModelAdapter extends TypeAdapter<TransactionModel> {
+class TransactionModelAdapter extends TypeAdapter<_$_TransactionModel> {
   @override
   final int typeId = 0;
 
   @override
-  TransactionModel read(BinaryReader reader) {
+  _$_TransactionModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TransactionModel(
-      name: fields[0] as String?,
+    return _$_TransactionModel(
+      accountId: fields[5] as int?,
+      categoryId: fields[6] as int?,
       currency: fields[1] as double?,
+      description: fields[8] as String?,
+      name: fields[0] as String?,
+      superId: fields[7] as int?,
       time: fields[3] as DateTime?,
       type: fields[4] == null
           ? TransactionType.expense
           : fields[4] as TransactionType?,
-      accountId: fields[5] as int?,
-      categoryId: fields[6] as int?,
-      superId: fields[7] as int?,
-      description: fields[8] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, TransactionModel obj) {
+  void write(BinaryWriter writer, _$_TransactionModel obj) {
     writer
       ..writeByte(8)
       ..writeByte(5)
@@ -62,3 +62,39 @@ class TransactionModelAdapter extends TypeAdapter<TransactionModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_TransactionModel _$$_TransactionModelFromJson(Map<String, dynamic> json) =>
+    _$_TransactionModel(
+      accountId: json['accountId'] as int?,
+      categoryId: json['categoryId'] as int?,
+      currency: (json['currency'] as num?)?.toDouble(),
+      description: json['description'] as String?,
+      name: json['name'] as String?,
+      superId: json['superId'] as int?,
+      time:
+          json['time'] == null ? null : DateTime.parse(json['time'] as String),
+      type: $enumDecodeNullable(_$TransactionTypeEnumMap, json['type']) ??
+          TransactionType.expense,
+    );
+
+Map<String, dynamic> _$$_TransactionModelToJson(_$_TransactionModel instance) =>
+    <String, dynamic>{
+      'accountId': instance.accountId,
+      'categoryId': instance.categoryId,
+      'currency': instance.currency,
+      'description': instance.description,
+      'name': instance.name,
+      'superId': instance.superId,
+      'time': instance.time?.toIso8601String(),
+      'type': _$TransactionTypeEnumMap[instance.type],
+    };
+
+const _$TransactionTypeEnumMap = {
+  TransactionType.income: 'income',
+  TransactionType.expense: 'expense',
+  TransactionType.transfer: 'transfer',
+};
