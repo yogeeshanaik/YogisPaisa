@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:paisa/config/routes.dart';
 import 'package:paisa/core/common.dart';
 import 'package:paisa/core/enum/card_type.dart';
 import 'package:paisa/core/error/bloc_errors.dart';
@@ -379,9 +377,10 @@ class AccountColorPickerWidget extends StatelessWidget {
 }
 
 class DeleteAccountWidget extends StatelessWidget {
+  const DeleteAccountWidget({super.key, this.accountId});
+
   final String? accountId;
 
-  const DeleteAccountWidget({super.key, this.accountId});
   void onPressed(BuildContext context) {
     paisaAlertDialog(
       context,
@@ -552,6 +551,7 @@ class AccountDefaultSwitchWidget extends StatefulWidget {
   const AccountDefaultSwitchWidget({
     super.key,
   });
+
   @override
   State<AccountDefaultSwitchWidget> createState() =>
       _AccountDefaultSwitchWidgetState();
@@ -561,6 +561,7 @@ class _AccountDefaultSwitchWidgetState
     extends State<AccountDefaultSwitchWidget> {
   late bool isAccountDefault =
       BlocProvider.of<AccountBloc>(context, listen: false).isAccountDefault;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
@@ -626,7 +627,8 @@ class AccountCountrySelectorWidget extends StatefulWidget {
 
 class _AccountCountrySelectorWidgetState
     extends State<AccountCountrySelectorWidget> {
-  String symbol = '';
+  String? symbol;
+
   @override
   void initState() {
     super.initState();
@@ -638,53 +640,78 @@ class _AccountCountrySelectorWidgetState
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
+        final List<Country> countries = [];
         if (state is CountriesState) {
-          final country = BlocProvider.of<AccountBloc>(context).currencySymbol;
-          if (country != null) {
-            symbol = '${country.name} - ${country.code}';
-          }
-          return ListTile(
-            onTap: () async {
-              final Country? result = await paisaAlertDialog<Country?>(
-                context,
-                title: Text('Select currency'),
-                confirmationButton: null,
-                child: SizedBox(
-                  width: double.maxFinite,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.countries.length,
-                    itemBuilder: (context, index) {
-                      final Country country = state.countries[index];
-                      return ListTile(
-                        onTap: () {
-                          Navigator.pop(context, country);
-                        },
-                        title: Text(country.name),
-                        subtitle: Text(country.code),
-                        leading: Text(
-                          country.symbol,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              );
-              if (result != null) {
-                symbol = '${result.name} - ${result.code}';
-                setState(() {});
-                if (context.mounted) {
-                  BlocProvider.of<AccountBloc>(context).currencySymbol = result;
-                }
-              }
-            },
-            title: Text('Set currency'),
-            subtitle: Text(symbol),
-          );
-        } else {
-          return const SizedBox.shrink();
+          countries.addAll(state.countries);
         }
+        Country? country = BlocProvider.of<AccountBloc>(context).currencySymbol;
+        if (state is AccountSuccessState) {
+          country =
+              BlocProvider.of<AccountBloc>(context).currentAccount?.country;
+        }
+        if (country != null) {
+          symbol = '${country.name} - ${country.code}';
+        }
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          onTap: () async {
+            final Country? result = await showModalBottomSheet<Country>(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+              ),
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => DraggableScrollableSheet(
+                expand: false,
+                initialChildSize: 1,
+                minChildSize: 1,
+                maxChildSize: 1,
+                builder: (context, scrollController) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      titleSpacing: 0,
+                      leading: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      title: Text(context.loc.selectCurrency),
+                    ),
+                    body: ListView.builder(
+                      shrinkWrap: true,
+                      controller: scrollController,
+                      itemCount: countries.length,
+                      itemBuilder: (context, index) {
+                        final Country country = countries[index];
+                        return ListTile(
+                          onTap: () {
+                            Navigator.pop(context, country);
+                          },
+                          title: Text(country.name),
+                          subtitle: Text(country.code),
+                          leading: Text(
+                            country.symbol,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            );
+
+            if (result != null) {
+              symbol = '${result.name} - ${result.code}';
+              setState(() {});
+              if (context.mounted) {
+                BlocProvider.of<AccountBloc>(context).currencySymbol = result;
+              }
+            }
+          },
+          leading: const Icon(Icons.currency_rupee_outlined),
+          title: Text(context.loc.selectCurrency),
+          subtitle: symbol == null ? null : Text(symbol ?? ''),
+        );
       },
     );
   }
