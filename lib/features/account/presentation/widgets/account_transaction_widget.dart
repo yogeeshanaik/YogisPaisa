@@ -29,18 +29,23 @@ class AccountTransactionWidget extends StatelessWidget {
               description: context.loc.emptyExpensesMessageTitle,
             );
           }
-          return ListView(
-            physics: isScroll ? null : const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            children: [
-              TransactionsHeaderWidget(
-                summaryController: Provider.of<SummaryController>(context),
-              ),
-              AccountHistoryWidget(
-                expenses: state.expenses,
-                summaryController: Provider.of<SummaryController>(context),
-              )
-            ],
+          return Provider.value(
+            value: state.account,
+            builder: (context, child) {
+              return ListView(
+                physics: isScroll ? null : const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  TransactionsHeaderWidget(
+                    summaryController: Provider.of<SummaryController>(context),
+                  ),
+                  AccountHistoryWidget(
+                    expenses: state.expenses,
+                    summaryController: Provider.of<SummaryController>(context),
+                  )
+                ],
+              );
+            },
           );
         } else {
           return const SizedBox.shrink();
