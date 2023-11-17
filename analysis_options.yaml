@@ -30,7 +30,7 @@ linter:
     - camel_case_types: true
     - avoid_print: true
     - always_specify_types: true
-    - prefer_if_elements_to_conditional_expressions
+    - prefer_if_elements_to_conditional_expressions: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
